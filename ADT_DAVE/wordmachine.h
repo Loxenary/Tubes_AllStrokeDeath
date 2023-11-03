@@ -7,7 +7,7 @@
 #include "boolean.h"
 #include "charmachine.h"
 
-#define NMax 50
+#define NMax 280
 #define BLANK ' '
 
 typedef struct
@@ -30,6 +30,7 @@ void STARTWORD();
    F.S. : EndWord = true, dan currentChar = MARK;
           atau EndWord = false, currentWord adalah kata yang sudah diakuisisi,
           currentChar karakter pertama sesudah karakter terakhir kata */
+void STARTFile();
 
 void ADVWORD();
 /* I.S. : currentChar adalah karakter pertama kata yang akan diakuisisi
@@ -52,4 +53,6 @@ boolean isWordEqual(Word w1, Word w2);
 /*Melakukan Check apakah dua Word memiliki isi yang sama*/
 
 boolean isWordEqualString(Word w1, char * s1);
+
+Word MultipleInput();
 #endif
