@@ -7,6 +7,11 @@ typedef struct RootUtas{
     UAddress Utas;
 }UNode;
 
+typedef struct BNode * BAddress;
+typedef struct RootBalasan{
+    BAddress balasan;
+}BNode;
+
 typedef struct Kicau
 {
     int NEff;
@@ -17,7 +22,11 @@ typedef struct Kicau
     Word Auth;
     DATETIME dates;
     UAddress next_Address;
+    BAddress next_Balasan;
 }kicauan;
+
+#define UNEXT(l) (l)->next_Address
+#define BNEXT(l) (l)->next_Balasan
 
 void CreateKicau();
 #endif
