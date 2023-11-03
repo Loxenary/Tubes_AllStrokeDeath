@@ -5,61 +5,61 @@
 void CreateListStatik(ListStatik *l){
     int i;
     for(i=0;i<CAPACITY;i++){
-        ELMT(*l,i) = MARK;
+        ELMT(*l,i) = SMARK;
     }
 }
 
-int listLength(ListStatik l){
+int SlistLength(ListStatik l){
     int i,hasil;
     hasil = 0;
     for(i=0;i<CAPACITY;i++){
-        if(ELMT(l,i) != MARK){
+        if(ELMT(l,i) != SMARK){
             hasil++;
         }
     }
     return hasil;
 }
 
-IdxType getFirstIdx(ListStatik l){
+IdxType SgetFirstIdx(ListStatik l){
     int i;
-    if(listLength(l)!=0){
-        for(i = 0; i < listLength(l); i++){
-            if(ELMT(l,i) != MARK){
+    if(SlistLength(l)!=0){
+        for(i = 0; i < SlistLength(l); i++){
+            if(ELMT(l,i) != SMARK){
                 return i;
             }
         }
-        return IDX_UNDEF;
     }
+    return IDX_UNDEF;
 }
 
-IdxType getLastIdx(ListStatik l){
+IdxType SgetLastIdx(ListStatik l){
     int i;
-    if(listLength(l)!=0){
-        for(i = listLength(l)-1; i >= 0; i--){
-            if(ELMT(l,i) != MARK){
+    if(SlistLength(l)!=0){
+        for(i = SlistLength(l)-1; i >= 0; i--){
+            if(ELMT(l,i) != SMARK){
                 return i;
             }
         }
-        return IDX_UNDEF;
     }
+    return IDX_UNDEF;
 }
 
-boolean isIdxValid(ListStatik l, IdxType i){
+boolean SisIdxValid(ListStatik l, IdxType i){
     return (i >= 0 && i < CAPACITY);
 }
-boolean isIdxEff(ListStatik l, IdxType i){
-    return (i >= 0 && i < listLength(l));
+boolean SisIdxEff(ListStatik l, IdxType i){
+    return (i >= 0 && i < SlistLength(l));
 }
 
-boolean isEmpty(ListStatik l){
-    return listLength(l) == 0;
+boolean SisEmpty(ListStatik l){
+    return SlistLength(l) == 0;
 }
 
-boolean isFull(ListStatik l){
-    return listLength(l) == CAPACITY;
+boolean SisFull(ListStatik l){
+    return SlistLength(l) == CAPACITY;
 }
 
-void readList(ListStatik *l){
+void SreadList(ListStatik *l){
     ListStatik l1;
     int n, i;
     CreateListStatik(&l1);
@@ -74,14 +74,14 @@ void readList(ListStatik *l){
     *l = l1;
 }
 
-void printList(ListStatik l){
+void SprintList(ListStatik l){
     int i;
     printf("[");
-    for(i = 0; i < listLength(l); i++){
-        if(ELMT(l,i) != MARK){
+    for(i = 0; i < SlistLength(l); i++){
+        if(ELMT(l,i) != SMARK){
             printf("%d", ELMT(l,i));
         }
-        if(i < listLength(l)-1){
+        if(i < SlistLength(l)-1){
             printf(",");
         }
     }
@@ -89,20 +89,20 @@ void printList(ListStatik l){
 }
 
 
-ListStatik plusMinusList(ListStatik l1, ListStatik l2, boolean plus){
+ListStatik SplusMinusList(ListStatik l1, ListStatik l2, boolean plus){
     ListStatik lcopy;
     CreateListStatik(&lcopy);
     int i;
     lcopy = l1;
-    if(listLength(l1) == listLength(l2)){
+    if(SlistLength(l1) == SlistLength(l2)){
         if(plus){
-            for(i=0;i<listLength(l1);i++){
+            for(i=0;i<SlistLength(l1);i++){
                 ELMT(lcopy,i) = ELMT(l1,i) + ELMT(l2,i);
                 
             }
         }
         else{
-            for(i=0;i<listLength(l1);i++){
+            for(i=0;i<SlistLength(l1);i++){
                 ELMT(lcopy,i) = ELMT(l1,i) - ELMT(l2,i);
                 
             }
@@ -111,12 +111,12 @@ ListStatik plusMinusList(ListStatik l1, ListStatik l2, boolean plus){
     return lcopy;
 }
 
-boolean isListEqual(ListStatik l1, ListStatik l2){
+boolean SisListEqual(ListStatik l1, ListStatik l2){
     int i;
-    if(listLength(l1) != listLength(l2)){
+    if(SlistLength(l1) != SlistLength(l2)){
         return 0;
     }
-    for(i=0;i<listLength(l1);i++){
+    for(i=0;i<SlistLength(l1);i++){
         if(ELMT(l1,i) != ELMT(l2,i)){
             return 0;
         }
@@ -125,9 +125,9 @@ boolean isListEqual(ListStatik l1, ListStatik l2){
     
 }
 
-int indexOf(ListStatik l, ElType val){
+int SindexOf(ListStatik l, ElType val){
     int i;
-    for(i=getFirstIdx(l);i<listLength(l);i++){
+    for(i=SgetFirstIdx(l);i<SlistLength(l);i++){
         if(ELMT(l,i) == val){
             return i;
         }
@@ -135,11 +135,11 @@ int indexOf(ListStatik l, ElType val){
     return IDX_UNDEF;
 }
 
-void extremeValues(ListStatik l, ElType *max, ElType *min){
-    *max = ELMT(l, getFirstIdx(l));
-    *min = ELMT(l, getFirstIdx(l));
+void SextremeValues(ListStatik l, ElType *max, ElType *min){
+    *max = ELMT(l, SgetFirstIdx(l));
+    *min = ELMT(l, SgetFirstIdx(l));
     int i;
-    for(i=getFirstIdx(l); i<listLength(l);i++){
+    for(i=SgetFirstIdx(l); i<SlistLength(l);i++){
         if(*max < ELMT(l,i)){
             *max = ELMT(l,i);
         }
@@ -155,7 +155,7 @@ void insertFirst(ListStatik *l, ElType val){
     CreateListStatik(&l1);
     
     ELMT(l1,0) = val;
-    for(i = 0; i < listLength(*l); i++){
+    for(i = 0; i < SlistLength(*l); i++){
         ELMT(l1,i+1) = ELMT(*l,i);
     }
     *l = l1;
@@ -168,7 +168,7 @@ void insertAt(ListStatik *l, ElType val, IdxType idx){
     for(i = 0; i < idx; i++){
         ELMT(l1,i) = ELMT(*l,i);
     }
-    for(i = idx; i <= getLastIdx(*l); i++){
+    for(i = idx; i <= SgetLastIdx(*l); i++){
         ELMT(l1, i+1) = ELMT(*l,i);
     }
     ELMT(l1,idx) = val;
@@ -177,16 +177,16 @@ void insertAt(ListStatik *l, ElType val, IdxType idx){
 
 void deleteFirst(ListStatik *l, ElType *val){
     int i;
-    *val = ELMT(*l,getFirstIdx(*l));
-    for(i =getFirstIdx(*l); i<listLength(*l); i++){
+    *val = ELMT(*l,SgetFirstIdx(*l));
+    for(i =SgetFirstIdx(*l); i<SlistLength(*l); i++){
         ELMT(*l,i) = ELMT(*l,i+1);
     }
-    ELMT(*l,getLastIdx(*l) + 1) = MARK;
+    ELMT(*l,SgetLastIdx(*l) + 1) = SMARK;
     
 }
 
-void insertLast(ListStatik *l, ElType val){
-    ELMT(*l,listLength(*l)) = val;
+void SinsertLast(ListStatik *l, ElType val){
+    ELMT(*l,SlistLength(*l)) = val;
 }
 void deleteAt(ListStatik *l, ElType *val, IdxType idx){
     int i,k;
@@ -195,7 +195,7 @@ void deleteAt(ListStatik *l, ElType *val, IdxType idx){
     *val = ELMT(*l,idx);
 
     k = 0;
-    for(i = 0; i < listLength(*l);i++){
+    for(i = 0; i < SlistLength(*l);i++){
         if(i != idx){
             ELMT(l1,k) = ELMT(*l,i);
             k++;
@@ -205,9 +205,9 @@ void deleteAt(ListStatik *l, ElType *val, IdxType idx){
     *l = l1;
 }
 
-void deleteLast(ListStatik *l, ElType *val){
-    *val = ELMT(*l, getLastIdx(*l));
-    ELMT(*l,getLastIdx(*l)) = MARK;
+void SdeleteLast(ListStatik *l, ElType *val){
+    *val = ELMT(*l, SgetLastIdx(*l));
+    ELMT(*l,SgetLastIdx(*l)) = SMARK;
 }
 
 
@@ -215,8 +215,8 @@ void sortList(ListStatik *l, boolean asc){
     int i,j, temp;
 
     if(asc){
-        for(i = 0; i < listLength(*l); i++){
-            for(j = i+1; j < listLength(*l); j++){
+        for(i = 0; i < SlistLength(*l); i++){
+            for(j = i+1; j < SlistLength(*l); j++){
                 if(ELMT(*l,i) > ELMT(*l,j)){
                     temp = ELMT(*l,i);
                     ELMT(*l,i) = ELMT(*l,j);
@@ -226,8 +226,8 @@ void sortList(ListStatik *l, boolean asc){
         }
     }
     else{
-        for(i = 0; i < listLength(*l); i++){
-            for(j = i+1; j < listLength(*l); j++){
+        for(i = 0; i < SlistLength(*l); i++){
+            for(j = i+1; j < SlistLength(*l); j++){
                 if(ELMT(*l,i) < ELMT(*l,j)){
                     temp = ELMT(*l,i);
                     ELMT(*l,i) = ELMT(*l,j);
