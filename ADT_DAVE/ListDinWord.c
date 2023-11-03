@@ -4,26 +4,26 @@
 #include "ListDinWord.h"
 
 /* Konstruktor : create list kosong  */
-void DWCreateListWord(ListWord *l, int capacity){
-    BUFFER(*l) = (WrdType*)malloc(capacity*sizeof(WrdType));
-    NEFF(*l) = 0;
-    CAPACITY(*l) = capacity;
+void DWCreateListWord(ListWord *l, int DCAPACITY){
+    DBUFFER(*l) = (WrdType*)malloc(DCAPACITY*sizeof(WrdType));
+    DNEFF(*l) = 0;
+    DCAPACITY(*l) = DCAPACITY;
 }
-/* I.S. l sembarang, capacity > 0 */
-/* F.S. Terbentuk list dinamis l kosong dengan kapasitas capacity */
+/* I.S. l sembarang, DCAPACITY > 0 */
+/* F.S. Terbentuk list dinamis l kosong dengan kapasitas DCAPACITY */
 
 void DWdealocateList(ListWord *l){
-    free(BUFFER(*l));
-    CAPACITY(*l) = 0;
-    NEFF(*l) = 0;
+    free(DBUFFER(*l));
+    DCAPACITY(*l) = 0;
+    DNEFF(*l) = 0;
 }
 /* I.S. l terdefinisi; */
-/* F.S. (l) dikembalikan ke system, CAPACITY(l)=0; NEFF(l)=0 */
+/* F.S. (l) dikembalikan ke system, DCAPACITY(l)=0; DNEFF(l)=0 */
 
 /* ********** SELEKTOR (TAMBAHAN) ********** */
 /* *** Banyaknya elemen *** */
 int DWlistLength(ListWord l){
-    return NEFF(l);
+    return DNEFF(l);
 }
 /* Mengirimkan banyaknya elemen efektif list */
 /* Mengirimkan nol jika list l kosong */
@@ -105,14 +105,14 @@ void DWdeleteVal(ListWord * l, WrdType w){
         for (i = idx; i < DWlistLength(*l) - 1; i++) {
             DELMT(*l, i) = DELMT(*l, i + 1);
         }
-        NEFF(*l)--;
+        DNEFF(*l)--;
     }
 }
 /* Menghapus w dari *l, dan w harus terdefinisi*/
 /* Jika w tidak terdefinisi maka akan mengirim pesan error*/
 void DWinsertLast(ListWord *l, WrdType val){
       
-      NEFF(*l)++;
+      DNEFF(*l)++;
       DELMT(*l,DWlistLength(*l)-1) = val;
 }
 /* Proses: Menambahkan val sebagai elemen terakhir list */
@@ -120,8 +120,13 @@ void DWinsertLast(ListWord *l, WrdType val){
 /* F.S. val adalah elemen terakhir l yang baru */
 
 void DWdeleteLast(ListWord *l, WrdType *val){
-    *val = DELMT(*l,NEFF(*l)-1);
-    NEFF(*l)--;
+    *val = DELMT(*l,DNEFF(*l)-1);
+    
+    DNEFF(*l)--;
+}
+void DWexpandList(ListWord *l, int num)
+{
+    DCAPACITY(*l)+= num;
 }
 /* Proses : Menghapus elemen terakhir list */
 /* I.S. List tidak kosong */
@@ -129,10 +134,4 @@ void DWdeleteLast(ListWord *l, WrdType *val){
 /*      Banyaknya elemen list berkurang satu */
 /*      List l mungkin menjadi kosong */
 
-
-
 /* ********* MENGUBAH UKURAN ARRAY ********* */
-void DWexpandList(ListWord *l, int num);
-/* Proses : Menambahkan capacity l sebanyak num */
-/* I.S. List sudah terdefinisi */
-/* F.S. Ukuran list bertambah sebanyak num */
