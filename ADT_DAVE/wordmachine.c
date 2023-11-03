@@ -71,4 +71,12 @@ boolean isWordEqual(Word w1, Word w2){
     }
 }
 
-
+boolean isWordEqualString(Word w1, char * s1){
+   int i;
+   for(i = 0; i < w1.Length; i++){
+      if(w1.TabWord[i] != s1[i]){
+         return FALSE;
+      }
+   }
+   return TRUE;
+}

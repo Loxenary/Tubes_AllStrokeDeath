@@ -50,4 +50,6 @@ void printWord(Word word);
 
 boolean isWordEqual(Word w1, Word w2);
 /*Melakukan Check apakah dua Word memiliki isi yang sama*/
+
+boolean isWordEqualString(Word w1, char * s1);
 #endif
