@@ -12,6 +12,8 @@
 #include "queue.h"
 #include "datetime.h"
 #include "Kicau.h"
+#include "liststatik.h"
+#include "teman.h"
 
 // #include "matrix.h"
 
@@ -27,7 +29,7 @@ ListStatikWord password;
 ListStatikWord bio;
 ListStatikWord phone;
 ListStatikWord Weton;
-ListStatikWord JenisAkun;
+ListStatik JenisAkun;
 Matrix profile;
 AdjMatrix matPertemanan;
 int addFriendCounter;
