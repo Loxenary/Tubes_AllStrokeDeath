@@ -16,7 +16,8 @@
 //     return m;
 // }
 
-ListStatikWord ListTeman(AdjMatrix m, int idx){
+ListStatikWord ListTeman(AdjMatrix m, int idx)
+{
     ListStatikWord teman;
     SwCreateListStatik(&teman);
     int i;
@@ -26,16 +27,17 @@ ListStatikWord ListTeman(AdjMatrix m, int idx){
             SwinsertLast(&teman,SELMT(dataNama,i));
         }
     }
-    
-
     return teman;
 }
 
-boolean isTeman(AdjMatrix *m, int vecU, int vecV){
-    if(GELMT(m,vecU,vecV) == 1){
+boolean isTeman(AdjMatrix TemanMat, Word user1, Word user2){
+    
+    if(GELMT(&TemanMat,SwindexOf(dataNama, user1),SwindexOf(dataNama, user2)) == 1){
         return TRUE;
     }
-    return FALSE;
+    else{
+        return FALSE;
+    }
 }
 
 int jumlah_Teman(AdjMatrix m, int idx){
