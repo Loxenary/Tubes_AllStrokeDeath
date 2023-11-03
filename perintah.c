@@ -34,7 +34,7 @@ int main(){
     char * Simpan = "SIMPAN";
     char * Muat = "MUAT";
     boolean logged_in = FALSE;
-
+    printf(">> ");
     STARTWORD();
     while(!(isWordEqualString(currentWord, Tutup_program))){
         if(!(logged_in)){
@@ -57,6 +57,7 @@ int main(){
                 printf("Wah Anda sudah masuk. Keluar dulu yuk!\n");
             } else if(isWordEqualString(currentWord, Keluar)){
                 printf("Anda berhasil logout. \nSampai jumpa di pertemuan berikutnya!\n");
+                logged_in = FALSE;
             } else if(isWordEqualString(currentWord, Ganti_profil)){
                 printf("jalanakan perintah ganti_profil\n");
             } else if(isWordEqualString(currentWord, Lihat_profil)){
@@ -108,6 +109,7 @@ int main(){
             }
 
         }
+        printf(">> ");
         STARTWORD();
     }
     return 0;
