@@ -5,7 +5,7 @@
 void CreateListDin(ListDin *l, int capacity){
       BUFFER(*l) = (int*)malloc(capacity*sizeof(int));
       NEFF(*l) = 0;
-      DCAPACITY(*l) = capacity;
+      CAPACITYD(*l) = capacity;
 }
 /* I.S. l sembarang, capacity > 0 */
 /* F.S. Terbentuk list dinamis l kosong dengan kapasitas capacity */
@@ -13,11 +13,11 @@ void CreateListDin(ListDin *l, int capacity){
 
 void dealocateList(ListDin *l){
       free(BUFFER(*l));
-      DCAPACITY(*l) = 0;
+      CAPACITYD(*l) = 0;
       NEFF(*l) = 0;
 }
 /* I.S. l terdefinisi; */
-/* F.S. (l) dikembalikan ke system, DCAPACITY(l)=0; NEFF(l)=0 */
+/* F.S. (l) dikembalikan ke system, CAPACITYD(l)=0; NEFF(l)=0 */
 
 /* ********** SELEKTOR (TAMBAHAN) ********** */
 /* *** Banyaknya elemen *** */
@@ -43,7 +43,7 @@ IdxType getLastIdx(ListDin l){
 
 /* ********** Test Indeks yang valid ********** */
 boolean isIdxValid(ListDin l, IdxType i){
-      return (i > IDX_UNDEF && i <= DCAPACITY(l));
+      return (i > IDX_UNDEF && i <= CAPACITYD(l));
 }
 /* Mengirimkan true jika i adalah indeks yang valid utk kapasitas list l */
 /* yaitu antara indeks yang terdefinisi utk container*/
@@ -61,7 +61,7 @@ boolean isEmpty(ListDin l){
 /* Mengirimkan true jika list l kosong, mengirimkan false jika tidak */
 /* *** Test list penuh *** */
 boolean isFull(ListDin l){
-      return NEFF(l) == DCAPACITY(l);
+      return NEFF(l) == CAPACITYD(l);
 }
 /* Mengirimkan true jika list l penuh, mengirimkan false jika tidak */
 
@@ -83,9 +83,9 @@ void readList(ListDin *l){
 /* F.S. List l terdefinisi */
 /* Proses : membaca banyaknya elemen l dan mengisi nilainya */
 /* 1. Baca banyaknya elemen diakhiri enter, misalnya N */
-/*    Pembacaan diulangi sampai didapat N yang benar yaitu 0 <= N <= DCAPACITY(l) */
+/*    Pembacaan diulangi sampai didapat N yang benar yaitu 0 <= N <= CAPACITYD(l) */
 /*    Jika N tidak valid, tidak diberikan pesan kesalahan */
-/* 2. Jika 0 < N <= DCAPACITY(l); Lakukan N kali: Baca elemen mulai dari indeks
+/* 2. Jika 0 < N <= CAPACITYD(l); Lakukan N kali: Baca elemen mulai dari indeks
       0 satu per satu diakhiri enter */
 /*    Jika N = 0; hanya terbentuk l kosong */
 void printList(ListDin l){
@@ -115,7 +115,7 @@ void printList(ListDin l){
 ListDin plusMinusList(ListDin l1, ListDin l2, boolean plus){
       int i;
       ListDin lcopy;
-      CreateListDin(&lcopy, DCAPACITY(l1));
+      CreateListDin(&lcopy, CAPACITYD(l1));
       NEFF(lcopy) = NEFF(l1);
       if(plus){
             for(i = 0; i < NEFF(l1); i++){
@@ -192,7 +192,7 @@ void extremeValues(ListDin l, ElType *max, ElType *min){
 /* ********** OPERASI LAIN ********** */
 void copyList(ListDin lIn, ListDin *lOut){
       int i;
-      CreateListDin(lOut,DCAPACITY(lIn));
+      CreateListDin(lOut,CAPACITYD(lIn));
       NEFF(*lOut) = NEFF(lIn);
       for(i = 0; i < listLength(lIn); i++){
             ELMTD(*lOut,i) = ELMTD(lIn,i);
@@ -270,13 +270,13 @@ void deleteLast(ListDin *l, ElType *val){
       *val = ELMTD(*l,getLastIdx(*l));
       ListDin l2;
       int i;
-      CreateListDin(&l2, DCAPACITY(*l));
+      CreateListDin(&l2, CAPACITYD(*l));
       NEFF(l2) = NEFF(*l)-1;
       for(i = 0; i< getLastIdx(*l); i++){
             ELMTD(l2,i) = ELMTD(*l,i);      
       }
       *l = l2;
-
+      
 }
 /* Proses : Menghapus elemen terakhir list */
 /* I.S. List tidak kosong */
@@ -286,21 +286,21 @@ void deleteLast(ListDin *l, ElType *val){
 
 /* ********* MENGUBAH UKURAN ARRAY ********* */
 void expandList(ListDin *l, int num){
-      DCAPACITY(*l)+=num;
+      CAPACITYD(*l)+=num;
 }
 /* Proses : Menambahkan capacity l sebanyak num */
 /* I.S. List sudah terdefinisi */
 /* F.S. Ukuran list bertambah sebanyak num */
 
 void shrinkList(ListDin *l, int num){
-      DCAPACITY(*l)-=num;
+      CAPACITYD(*l)-=num;
 }
 /* Proses : Mengurangi capacity sebanyak num */
 /* I.S. List sudah terdefinisi, ukuran capacity > num, dan nEff < capacity - num. */
 /* F.S. Ukuran list berkurang sebanyak num. */
 
 void compressList(ListDin *l){
-      DCAPACITY(*l) = NEFF(*l);
+      CAPACITYD(*l) = NEFF(*l);
 }
 /* Proses : Mengubah capacity sehingga nEff = capacity */
 /* I.S. List tidak kosong */
