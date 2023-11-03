@@ -6,7 +6,9 @@
 #define DATETIME_H
 
 #include "boolean.h"
-#include "time.h"
+#include "times.h"
+#include <time.h>
+
 
 /* *** Definisi TYPE DATETIME <DD/MM/YY HH:MM:SS> *** */
 typedef struct
@@ -16,6 +18,9 @@ typedef struct
     int YYYY; /* integer [1900..2030] */
     TIME T;
 } DATETIME;
+
+time_t locTime;
+
 
 /* *** Notasi Akses: selektor DATETIME *** */
 #define Day(D) (D).DD
@@ -91,5 +96,7 @@ DATETIME DATETIMEPrevNDetik(DATETIME D, int N);
 long int DATETIMEDurasi(DATETIME DAw, DATETIME DAkh);
 /* Mengirim DAkh-DAw dlm Detik, dengan kalkulasi */
 /* Prekondisi: DAkh > DAw */
+
+DATETIME ExtractLocalTimes();
 
 #endif
