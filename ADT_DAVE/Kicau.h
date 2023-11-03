@@ -1,6 +1,8 @@
 #ifndef KICAU_H
 #define KICAU_H
-#include "Database.h"
+
+#include "wordmachine.h"
+#include "datetime.h"
 
 typedef struct  UNode* UAddress;
 typedef struct RootUtas{
@@ -21,11 +23,10 @@ typedef struct Kicau
     DATETIME dates;
     UAddress next_Address;
     BAddress next_Balasan;
-}kicauan;
+} kicauan;
 
-typedef struct ListKicau
+typedef struct List_Kicau
 {
-    int maxId;
     kicauan * kicau;
     int nEff;
     int capacity;
@@ -38,23 +39,32 @@ typedef struct ListKicau
 #define KDATE(k) (k)->dates
 #define KTEXT(k) (k)->Text
 #define KID(k) (k)->id
-#define KLIKE(k) (k)->likes
+#define KLIKE(k) (k)->Likes
 
 //List Kicau
 #define KBUFFER(l) (l).kicau
 #define KELMT(l,i) (l).kicau[(i)]
-#define KCAPACITY(l) (l).capacity
+#define KCAPACITY(l) (l)->capacity
 #define KNEFF(l) (l).nEff
 
-void CreateEmptyKicau(kicauan * k);
+void CreateListKicau(ListKicau *l, int Capacity);
 
-void CreateEmptyListKicau(ListKicau * l);
+void inputKicau();
 
-void inputKicau(kicauan *k);
+void sukaKicauan(int idKicau);
 
-void sukaKicauan(kicauan *k, int idKicau);
+void InsertNewLastKicau(ListKicau *l, Word Word);
 
-void insertFirstKicau(kicauan * kicau);
+kicauan CreateDefinedKicau(Word author, Word text, int Likes, DATETIME dates, int id);
 
-void insertAtKicau(kicauan * kicau, int idx);
+void printDataKicauan(kicauan k);
+
+
+void InsertDeclaredLastKicau(ListKicau *l, kicauan kicau);
+
+void ubah_kicauan(int idKicau);
+
+void DisplayKicauan();
+
+
 #endif
