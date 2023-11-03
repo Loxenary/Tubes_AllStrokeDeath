@@ -39,8 +39,8 @@ typedef struct
 /* ********** SELEKTOR ********** */
 #define NEFF(l) (l).nEff
 #define BUFFER(l) (l).buffer
-#define ELMT(l, i) (l).buffer[i]
-#define CAPACITY(l) (l).capacity
+#define ELMTD(l, i) (l).buffer[i]
+#define DCAPACITY(l) (l).capacity
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create list kosong  */
@@ -60,7 +60,7 @@ int listLength(ListDin l);
 /* *** Daya tampung container *** */
 
 /* *** Selektor INDEKS *** */
-IdxType getFirstIdx(ListDin l);
+IdxType getWFirstIdx(ListDin l);
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l pertama */
 IdxType getLastIdx(ListDin l);
