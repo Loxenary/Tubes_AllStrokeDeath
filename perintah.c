@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "Database.h"
 #include "wordmachine.c"
 #include "boolean.h"
 #include "charmachine.c"
@@ -33,15 +34,15 @@ int main(){
     char * Cetak_utas = "CETAK_UTAS";
     char * Simpan = "SIMPAN";
     char * Muat = "MUAT";
-    boolean logged_in = FALSE;
+    isLogin = FALSE;
     printf(">> ");
     STARTWORD();
     while(!(isWordEqualString(currentWord, Tutup_program))){
-        if(!(logged_in)){
+        if(!(isLogin)){
             // belum login
             if(isWordEqualString(currentWord, Masuk)){
                 printf("jalankan perintah masuk\n");
-                logged_in = TRUE;
+                isLogin = TRUE;
             } else if(isWordEqualString(currentWord, Keluar)){
                 printf("Anda belum login! Masuk terleibh dahulu\n");
             } else if(isWordEqualString(currentWord, Daftar)){
@@ -57,7 +58,7 @@ int main(){
                 printf("Wah Anda sudah masuk. Keluar dulu yuk!\n");
             } else if(isWordEqualString(currentWord, Keluar)){
                 printf("Anda berhasil logout. \nSampai jumpa di pertemuan berikutnya!\n");
-                logged_in = FALSE;
+                isLogin = FALSE;
             } else if(isWordEqualString(currentWord, Ganti_profil)){
                 printf("jalanakan perintah ganti_profil\n");
             } else if(isWordEqualString(currentWord, Lihat_profil)){
