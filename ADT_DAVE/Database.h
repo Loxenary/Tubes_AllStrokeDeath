@@ -10,9 +10,13 @@
 #include "listdin.h"
 #include "stack.h"
 #include "queue.h"
-
+#include "datetime.h"
+#include "Kicau.h"
 
 // #include "matrix.h"
+
+//General
+int wrdCapacity;
 
 //Config Pengguna
 int current_id;
@@ -24,17 +28,15 @@ ListStatikWord bio;
 ListStatikWord phone;
 ListStatikWord Weton;
 ListStatikWord JenisAkun;
-//Foto Profile
+Matrix profile;
 AdjMatrix matPertemanan;
 int addFriendCounter;
 Matrix matTambahTeman;
 
 //Config Kicauan
 int jumlah_kicau;
-ListWord TextKicau;
-ListDin likes;
-ListWord Authors;
-ListWord Tagar;
+ListKicau list_kicau;
+
 
 //Config Balesan
 int jumlah_balasan;
