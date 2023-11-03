@@ -7,7 +7,7 @@ Word currentWord;
 
 
 void IgnoreBlanks(){ // This is to Ignore the current Char when its a blank
-    while(currentChar == BLANK){
+    while(currentChar == BLANK || currentChar == '\n'){
         ADV();
     }
 }
@@ -108,25 +108,25 @@ boolean isWordEqualString(Word w1, char * s1){
 //     return temp;
 // }
 
-Word MultipleInput()
-{
+Word MultipleInput() {
     Word temp;
+    int i = 0;
     START();
     IgnoreBlanks();
-    int i = 0;
-    while(currentChar != MARK){
-        if(currentChar != MARK){
+
+    while (currentChar != MARK && currentChar != ';' && !EOP) {
+        // Stop when reaching MARK, ;, or end of input
+        if (currentChar != MARK) {
             temp.TabWord[i] = currentChar;
             i++;
         }
         ADV();
     }
-    if(i > NMax){
+
+    if (i > NMax) {
         temp.Length = NMax;
-    }
-    else{
+    } else {
         temp.Length = i;
     }
-    printf("%d\n",temp.Length);
     return temp;
 }
