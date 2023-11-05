@@ -37,7 +37,7 @@ Matrix matTambahTeman;
 
 //Config Kicauan
 int jumlah_kicau;
-ListKicau list_kicau;
+ListKicau ListKicauan;
 
 
 //Config Balesan
