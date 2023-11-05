@@ -13,11 +13,11 @@
 /* Indeks tak terdefinisi*/
 
 /* Definisi elemen dan koleksi objek */
-typedef Stack ElType;  /* type elemen List */
+typedef Stack Isianstack;  /* type elemen List */
 typedef int IdxType;
 typedef struct {
-   ElType contents[CAPACITY]; /* memori tempat penyimpan elemen (container) */
-   ElType waktu[CAPACITY]
+   Isianstack contents[CAPACITY]; /* memori tempat penyimpan elemen (container) */
+   Isianstack waktu[CAPACITY];
 } ListStatikStack;
 /* Indeks yang digunakan [0..CAPACITY-1] */
 /* Jika l adalah ListStatik, cara deklarasi dan akses: */
@@ -29,16 +29,19 @@ typedef struct {
    Definisi elemen pertama: ELMT(l,i) dengan i=0 */
 
 /* ********** SELEKTOR ********** */
-#define ELMT(l, i) (l).contents[(i)]
-#define telmt(l, i) (l).waktu[(i)]
+#define LSSELMT(l, i) (l).contents[(i)]
+#define LSSTELMT(l, i) (l).waktu[(i)]
 
 void CreateListStatikstack(ListStatikStack *l);
 /*membuat list statik berisi stack yang kosong*/
 
 Stack ambilDraf(ListStatikStack l, int idx);
-/*mereturn stack milik akun pada index ke-idx pada list datanama*/
+/*mereturn stack berisi draf milik akun pada index ke-idx pada list datanama*/
 
-void overwriteDraf(ListStatikStack *l, int idx);
+Stack ambilWaktuDraf(ListStatikStack l, int idx);
+/*mereturn stack berisi waktu terakhir draf diedit milik akun pada index ke-idx pada list datanama*/
+
+void overwriteDraf(ListStatikStack *l, int idx, Stack s, Stack stime);
 /*meng-overwrite data draf pada liststatikstack dengan stack yang sudah diedit pada fungsi draf*/
 
 

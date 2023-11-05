@@ -11,14 +11,11 @@
 /*#include "listdin.h"*/
 #include "stack.h"
 #include "queue.h"
-<<<<<<< Updated upstream
-#include "datetime.h"
-#include "Kicau.h"
-=======
 #include "teman.h"
 #include "liststatikstack.h"
-
->>>>>>> Stashed changes
+#include "datetime.h"
+#include "Kicau.h"
+#include "liststatikmatrixchar.h"
 
 // #include "matrix.h"
 
@@ -34,15 +31,10 @@ ListStatikWord password;
 ListStatikWord bio;
 ListStatikWord phone;
 ListStatikWord Weton;
-<<<<<<< Updated upstream
-ListStatikWord JenisAkun;
-Matrix profile;
-=======
 ListStatik JenisAkun;
 //Foto Profile
-Matrix profil;
+ListStatikMatrix profil;
 
->>>>>>> Stashed changes
 AdjMatrix matPertemanan;
 int addFriendCounter;
 Matrix matTambahTeman;
