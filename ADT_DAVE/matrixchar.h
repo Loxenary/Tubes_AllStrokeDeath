@@ -22,6 +22,7 @@ typedef struct
 /* Memori matriks yang dipakai selalu di "ujung kiri atas" */
 
 /* ********** DEFINISI PROTOTIPE PRIMITIF ********** */
+void createMatrixCharKosong(MatrixChar *m);
 /* *** Konstruktor membentuk Matrix *** */
 void createMatrixProfileDefault(MatrixChar *m);
 /* Membentuk sebuah Matrix "kosong" yang siap diisi berukuran nRow x nCol di "ujung kiri" memori */

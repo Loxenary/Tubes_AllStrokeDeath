@@ -5,15 +5,26 @@
 #include "pcolor.h"
 
 /* ********** DEFINISI PROTOTIPE PRIMITIF ********** */
+
+void createMatrixCharKosong(MatrixChar *m)
+{
+    MCROW_EFF(*m) = 5;
+    MCCOL_EFF(*m) = 10;
+ 
+    for (int i = 0; i <= 4; i++)
+    {
+        for (int j = 0; j <= 9; j++)
+        {
+            MCELMT(*m, i, j) = ' ';
+        }
+    }
+}
 /* *** Konstruktor membentuk Matrix *** */
-void createMatrixProfileDefault(MatrixChar *m)
+void MatrixProfileDefault(MatrixChar *m)
 /* Membentuk sebuah Matrix "kosong" yang siap diisi berukuran nRow x nCol di "ujung kiri" memori */
 /* I.S. nRow dan nCol adalah valid untuk memori matriks yang dibuat */
 /* F.S. Matriks m sesuai dengan definisi di atas terbentuk */
 {
-   MCROW_EFF(*m) = 5;
-   MCCOL_EFF(*m) = 10;
-
    for (int i = 0; i <= 4; i++)
    {
       for (int j = 0; j <= 9; j++)
