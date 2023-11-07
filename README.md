@@ -1,5 +1,3 @@
 # Tubes_AllStrokeDeath
 
-harusnya inisialisasi dah aman :D
-
-![1698696556746](image/README/1698696556746.png)
+masih load user dan kicau, itu pun masih blm bener kyknya T_T
