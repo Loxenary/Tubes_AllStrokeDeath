@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <time.h>
-#include "ADT_DAVE/Database.h"
-#include "ADT_DAVE/charmachine.h"
-#include "ADT_DAVE/wordmachine.h"
+#include "draf.h"
 
 void buatDraf(WrdType nama)
 {
