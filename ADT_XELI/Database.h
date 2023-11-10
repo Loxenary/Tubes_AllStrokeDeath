@@ -13,7 +13,7 @@
 #include "queue.h"
 #include "teman.h"
 #include "liststatikstack.h"
-#include "datetime.h"
+//#include "datetime.h"
 #include "Kicau.h"
 #include "liststatikmatrixchar.h"
 
@@ -41,12 +41,12 @@ Matrix matTambahTeman;
 
 //Config Kicauan
 int jumlah_kicau;
-ListKicau list_kicau;
+//ListKicau list_kicau;
 
 
 //Config Balesan
 int jumlah_balasan;
-ListDin id_kicau;
+//ListDin id_kicau;
 //Tree untuk Balasan
 
 //Config Draf
