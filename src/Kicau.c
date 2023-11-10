@@ -10,7 +10,7 @@ void CreateListKicau(ListKicau *l, int Capacity)
 }
 
 
-void inputKicau()
+void inputKicau(ListKicau l)
 {
     printf("Masukkan kicauan:\n");
     Word text = MultipleInput();
@@ -20,18 +20,17 @@ void inputKicau()
         printf("spasi!\n");
     }
     else{
-        InsertNewLastKicau(&list_kicau, text);
+        InsertNewLastKicau(&l, text);
         printf("\n");
         printf("Selamat! kicauan telah\n");
         printf("diterbitkan!\n");
         printf("Detil kicauan: \n");
-        printDataKicauan(KELMT(list_kicau,KNEFF(list_kicau)-1));
+        printDataKicauan(KELMT(l,KNEFF(l)-1));
     }
     
 }
 
-void DisplayKicauan(){
-    ListKicau l = list_kicau;
+void DisplayKicauan(ListKicau l){
     Word user =SELMT(dataNama,current_id);
     int i;
     for(i = 0; i < KNEFF(l); i++){
@@ -56,19 +55,19 @@ void printDataKicauan(kicauan k){
     printf("\n");
 }
 
-void sukaKicauan(int idKicau){
-    if(idKicau > KNEFF(list_kicau)){
+void sukaKicauan(int idKicau, ListKicau l){
+    if(idKicau > KNEFF(l)){
         printf("Tidak ditemukan kicauan dengan ID = %d",idKicau);
     }
     else{
-        Word data = KELMT(list_kicau,idKicau).Auth;
-        int indexNama = SwindexOf(dataNama,KELMT(list_kicau,idKicau).Auth);
+        Word data = KELMT(l,idKicau).Auth;
+        int indexNama = SwindexOf(dataNama,KELMT(l,idKicau).Auth);
         //Jika 2 orang tersebut berteman atau akun yang dicari public
         if(isTeman(matPertemanan, data, SELMT(dataNama,indexNama)) || (ELMT(JenisAkun,indexNama) == 1)){
             printf("Selamat! kicauan telah disukai!\n");
-            KELMT(list_kicau,idKicau).Likes++;
+            KELMT(l,idKicau).Likes++;
             printf("Detil kicauan: \n");
-            printDataKicauan(KELMT(list_kicau,idKicau));
+            printDataKicauan(KELMT(l,idKicau));
         }
         else{
             printf("Wah, kicauan tersebut dibuat oleh\n");
@@ -110,20 +109,20 @@ void InsertDeclaredLastKicau(ListKicau *l, kicauan kicau){
     KELMT(*l,NEFF(*l)-1) = kicau;
 }
 
-void ubah_kicauan(int idKicau)
+void ubah_kicauan(int idKicau, ListKicau l)
 {
-    if(idKicau > KNEFF(list_kicau)){
+    if(idKicau > KNEFF(l)){
         printf("Tidak ditemukan kicauan dengan ID = %d",idKicau);
     }
     else{
-        Word user_find = KELMT(list_kicau,idKicau).Auth;
+        Word user_find = KELMT(l,idKicau).Auth;
         if(isWordEqual(user_find,SELMT(dataNama,current_id))){
             printf("Masukan kicauan baru: \n");
-            KELMT(list_kicau,idKicau).Text = MultipleInput();
-            KELMT(list_kicau,idKicau).dates = ExtractLocalTimes();
+            KELMT(l,idKicau).Text = MultipleInput();
+            KELMT(l,idKicau).dates = ExtractLocalTimes();
             printf("Selamat! kicauan telah diterbitkan! \n");
             printf("Detil kicauan: \n");
-            printDataKicauan(KELMT(list_kicau,idKicau));
+            printDataKicauan(KELMT(l,idKicau));
         }
         else{
             printf("Kicauan dengan ID = %d bukan\n",idKicau);

@@ -3,16 +3,18 @@
 
 #include "wordmachine.h"
 #include "datetime.h"
+#include "ListUtas.h"
 
-typedef struct  UNode* UAddress;
-typedef struct RootUtas{
-    UAddress Utas;
-}UNode;
+// typedef struct  UNode* UAddress;
+// typedef struct RootUtas{
+//     UAddress Utas;
+// }UNode;
 
-typedef struct BNode * BAddress;
-typedef struct RootBalasan{
-    BAddress balasan;
-}BNode;
+// typedef struct BNode * BAddress;
+// typedef struct RootBalasan{
+//     BAddress balasan;
+// }BNode;
+
 
 typedef struct Kicau
 {
@@ -21,13 +23,13 @@ typedef struct Kicau
     int Likes;
     Word Auth;
     DATETIME dates;
-    UAddress next_Address;
-    BAddress next_Balasan;
+    ListUtas next_Utas;
+    // BAddress next_Balasan;
 } kicauan;
 
 typedef struct List_Kicau
 {
-    kicauan * kicau;
+    kicauan* kicau;
     int nEff;
     int capacity;
 }ListKicau;
@@ -49,9 +51,9 @@ typedef struct List_Kicau
 
 void CreateListKicau(ListKicau *l, int Capacity);
 
-void inputKicau();
+void inputKicau(ListKicau l);
 
-void sukaKicauan(int idKicau);
+void sukaKicauan(int idKicau, ListKicau l);
 
 void InsertNewLastKicau(ListKicau *l, Word Word);
 
@@ -62,9 +64,9 @@ void printDataKicauan(kicauan k);
 
 void InsertDeclaredLastKicau(ListKicau *l, kicauan kicau);
 
-void ubah_kicauan(int idKicau);
+void ubah_kicauan(int idKicau, ListKicau l);
 
-void DisplayKicauan();
+void DisplayKicauan(ListKicau l);
 
 
 #endif
