@@ -1,9 +1,9 @@
 #ifndef LIST_UTAS_H
 #define LIST_UTAS_H
 
-#include "boolean.h"
-#include "ListStatikWord.h"
-#include "datetime.h"
+#include "./adt/boolean.h"
+#include "./adt/ListStatikWord.h"
+#include "./adt/datetime.h"
 
 typedef struct Utas* Address;
 

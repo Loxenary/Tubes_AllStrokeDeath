@@ -1,6 +1,5 @@
 #include <stdio.h>
-#include "ListStatikWord.h"
-
+#include "listStatikWord.h"
 
 void SwCreateListStatik(ListStatikWord *l){
     int i;

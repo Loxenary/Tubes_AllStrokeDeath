@@ -1,9 +1,10 @@
 #include <stdio.h>
-#include "Kicau.h"
-#include "Database.h"
+#include "kicau.h"
+#include "database.h"
+
+
 void CreateListKicau(ListKicau *l, int Capacity)
 {
-    wrdCapacity = 280;
     KBUFFER(*l) = (kicauan*)malloc(KCAPACITY(l)*sizeof(kicauan));
     KNEFF(*l) = 0;
     KCAPACITY(l) = Capacity;

@@ -3,10 +3,7 @@
 #include "ListUtas.h"
 #include "Database.h"
 
-
-void CreateUtas(ListUtas U)
-{  
-    FIRST(U) = NULL;
+void CreateUtas(ListUtas *U)
+{
+    FIRST(*U) = NULL;
 }
-
-

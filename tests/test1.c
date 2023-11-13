@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "load.h"
+#include "./src/load.h"
 
 int main() {
     // Panggil fungsi inisialisasiAplikasi untuk memulai aplikasi

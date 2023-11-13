@@ -2,7 +2,7 @@
 #define __TEMAN
 
 #include "Database.h"
-#include "boolean.h"
+#include "./adt/boolean.h"
 
 int jumlah_Teman(AdjMatrix m, int idx);
 

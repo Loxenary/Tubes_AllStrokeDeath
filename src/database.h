@@ -1,20 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ListDinWord.h"
-#include "ListStatikWord.h"
-#include "wordmachine.h"
-#include "charmachine.h"
-#include "boolean.h"
-#include "Adjacency_Matrix.h"
-#include "matrix.h"
-#include "listdin.h"
-#include "stack.h"
-#include "queue.h"
-#include "datetime.h"
-#include "Kicau.h"
-#include "liststatik.h"
-#include "teman.h"
-
+#include "./adt/listStatikWord.h"
+#include "./adt/listDinWord.h"
+#include "./adt/adjacency_Matrix.h"
+#include "./adt/matrix.h"
+#include "./adt/liststatik.h"
+#include "./adt/listdin.h"
+#include "kicau.h"
 // #include "matrix.h"
 
 //General

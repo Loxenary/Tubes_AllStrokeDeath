@@ -155,7 +155,7 @@ void LoadKicau(ListKicau* kicauList, char* filename) {
         // Read Datetime
         char datetimeStr[20];
         fscanf(file, "%s", datetimeStr);
-        KDATE(&KBUFFER(*kicauList)[i]) = DetikToTIME(atoi(datetimeStr));
+        // KDATE(&KBUFFER(*kicauList)[i]) = DetikToTIME(atoi(datetimeStr));
         fgetc(file); // Read newline
     }
 

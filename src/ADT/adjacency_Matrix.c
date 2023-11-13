@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "adjacency_Matrix.h"
 
-#include "Adjacency_Matrix.h"
 
 void CreateAdjMatrix(AdjMatrix *m , int Vertices){
     Vert(*m) = Vertices;

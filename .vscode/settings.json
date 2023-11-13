@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "listdinword.h": "c",
+        "wordmachine.h": "c",
+        "stdlib.h": "c",
+        "boolean.h": "c",
+        "load.h": "c",
+        "kicau.h": "c",
+        "datetime.h": "c",
+        "adjacency_matrix.h": "c",
+        "listutas.h": "c",
+        "liststatikword.h": "c"
+    }
+}

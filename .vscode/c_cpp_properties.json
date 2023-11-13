@@ -3,8 +3,7 @@
         {
             "name": "Win32",
             "includePath": [
-                "D:/MSYS/mingw64/bin",
-                "${workspaceFolder}"
+                "${workspaceFolder}/**"
             ],
             "defines": [
                 "_DEBUG",
@@ -12,7 +11,7 @@
                 "_UNICODE"
             ],
             "compilerPath": "D:/MSYS/mingw64/bin/gcc.exe",
-            "intelliSenseMode": "windows-msvc-x64"
+            "intelliSenseMode": "windows-gcc-arm64"
         }
     ],
     "version": 4

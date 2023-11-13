@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "liststatik.h"
 
-
 void CreateListStatik(ListStatik *l){
     int i;
     for(i=0;i<CAPACITY;i++){
