@@ -4,7 +4,7 @@
 #include "Kicau.h"
 #include "ListUtas.h"
 
-kicauan kicau_utama;
+
 Word kicauan_utas;
 ListUtas list_utas;
 
@@ -12,6 +12,7 @@ void CreateRootUtas(int idKicau){
     // kamus
     Address utas_utama;
     Word text;
+    kicauan kicau_utama;
     char * YA = "YA";
     char * TIDAK = "TIDAK";
     // algoritma
@@ -36,9 +37,10 @@ void CreateRootUtas(int idKicau){
             STARTWORD();
             while(!isWordEqualString(currentWord, TIDAK)){
                 printf("Masukkan kicauan:\n");
-                // input lanjutan kicauan utas
-                // belum tahu cara ngelanjutin / ngegabungin dgn text sebelumnya
-                // lanjutin ...
+
+                text = MultipleInput();
+
+                addUtas(&utas_utama, text, kicau_utama.Auth, ExtractLocalTimes());
 
                 printf("Apakah Anda ingin melanjutkan utas ini? (YA/TIDAK) ");
                 STARTWORD();
@@ -54,6 +56,17 @@ void CreateRootUtas(int idKicau){
     }
 }
 
+void DeleteUtas(int idKicau, int indexUtas){
+    
+}
+
+void SambungUtas(int idUtas, int indexUtas){
+
+}
+
+void CetakUtas(){
+
+}
 
 boolean isId(int index){
     boolean found = FALSE;
@@ -74,3 +87,5 @@ kicauan getKicau(int index){
 }
 
 // harus buat fungsi-fungsi linked list yang diperlukan untuk utas. alur: id sesuai, author sesuai. create node baru. node ini seperti linked list pada umumnya, ada next address, ada info.
+// buat linked list utas dari index nol. di index nol itu nyimpen utas utama.
+// index selanjutnya nyimpen sambungan dari utasan tersebuts.
