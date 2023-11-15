@@ -1,9 +1,10 @@
 #include <stdio.h>
-#include "perintah.h"
-#include "load.h"
+#include "./src/perintah.h"
+#include "./src/load.h"
 
 int main(){
        displayScreen();
        inisialisasiAplikasi();
        perintah();
+       return 0;
 }

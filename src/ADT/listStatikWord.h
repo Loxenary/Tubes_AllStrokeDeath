@@ -26,7 +26,7 @@ typedef struct ListStatikWord{
    WrdType contents[SCAPACITY]; /* memori tempat penyimpan elemen (container) */
 } ListStatikWord;
 
-#define STATICMARK = {"",-1};
+WrdType STATICMARK = {"",-1};
 /* Indeks yang digunakan [0..CAPACITY-1] */
 /* Jika l adalah ListStatikWord, cara deklarasi dan akses: */
 /* Deklarasi : l : ListStatikWord */

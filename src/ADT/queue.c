@@ -13,11 +13,11 @@ void CreateQueue(Queue *q){
 /* Proses : Melakukan alokasi, membuat sebuah q kosong */
 
 /* ********* Prototype ********* */
-boolean isEmpty(Queue q){
+boolean QisEmpty(Queue q){
     return ((IDX_HEAD(q) == IDX_UNDEF) && (IDX_TAIL(q) == IDX_UNDEF));
 }
 /* Mengirim true jika q kosong: lihat definisi di atas */
-boolean isFull(Queue q){
+boolean QisFull(Queue q){
     if(IDX_HEAD(q) > IDX_TAIL(q)){
         return (IDX_TAIL(q) + 1 == IDX_HEAD(q));
     }
@@ -29,7 +29,7 @@ boolean isFull(Queue q){
 /* yaitu IDX_TAIL akan selalu di belakang IDX_HEAD dalam buffer melingkar*/
 
 int length(Queue q){
-    if(isEmpty(q)){
+    if(QisEmpty(q)){
         return 0;
     }
     else if(IDX_TAIL(q) < IDX_HEAD(q)){
@@ -43,7 +43,7 @@ int length(Queue q){
 
 /* *** Primitif Add/Delete *** */
 void enqueue(Queue *q, ElType val){
-    if(isEmpty(*q)){
+    if(QisEmpty(*q)){
         IDX_HEAD(*q) = 0;
         IDX_TAIL(*q) = 0;
         TAIL(*q) = val;
@@ -75,7 +75,7 @@ void dequeue(Queue *q, ElType *val){
 
 /* *** Display Queue *** */
 void displayQueue(Queue q){
-    if(isEmpty(q)){
+    if(QisEmpty(q)){
        printf("[]\n"); 
     }
     else{

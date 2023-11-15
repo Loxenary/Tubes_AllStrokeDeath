@@ -56,23 +56,6 @@ void DWprintList(ListWord l){
       printf("]");
 }
 
-boolean isWordEqual(WrdType w1, WrdType w2){
-    int i;
-    if(w1.Length != w2.Length){
-        return FALSE;
-    }
-    else{
-        for (i = 0; i < w1.Length; i++)
-        {
-            if(w1.TabWord[i] != w2.TabWord[i]){
-                return FALSE;
-            }
-        }
-        return TRUE;
-        
-    }
-}
-
 boolean DWisValExist(ListWord l, WrdType w){
     int i;
     Word currWord;
