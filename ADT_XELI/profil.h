@@ -19,4 +19,6 @@ void aturJenisAkun(WrdType nama);
 void ubahFotoProfil(WrdType nama);
 /*mengubah foto profil dari akun orang yang sedang login*/
 
+boolean cekWeton(Word Weton);
+
 #endif

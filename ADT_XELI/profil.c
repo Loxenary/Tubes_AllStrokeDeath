@@ -1,8 +1,8 @@
 #include <stdio.h>
-#include "ADT_DAVE/Database.h"
-#include "ADT_DAVE/charmachine.h"
-#include "ADT_DAVE/wordmachine.h"
-#include "ADT_Dave/pcolor.h"
+#include "Database.h"
+#include "charmachine.h"
+#include "wordmachine.h"
+#include "pcolor.h"
 
 void gantiProfil(WrdType nama)
 {
@@ -43,7 +43,7 @@ void gantiProfil(WrdType nama)
     }
 
     printf("\nMasukkan No HP:\n");
-    boolean cek = FALSE, cek1 = TRUE;
+    boolean cek = TRUE;
 
     Word cekAngka;
     for (int i = 0; i <= 9; i++)
@@ -51,8 +51,9 @@ void gantiProfil(WrdType nama)
         cekAngka.TabWord[i] = i;
     }
 
-    while (!cek)
+    while (cek)
     {
+        cek = FALSE;
         START();
         int len = 0;
         while (currentChar != BLANK && currentChar != ';')
@@ -67,14 +68,14 @@ void gantiProfil(WrdType nama)
         {
             for (int j = 0; j <= 9; j++)
             {
-                if (currentWord.TabWord[j] != cekAngka.TabWord[i]);
+                if (currentWord.TabWord[i] != cekAngka.TabWord[j]);
                 {
-                    
+                    cek = FALSE;
                 }
             }
         }
 
-        if ()
+        if (cek)
         {
             SELMT(phone, index) = currentWord;
         }
@@ -92,7 +93,7 @@ void gantiProfil(WrdType nama)
     while (currentChar != BLANK && currentChar != ';')
     {
         currentChar -= '0';
-        if (currentChar == int)
+        if (currentChar == 'a')
         {
             currentWord.TabWord[i] = (char)currentChar;
             ADV();
@@ -102,6 +103,7 @@ void gantiProfil(WrdType nama)
         {
             cek = FALSE;
         }
+        
     }
 }
 
@@ -205,4 +207,17 @@ void ubahFotoProfil(WrdType nama)
     printf("\nMasukkan foto profil yang baru\n");
     readMatrixProfil(&LSMELMT(profil, index));
     printf("Foto profil anda sudah berhasil diganti!\n");
+}
+
+boolean cekWeton(Word Weton)
+{
+    char * legi = "Legi", * pahing = "Pahing", * pon = "Pon", * wage = "Wage", * kliwon = "Kliwon";
+    if(isWordEqualString(Weton,legi) || isWordEqualString(Weton,pahing) || isWordEqualString(Weton,pon) || isWordEqualString(Weton,wage) || isWordEqualString(Weton, kliwon))
+    {
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
 }
