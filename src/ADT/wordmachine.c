@@ -148,3 +148,17 @@ void CopyWordWithSpace()
         currentWord.Length = i;
     }
 }
+
+
+int toInt(Word nums){
+    // asumsi bahwa isi nums adalah angka semua dalam bentuk char
+    // kamus
+    int  temp = 0;
+    // algoritma
+    for(int i = 0; i < nums.Length; i++){
+        temp *= 10;
+        temp += nums.TabWord[i] - 48;
+    }
+    return temp;
+
+}

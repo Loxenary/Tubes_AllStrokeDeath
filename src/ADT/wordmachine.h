@@ -59,4 +59,8 @@ Word MultipleInput();
 
 void CopyWordWithSpace();
 /*Mengakuisisi kata tanpa menskip spasi*/
+
+
+int toInt(Word nums);
+/*from Word to integer*/
 #endif
