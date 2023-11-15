@@ -3,6 +3,7 @@
 #include "charmachine.h"
 #include "wordmachine.h"
 #include "pcolor.h"
+#include "profil.h"
 
 void gantiProfil(WrdType nama)
 {

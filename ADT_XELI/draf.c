@@ -50,7 +50,7 @@ void buatDraf(WrdType nama)
     }
 }
 
-void lihatDraf(WrdType nama)
+int lihatDraf(WrdType nama)
 {
     time_t rawtime;
     struct tm *local_time;
@@ -71,6 +71,7 @@ void lihatDraf(WrdType nama)
     if (IsEmpty(s))
     {
         printf("\nWhoops, anda belum memiliki draf apapun! Buat dulu ya :3\n\n");
+        return 0;
     }
     else
     {
@@ -79,6 +80,12 @@ void lihatDraf(WrdType nama)
         printf("Ini draf terakhir anda:\n");
         printf("| %d/%d/%d %d:%d:%d", local_time->tm_hour, local_time->tm_min, local_time->tm_sec, local_time->tm_mday, local_time->tm_mon + 1, local_time->tm_year + 1900);
         printf("| ");
-        printWord(draf.contents[index]);
+        Word drater;
+        Pop(&s, &drater); 
+        printWord(drater);
     }
+
+    printf("Apakah anda ingin mengubah, menghapus, atau menerbitkan draf ini? (KEMBALI jika ingin kembali)\n");
+    START();
+    
 }
