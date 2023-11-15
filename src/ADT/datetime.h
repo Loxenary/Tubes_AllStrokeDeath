@@ -19,8 +19,7 @@ typedef struct
     TIME T;
 } DATETIME;
 
-time_t locTime;
-
+extern time_t locTime;
 
 /* *** Notasi Akses: selektor DATETIME *** */
 #define Day(D) (D).DD

@@ -2,7 +2,6 @@
 #include "kicau.h"
 #include "database.h"
 
-
 void CreateListKicau(ListKicau *l, int Capacity)
 {
     KBUFFER(*l) = (kicauan*)malloc(KCAPACITY(l)*sizeof(kicauan));

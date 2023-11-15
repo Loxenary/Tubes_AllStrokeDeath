@@ -1,22 +1,8 @@
 #ifndef KICAU_H
 #define KICAU_H
 
-#include "./adt/wordmachine.h"
-#include "./adt/datetime.h"
-#include  "./adt/boolean.h"
+#include "teman.h"
 #include "listutas.h"
-
-
-// typedef struct  UNode* UAddress;
-// typedef struct RootUtas{
-//     UAddress Utas;
-// }UNode;
-
-// typedef struct BNode * BAddress;
-// typedef struct RootBalasan{
-//     BAddress balasan;
-// }BNode;
-
 
 typedef struct Kicau
 {

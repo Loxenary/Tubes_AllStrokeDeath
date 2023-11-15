@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "Database.h"
-#include "Kicau.h"
-#include "ListUtas.h"
+#include "database.h"
+#include "utas.h"
 
 
 Word kicauan_utas;
@@ -13,7 +12,7 @@ void CreateRootUtas(int idKicau){
     Address utas_utama;
     Word text;
     kicauan kicau_utama;
-    char * YA = "YA";
+    // char * YA = "YA";
     char * TIDAK = "TIDAK";
     // algoritma
     if((isId(idKicau))){
@@ -31,7 +30,7 @@ void CreateRootUtas(int idKicau){
             
             // input kicauan utas
             text = MultipleInput();
-            addUtas(&utas_utama, text, kicau_utama.Auth, ExtractLocalTimes());
+            addUtas(utas_utama, text, kicau_utama.Auth, ExtractLocalTimes());
 
             printf("Apakah Anda ingin melanjutkan utas ini? (YA/TIDAK) ");
             STARTWORD();
@@ -40,7 +39,7 @@ void CreateRootUtas(int idKicau){
 
                 text = MultipleInput();
 
-                addUtas(&utas_utama, text, kicau_utama.Auth, ExtractLocalTimes());
+                addUtas(utas_utama, text, kicau_utama.Auth, ExtractLocalTimes());
 
                 printf("Apakah Anda ingin melanjutkan utas ini? (YA/TIDAK) ");
                 STARTWORD();

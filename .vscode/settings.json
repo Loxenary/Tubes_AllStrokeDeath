@@ -9,6 +9,9 @@
         "datetime.h": "c",
         "adjacency_matrix.h": "c",
         "listutas.h": "c",
-        "liststatikword.h": "c"
+        "liststatikword.h": "c",
+        "stdio.h": "c",
+        "database.h": "c",
+        "teman.h": "c"
     }
 }

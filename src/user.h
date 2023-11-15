@@ -1,7 +1,7 @@
 #ifndef USER_H
 #define USER_H
 
-#include "ADT/wordmachine.h"
+#include "./adt/wordmachine.h"
 
 #define MAX_USERS 20
 #define MAX_NAME_LENGTH 20

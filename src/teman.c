@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "teman.h"
+#include "database.h"
 
 // AdjMatrix Mat_Teman(){
 //     AdjMatrix m;

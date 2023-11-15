@@ -1,46 +1,50 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "./adt/listStatikWord.h"
 #include "./adt/listDinWord.h"
+#include "./adt/wordmachine.h"
 #include "./adt/adjacency_Matrix.h"
-#include "./adt/matrix.h"
-#include "./adt/liststatik.h"
+#include "./adt/listStatikWord.h"
+#include "./adt/stack.h"
 #include "./adt/listdin.h"
+#include "./adt/liststatik.h"
+#include "./adt/matrix.h"
+
 #include "kicau.h"
+
+
 // #include "matrix.h"
 
 //General
-int wrdCapacity;
+extern int wrdCapacity;
 
 //Config Pengguna
-int current_id;
-int banyak_pengguna;
-boolean isLogin;
-ListStatikWord dataNama;
-ListStatikWord password;
-ListStatikWord bio;
-ListStatikWord phone;
-ListStatikWord Weton;
-ListStatik JenisAkun;
-Matrix profile;
-AdjMatrix matPertemanan;
-int addFriendCounter;
-Matrix matTambahTeman;
+extern int current_id;
+extern int banyak_pengguna;
+extern boolean isLogin;
+extern ListStatikWord dataNama;
+extern ListStatikWord password;
+extern ListStatikWord bio;
+extern ListStatikWord phone;
+extern ListStatikWord Weton;
+extern ListStatik JenisAkun;
+extern Matrix profile;
+extern AdjMatrix matPertemanan;
+extern int addFriendCounter;
+extern Matrix matTambahTeman;
 
 //Config Kicauan
-int jumlah_kicau;
-ListKicau ListKicauan;
-
+extern int jumlah_kicau;
+extern ListKicau list_kicau;
 
 //Config Balesan
-int jumlah_balasan;
-ListDin id_kicau;
+extern int jumlah_balasan;
+extern ListDin id_kicau;
 //Tree untuk Balasan
 
 //Config Draf
-int jumlah_Draf;
-//List Stack yang isinya 2 word ama dateTime
+extern int jumlah_Draf;
+ //List Stack yang isinya 2 word ama dateTime
 
 //Config Utas
-int jumlah_utas;
+extern int jumlah_utas;
 // Typedef yang berisi id Utas, dan linked Listnya

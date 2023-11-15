@@ -1,9 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "pengguna.h"
-#include "ListStatikWord.c"
-#include "wordmachine.c"
-#include "charmachine.c"
 
 void daftar()
 {
@@ -85,8 +82,6 @@ void masuk()
 {
     boolean gada;
     gada = TRUE;
-    int panjang;
-    char a;
 
     do 
     {

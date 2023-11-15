@@ -1,8 +1,10 @@
 #ifndef __TEMAN
 #define __TEMAN
 
-#include "Database.h"
 #include "./adt/boolean.h"
+#include "./adt/adjacency_Matrix.h"
+#include "./adt/listStatikWord.h"
+#include "./adt/wordmachine.h"
 
 int jumlah_Teman(AdjMatrix m, int idx);
 

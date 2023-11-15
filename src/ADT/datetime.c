@@ -3,6 +3,9 @@
 #include <time.h>
 #include <math.h>
 
+
+extern time_t locTime;
+
 int GetMaxDay(int M, int Y){
     if(M == 1 || M == 3 || M == 5 || M == 7 || M == 8|| M ==10 || M == 12){
         return 31;
@@ -184,6 +187,7 @@ boolean IsDATETIMEValid(int D, int M, int Y, int h, int m, int s){
     {
         return 1;
     }
+    return 0;
 }
 
 void TulisDATETIME(DATETIME D){

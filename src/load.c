@@ -161,5 +161,3 @@ void LoadKicau(ListKicau* kicauList, char* filename) {
 
     fclose(file);
 }
-
-

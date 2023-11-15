@@ -16,6 +16,7 @@ typedef struct
    int Length;
 } Word;
 
+typedef Word WrdType;
 /* State Mesin Word */
 extern boolean EndWord;
 extern Word currentWord;

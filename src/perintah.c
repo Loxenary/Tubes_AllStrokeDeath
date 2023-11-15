@@ -1,10 +1,7 @@
 #include <stdio.h>
-#include "Database.h"
-#include "wordmachine.c"
-#include "boolean.h"
-#include "charmachine.c"
+#include "perintah.h"
 
-int main(){
+void perintah(){
     // definisi perintah
     char * Daftar = "DAFTAR";
     char * Masuk = "MASUK";
@@ -113,5 +110,4 @@ int main(){
         printf(">> ");
         STARTWORD();
     }
-    return 0;
 }

@@ -1,10 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "Database.h"
-#include "ListStatikWord.h"
-#include "wordmachine.h"
-#include "liststatik.h"
-#include "matrix.h"
+
+#include "database.h"
+#include "./adt/listStatikWord.h"
+#include "./adt/wordmachine.h"
+#include "./adt/liststatik.h"
+#include "./adt/matrix.h"
+
+
+//KURANG PENJELASAN
 
 void daftar();
 

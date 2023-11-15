@@ -16,7 +16,7 @@
 /* Indeks tak terdefinisi*/
 
 /* Definisi elemen dan koleksi objek */
-typedef Word WrdType; /* type elemen list */
+
 typedef int IdxType;
 typedef struct
 {
