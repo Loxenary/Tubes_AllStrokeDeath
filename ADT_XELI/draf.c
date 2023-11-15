@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include "draf.h"
+#include "kicau.h"
 
 void buatDraf(WrdType nama)
 {
@@ -42,7 +43,7 @@ void buatDraf(WrdType nama)
     }
     else if(fungsi.TabWord[0] == 'T')
     {
-        kicau;
+        
     }
     else
     {
@@ -129,7 +130,7 @@ int lihatDraf(WrdType nama)
         }
         else if(fungsi.TabWord[0] == 'T')
         {
-            kicau;
+            InsertNewLastKicau(&list_kicau, currentWord);
             return 0;
         }
         else
@@ -140,7 +141,7 @@ int lihatDraf(WrdType nama)
     }
     else
     {
-        kicau;
+        InsertNewLastKicau(&list_kicau, worddraf);
         return 0;
     }
 }

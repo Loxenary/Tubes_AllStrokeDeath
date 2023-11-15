@@ -6,16 +6,16 @@
 #include "boolean.h"
 
 /* Ukuran maksimum baris dan kolom */
-#define ROW_CAP 5
-#define COL_CAP 10
+#define ROW_CAP_MCHAR 5
+#define COL_CAP_MCHAR 10
 
 typedef int IndexMChar; /* Index baris, kolom */
 typedef char IsianMChar;
 typedef struct
 {
-   IsianMChar mem[ROW_CAP][COL_CAP];
-   int rowEf; /* banyaknya/ukuran baris yg terdefinisi */
-   int colEf; /* banyaknya/ukuran kolom yg terdefinisi */
+   IsianMChar mem[ROW_CAP_MCHAR][COL_CAP_MCHAR];
+   int rowEfMChar; /* banyaknya/ukuran baris yg terdefinisi */
+   int colEfMChar; /* banyaknya/ukuran kolom yg terdefinisi */
 } MatrixChar;
 /* rowEff >= 1 dan colEff >= 1 */
 /* Indeks matriks yang digunakan: [0..ROW_CAP-1][0..COL_CAP-1] */

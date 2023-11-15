@@ -1,16 +1,8 @@
 #ifndef KICAU_H
 #define KICAU_H
-#include "Database.h"
 
-typedef struct  UNode* UAddress;
-typedef struct RootUtas{
-    UAddress Utas;
-}UNode;
-
-typedef struct BNode * BAddress;
-typedef struct RootBalasan{
-    BAddress balasan;
-}BNode;
+#include "teman.h"
+#include "listutas.h"
 
 typedef struct Kicau
 {
@@ -19,14 +11,13 @@ typedef struct Kicau
     int Likes;
     Word Auth;
     DATETIME dates;
-    UAddress next_Address;
-    BAddress next_Balasan;
-}kicauan;
+    ListUtas next_Utas;
+    // BAddress next_Balasan;
+} kicauan;
 
-typedef struct ListKicau
+typedef struct List_Kicau
 {
-    int maxId;
-    kicauan * kicau;
+    kicauan* kicau;
     int nEff;
     int capacity;
 }ListKicau;
@@ -38,23 +29,32 @@ typedef struct ListKicau
 #define KDATE(k) (k)->dates
 #define KTEXT(k) (k)->Text
 #define KID(k) (k)->id
-#define KLIKE(k) (k)->likes
+#define KLIKE(k) (k)->Likes
 
 //List Kicau
 #define KBUFFER(l) (l).kicau
 #define KELMT(l,i) (l).kicau[(i)]
-#define KCAPACITY(l) (l).capacity
+#define KCAPACITY(l) (l)->capacity
 #define KNEFF(l) (l).nEff
 
-void CreateEmptyKicau(kicauan * k);
+void CreateListKicau(ListKicau *l, int Capacity);
 
-void CreateEmptyListKicau(ListKicau * l);
+void inputKicau(ListKicau l);
 
-void inputKicau(kicauan *k);
+void sukaKicauan(int idKicau, ListKicau l);
 
-void sukaKicauan(kicauan *k, int idKicau);
+void InsertNewLastKicau(ListKicau *l, Word Word);
 
-void insertFirstKicau(kicauan * kicau);
+kicauan CreateDefinedKicau(Word author, Word text, int Likes, DATETIME dates, int id);
 
-void insertAtKicau(kicauan * kicau, int idx);
+void printDataKicauan(kicauan k);
+
+
+void InsertDeclaredLastKicau(ListKicau *l, kicauan kicau);
+
+void ubah_kicauan(int idKicau, ListKicau l);
+
+void DisplayKicauan(ListKicau l);
+
+
 #endif
