@@ -12,5 +12,4 @@ void lihatDraf(WrdType nama);
 /*  berfungsi memanggil draf yang sudah pernah dibuat paling baru.
     jika kosong, maka akan ada output peringatan*/
 
-
 #endif

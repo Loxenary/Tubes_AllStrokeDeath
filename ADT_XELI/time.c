@@ -22,7 +22,7 @@ void BacaTIME (TIME * T)
     int H, M, S;
     scanf("%d %d %d", &H, &M, &S);
 
-    while (IsTIMEValid(H, M, S) == false)
+    while (IsTIMEValid(H, M, S) == FALSE)
     {
         printf("Jam tidak valid\n");
         scanf("%d %d %d", &H, &M, &S);

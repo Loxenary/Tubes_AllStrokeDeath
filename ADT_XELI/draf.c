@@ -42,11 +42,10 @@ void buatDraf(WrdType nama)
     }
     else if(fungsi.TabWord[0] == 'T')
     {
-        cuit;
+        kicau;
     }
     else
     {
-        overwriteDraf(&draf, index);
         printf("Draf telah berhasil dihapus!\n");
     }
 }
@@ -80,6 +79,6 @@ void lihatDraf(WrdType nama)
         printf("Ini draf terakhir anda:\n");
         printf("| %d/%d/%d %d:%d:%d", local_time->tm_hour, local_time->tm_min, local_time->tm_sec, local_time->tm_mday, local_time->tm_mon + 1, local_time->tm_year + 1900);
         printf("| ");
-        
+        printWord(draf.contents[index]);
     }
 }

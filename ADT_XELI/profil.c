@@ -53,7 +53,7 @@ void gantiProfil(WrdType nama)
 
     while (cek)
     {
-        cek = FALSE;
+        cek = TRUE;
         START();
         int len = 0;
         while (currentChar != BLANK && currentChar != ';')
@@ -78,33 +78,41 @@ void gantiProfil(WrdType nama)
         if (cek)
         {
             SELMT(phone, index) = currentWord;
+            cek = FALSE;
         }
         else
         {
-            printf("");
+            printf("No HP tidak valid. Masukkan lagi yuk!");
+            cek = TRUE;
         }
     }
     
-
-
     printf("\nMasukkan Weton:\n");
 
-    START();
-    while (currentChar != BLANK && currentChar != ';')
+    while (cek)
     {
-        currentChar -= '0';
-        if (currentChar == 'a')
-        {
-            currentWord.TabWord[i] = (char)currentChar;
+        cek = TRUE;
+        START();
+        int len = 0;
+        while (currentChar != BLANK && currentChar != ';')
+        {    
+            currentWord.TabWord[i] = currentChar;
             ADV();
-            i++;
+            len++;
+        }
+
+        if (cekWeton(currentWord) || len == 0)
+        {
+            SELMT(Weton, index) = currentWord;
+            cek = FALSE;
         }
         else
         {
-            cek = FALSE;
+            printf("Weton anda tidak valid.");
         }
-        
     }
+
+    printf("Profil Anda sudah berhasil diperbarui!");
 }
 
 void lihatProfil(WrdType nama)
