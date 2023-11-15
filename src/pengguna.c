@@ -4,12 +4,13 @@
 #include "ListStatikWord.c"
 #include "wordmachine.c"
 #include "charmachine.c"
+#include "liststatikmatrixchar.c"
 
 void daftar()
 {
     /*Kamus Lokal*/
     boolean dipake = FALSE;
-
+    MatrixChar m;
     /*Algoritma*/
     do 
     {
@@ -62,21 +63,8 @@ void daftar()
     SwinsertAt(&phone,emptyword,idx);
     SwinsertAt(&Weton,emptyword,idx);
     insertAt(&JenisAkun,0,idx);
-
-    for (int i = 0; i <= 4; i++)
-    {
-        for (int j = 0; j <= 4; j++)
-        {
-            if ((i + j)%2 == 0)
-            {
-                MELMT(profile, i, j) = 'R';
-            }
-            else
-            {
-                MELMT(profile, i, j) = '*';
-            }
-        }
-    }
+    createMatrixProfileDefault(&m);
+    overwriteMatrixChar(&profile,m,idx);
 
     printf("\nPengguna telah berhasil terdaftar. Masuk untuk menikmati fitur-fitur BurBir.\n\n");
 }
@@ -141,12 +129,12 @@ void masuk()
     printf(". Mari menjelajahi BurBir bersama Ande-Ande Lumut!\n\n");
 }
 
-void keluar(boolean *isLogin)
+void keluar()
 {
     if (isLogin)
     {
         printf("Anda berhasil logout. Sampai jumpa di pertemuan berikutnya!\n\n");
-        *isLogin = FALSE;
+        isLogin = FALSE;
     }
     else
     {
