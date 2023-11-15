@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "listStatikWord.h"
 
+WrdType STATICMARK = {"",-1};
+
 void SwCreateListStatik(ListStatikWord *l){
     int i;
     for(i=0;i<SCAPACITY;i++){

@@ -11,8 +11,8 @@
 # ADTSOURCE = $(wildcard $(SRC_DIR)/adt/*.c)
 
 # MAIN_OBJECTS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(MAIN_SOURCES))
-# ADT_OBJECTS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(ADTSOURCE))
-
+# ADT_OBJECTS = $(patsubst $(SRC_DIR)/adt/%.c, $(BUILD_DIR)/%.o, $(ADTSOURCE))
+# MAIN_FILE_OBJECTS = $(patsubst $(MAIN_FILE))
 # all: $(TARGET)
 
 # $(TARGET): $(ADT_OBJECTS) $(MAIN_OBJECTS)
@@ -26,14 +26,13 @@
 # 	mkdir -p $(dir $@)
 # 	$(CC) $(CFLAGS) -c -o $@ $<
 
-# $(BUILD_DIR)/main.o: $(MAIN_FILE)
+# $(BUILD_DIR): $(MAIN_FILE)
 # 	mkdir -p $(dir $@)
 # 	$(CC) $(CFLAGS) -c -o $@ $<
 
-# .PHONY: all clean
 
-# clean:
-# 	rm -rf $(BUILD_DIR)/*.o $(TARGET)
+.PHONY: all clean
+
 
 SRC_DIR = src
 ADT_DIR = $(SRC_DIR)/adt
@@ -45,3 +44,6 @@ ADT_SOURCES = $(wildcard $(ADT_DIR)/*.c)
 run: 
 	gcc $(ADT_SOURCES) $(MAIN_SOURCES) main.c -o main 
 		./main
+
+clean:
+	rm -rf main.o 
