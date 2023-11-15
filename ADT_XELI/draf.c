@@ -58,7 +58,7 @@ int lihatDraf(WrdType nama)
     time(&rawtime);
     local_time = localtime(&rawtime);
 
-    Word currentWord, fungsi, worddraf, waktudraf;
+    Word currentWord, fungsi, worddraf, waktudraf, drafbaru;
     char currentChar;
     int index, i = 0;
     if (SwindexOf(dataNama, nama) != IDX_UNDEF)
@@ -76,16 +76,71 @@ int lihatDraf(WrdType nama)
     else
     {
         Pop(&s, &worddraf);
-        Pop(&s, &waktudraf);
+        Pop(&stime, &waktudraf);
         printf("Ini draf terakhir anda:\n");
         printf("| %d/%d/%d %d:%d:%d", local_time->tm_hour, local_time->tm_min, local_time->tm_sec, local_time->tm_mday, local_time->tm_mon + 1, local_time->tm_year + 1900);
         printf("| ");
-        Word drater;
-        Pop(&s, &drater); 
-        printWord(drater);
+        printWord(worddraf);
     }
 
     printf("Apakah anda ingin mengubah, menghapus, atau menerbitkan draf ini? (KEMBALI jika ingin kembali)\n");
+    i = 0;
     START();
-    
+    while (currentChar != MARK)
+    {
+        currentWord.TabWord[i] = currentChar;
+        ADV();
+        i++;
+    }
+
+    if (currentWord.TabWord[0] == 'K' || currentWord.TabWord[0] == 'H')
+    {
+        return 0;
+    }
+    else if (currentWord.TabWord[0] == 'U')
+    {
+        printf("Masukkan draf yang baru:\n");
+        i = 0;
+        START();
+        while (currentChar != ';' || i <= 280)
+        {
+            drafbaru.TabWord[i] = currentChar;
+            ADV();
+            i++;
+        }
+
+        printf("\nApakah anda ingin menghapus, menyimpan, atau menerbitkan draf ini?\n");
+        START();
+        i = 0;
+        while (currentChar != MARK)
+        {
+            fungsi.TabWord[i] = currentChar;
+            ADV();
+            i++;
+        }
+
+        if (fungsi.TabWord[0] == 'S')
+        {
+            Push(&s, currentWord);
+            Push(&stime, datetime);
+            overwriteDraf(&draf, index, s, stime);
+            printf("Draf telah berhasil disimpan!\n");
+            return 0;
+        }
+        else if(fungsi.TabWord[0] == 'T')
+        {
+            kicau;
+            return 0;
+        }
+        else
+        {
+            printf("Draf telah berhasil dihapus!\n");
+            return 0;
+        }
+    }
+    else
+    {
+        kicau;
+        return 0;
+    }
 }
