@@ -130,3 +130,21 @@ Word MultipleInput() {
     }
     return temp;
 }
+
+void CopyWordWithSpace() 
+{
+    int i = 0;
+    while(currentChar != MARK){
+        if(currentChar != '\n'){
+            currentWord.TabWord[i] = currentChar;
+            i++;
+        }
+        ADV();
+    }
+    if(i > NMax){
+        currentWord.Length = NMax;
+    }
+    else{
+        currentWord.Length = i;
+    }
+}

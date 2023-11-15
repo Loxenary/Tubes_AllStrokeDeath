@@ -55,4 +55,8 @@ boolean isWordEqual(Word w1, Word w2);
 boolean isWordEqualString(Word w1, char * s1);
 
 Word MultipleInput();
+/*Mengakuisisi kata hingga ditemukan MARK tanpa skip apapun kecuali blank di awal*/
+
+void CopyWordWithSpace();
+/*Mengakuisisi kata tanpa menskip spasi*/
 #endif
