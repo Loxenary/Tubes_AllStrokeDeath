@@ -1,14 +1,13 @@
-/* File: wordmachine.h */
-/* Definisi Mesin Word: Model Akuisisi Versi I */
+#ifndef __MESINKATA_H__
+#define __MESINKATA_H__
 
-#ifndef __WORDMACHINE_H__
-#define __WORDMACHINE_H__
-
-#include "boolean.h"
 #include "charmachine.h"
+#include "datetime.h"
 
-#define NMax 280
+#define NMax 10000
 #define BLANK ' '
+#define ENTER '\n'
+#define MARK '.'
 
 typedef struct
 {
@@ -17,51 +16,83 @@ typedef struct
 } Word;
 
 typedef Word WrdType;
+
 /* State Mesin Word */
-extern boolean EndWord;
 extern Word currentWord;
+static boolean EndWord;
 
 void IgnoreBlanks();
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : currentChar sembarang
-   F.S. : currentChar ≠ BLANK atau currentChar = MARK */
+   F.S. : currentChar ≠ BLANK */
+
+void IgnoreEnters();
+/* Mengabaikan satu atau beberapa ENTER
+   I.S. : currentChar sembarang
+   F.S. : currentChar != BLANK */
 
 void STARTWORD();
 /* I.S. : currentChar sembarang
-   F.S. : EndWord = true, dan currentChar = MARK;
-          atau EndWord = false, currentWord adalah kata yang sudah diakuisisi,
-          currentChar karakter pertama sesudah karakter terakhir kata */
-void STARTFile();
+   F.S. : retval = EOF dan mesin berhenti;
+          atau retval != EOF, currentWord adalah kata yang sudah diakuisisi,
+          currentChar karakter pertama sesudah kata terakhir kata */
+
+void STARTFILEWORD();
+/* I.S. : currentChar sembarang
+   F.S. : retval = EOF dan mesin berhenti;
+          atau retval != EOF, currentWord adalah kata yang sudah diakuisisi,
+          currentChar karakter pertama sesudah kata terakhir kata */
 
 void ADVWORD();
 /* I.S. : currentChar adalah karakter pertama kata yang akan diakuisisi
    F.S. : currentWord adalah kata terakhir yang sudah diakuisisi,
-          currentChar adalah karakter pertama dari kata berikutnya, mungkin MARK
-          Jika currentChar = MARK, EndWord = true.
-   Proses : Akuisisi kata menggunakan procedure SalinWord */
+          currentChar adalah karakter pertama dari kata berikutnya, retval mungkin EOF
+          Jika retval = EOF, mesin berhenti.
+   Proses : Akuisisi kata menggunakan procedure CopyWord */
+
+void ADVLINE();
+/* I.S. : currentChar adalah karakter pertama baris yang akan diakuisisi
+   F.S. : currentWord adalah kumpulan kata pada baris terakhir yang sudah diakuisisi,
+          currentChar adalah karakter pertama dari kata berikutnya, retval mungkin EOF
+          Jika retval = EOF, mesin berhenti.
+   Proses : Akuisisi kata menggunakan procedure CopyLine */
 
 void CopyWord();
 /* Mengakuisisi kata, menyimpan dalam currentWord
    I.S. : currentChar adalah karakter pertama dari kata
    F.S. : currentWord berisi kata yang sudah diakuisisi;
-          currentChar = BLANK atau currentChar = MARK;
+          currentChar = ENTER, currentChar = BLANK, atau retval = EOF;
           currentChar adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
-void printWord(Word word);
-/* Menampilkan ke layar suatu Word*/
+
+void CopyLine();
+/* Mengakuisisi kata, menyimpan dalam currentWord
+   I.S. : currentChar adalah karakter pertama dari kata
+   F.S. : currentWord berisi kumpulan kata pada baris yang sudah diakuisisi;
+          currentChar = ENTER atau retval = EOF;
+          currentChar adalah karakter sesudah karakter terakhir yang diakuisisi.
+          Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
+
+void PrintWord();
+/* I.S. : currentWord terdefinisi
+   F.S. : currentWord tercetak pada layar */
+
+boolean IsWordEqual(Word w1, Word w2);
+/* Mengecek apakah w1 sama dengan w2 */
+
+boolean isInt(Word w);
+
+int WordToInt(Word w);
+/* Mengubah array char integer ('0', '1', '2', dst.) menjadi integer */
+
+Word StringToWord(char* string, int size);
+/*  Mengubah array of char (string) menjadi word */
 
 boolean isWordEqual(Word w1, Word w2);
-/*Melakukan Check apakah dua Word memiliki isi yang sama*/
 
-boolean isWordEqualString(Word w1, char * s1);
+DATETIME WordToDateTime(Word w);
 
-Word MultipleInput();
-/*Mengakuisisi kata hingga ditemukan MARK tanpa skip apapun kecuali blank di awal*/
+// concat word
+Word ConcatWord(Word w1, Word w2);
 
-void CopyWordWithSpace();
-/*Mengakuisisi kata tanpa menskip spasi*/
-
-
-int toInt(Word nums);
-/*from Word to integer*/
 #endif
