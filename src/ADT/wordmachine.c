@@ -23,7 +23,37 @@ void STARTWORD(){ // Initialize the word
     }
 }
 
-void ADVWORD(){
+void ADVLINE() {
+    IgnoreBlanks();
+    if (currentChar == ENTER) {
+        EndWord = TRUE;
+    } else {
+        CopyLine();
+    }
+}
+
+void STARTFILEWORD(char* dir)  // tadi diubah
+/* I.S. : currentChar sembarang
+   F.S. : retval = EOF dan mesin berhenti;
+          atau retval != EOF, currentWord adalah kata yang sudah diakuisisi,
+          currentChar karakter pertama sesudah kata terakhir kata */
+{
+    STARTFILE(dir);
+    IgnoreBlanks();
+    EndWord = FALSE;
+    if (currentChar == MARK)
+    {
+        EndWord = TRUE;
+    }
+    else
+    {
+        EndWord = FALSE;
+        CopyWord();
+    }
+}
+
+void ADVWORD()
+{
     IgnoreBlanks();
     if(currentChar == MARK){
         EndWord = 1;
@@ -35,13 +65,12 @@ void ADVWORD(){
 }
 void CopyWord(){
     int i = 0;
-    while(currentChar != MARK && currentChar != BLANK && currentChar != '\n'){
-        if(currentChar != '\n'){
-            currentWord.TabWord[i] = currentChar;
-            i++;
-        }
-        ADV();
-    }
+   while ((currentChar != ENTER) && (currentChar != BLANK) && (currentChar != MARK))
+   {
+      currentWord.TabWord[i] = currentChar;
+      ADV();
+      i++;
+   }
     if(i > NMax){
         currentWord.Length = NMax;
     }
@@ -55,6 +84,19 @@ void printWord(Word word) {
       printf("%c", word.TabWord[i]);
    }
 }
+
+void CopyLine() {
+      int i = 0;
+      while ((currentChar != ENTER && currentChar != MARK)) {
+         if (i == NMax)
+               break;
+         currentWord.TabWord[i] = currentChar;
+         ADV();
+         i++;
+      }
+      currentWord.Length = i;
+}
+
 
 boolean isWordEqual(Word w1, Word w2){
     int i;
@@ -82,31 +124,6 @@ boolean isWordEqualString(Word w1, char * s1){
    }
    return TRUE;
 }
-
-// Word CombineWord(Word w1, Word w2){
-//     Word temp;
-//     if(w1.Length == 0){
-//         return w2;
-//     }
-//     else if(w2.Length == 0){
-//         return w1;
-//     }
-//     else{
-//         int i;
-//         for(i = 0; i < w1.Length; i++){
-//             temp.Length = w1.Length;
-//             temp.TabWord[i] = w1.TabWord[i];
-//         }
-//         temp.TabWord[temp.Length] = ' ';
-//         temp.Length++;
-//         int k = temp.Length;
-//         for(i = 0; i < w2.Length; i++){
-//             temp.Length = temp.Length + w2.Length;
-//             temp.TabWord[i+k] = w2.TabWord[i];
-//         }
-//     }
-//     return temp;
-// }
 
 Word MultipleInput() {
     Word temp;
@@ -156,9 +173,73 @@ int toInt(Word nums){
     int  temp = 0;
     // algoritma
     for(int i = 0; i < nums.Length; i++){
-        temp *= 10;
-        temp += nums.TabWord[i] - 48;
+        if(nums.TabWord[i] != '\n' || nums.TabWord[i] != BLANK){
+            temp *= 10;
+            temp += nums.TabWord[i] - 48;
+            printf("%c\n",nums.TabWord[i]);
+        }
     }
     return temp;
 
 }
+
+void IgnoreLines(){
+    while (currentChar == '\n')
+    {
+        ADV();
+    }
+}
+
+void IgnoreEnters()
+/* Mengabaikan satu atau beberapa ENTER
+   I.S. : currentChar sembarang
+   F.S. : currentChar ≠ ENTER, currentChar = MARK, atau currentChar = BLANK */
+{
+    while (currentChar == ENTER)
+    {
+        ADV();
+    }
+}
+
+
+Word StringToWord(char* string, int size)
+/*  Mengubah array of char (string) menjadi word */
+{
+   Word w;
+   w.Length = size;
+
+   for (int i = 0; i < size; i++)
+      w.TabWord[i] = string[i];
+
+   return w;
+}
+
+DATETIME WordToDateTime(Word w) {
+    DATETIME result;
+    int day, month, year, hour, minute, second;
+    
+    sscanf(w.TabWord, "%d/%d/%d %d:%d:%d", &day, &month, &year, &hour, &minute, &second);
+
+    CreateDATETIME(&result, day, month, year, hour, minute, second);
+
+    return result;
+}
+
+// concat word
+Word ConcatWord(Word w1, Word w2) {
+    Word result;
+    result.Length = w1.Length + w2.Length;
+    int i;
+    for (i = 0; i < w1.Length; i++) {
+        result.TabWord[i] = w1.TabWord[i];
+    }
+    for (i = 0; i < w2.Length; i++) {
+        result.TabWord[i + w1.Length] = w2.TabWord[i];
+    }
+    return result;
+}
+
+DATETIME WordToDateTime(Word w);
+
+// concat word
+Word ConcatWord(Word w1, Word w2);

@@ -25,7 +25,7 @@ void CreateRootUtas(int idKicau){
             printf("Masukkan kicauan:\n");
             
             // inisialisasi linked list
-            utas_utama = kicau_utama.next_Utas;
+            utas_utama = kicau_utama.next_utas;
             CreateUtas(&utas_utama);
             
             // input kicauan utas

@@ -11,7 +11,7 @@ typedef struct Kicau
     int Likes;
     Word Auth;
     DATETIME dates;
-    ListUtas next_Utas;
+    ListUtas next_utas;
     // BAddress next_Balasan;
 } kicauan;
 

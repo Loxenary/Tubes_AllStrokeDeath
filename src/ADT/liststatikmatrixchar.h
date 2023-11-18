@@ -5,7 +5,7 @@
 #include "matrixchar.h"
 
 /*  Kamus Umum */
-#define CAPACITY 20
+#define MXCAPACITY 20
 /* Kapasitas penyimpanan */
 #define IDX_MIN 0
 /* Indeks minimum list */
@@ -16,7 +16,7 @@
 typedef MatrixChar Isianmatrix;  /* type elemen List */
 typedef int IdxType;
 typedef struct {
-   Isianmatrix contents[CAPACITY]; /* memori tempat penyimpan elemen (container) */
+   Isianmatrix contents[MXCAPACITY]; /* memori tempat penyimpan elemen (container) */
 } ListStatikMatrix;
 /* Indeks yang digunakan [0..CAPACITY-1] */
 /* Jika l adalah ListStatik, cara deklarasi dan akses: */

@@ -17,7 +17,6 @@
 #define IDX_UNDEF -1
 /* Indeks tak terdefinisi*/
 
-
 /* Nilai elemen tak terdefinisi*/
 
 /* Definisi elemen dan koleksi objek */

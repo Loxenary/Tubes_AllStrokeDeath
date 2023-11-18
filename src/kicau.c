@@ -89,7 +89,6 @@ void InsertNewLastKicau(ListKicau *l, Word Word)
     KTEXT(&temp) = Word;
     KNEFF(*l)++;
     KELMT(*l,NEFF(*l)-1) = temp;
-
 }
 
 kicauan CreateDefinedKicau(Word author, Word text, int Likes, DATETIME dates, int id)

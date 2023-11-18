@@ -1,49 +1,27 @@
-# CC = gcc
-# CFLAGS = -Wall -Werror -std=c11
-
-# SRC_DIR = src
-# BUILD_DIR = build
-# BIN_DIR = bin
-# TARGET = $(BIN_DIR)/birbir
-
-# MAIN_FILE = main.c
-# MAIN_SOURCES = $(wildcard $(SRC_DIR)/*.c)
-# ADTSOURCE = $(wildcard $(SRC_DIR)/adt/*.c)
-
-# MAIN_OBJECTS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(MAIN_SOURCES))
-# ADT_OBJECTS = $(patsubst $(SRC_DIR)/adt/%.c, $(BUILD_DIR)/%.o, $(ADTSOURCE))
-# MAIN_FILE_OBJECTS = $(patsubst $(MAIN_FILE))
-# all: $(TARGET)
-
-# $(TARGET): $(ADT_OBJECTS) $(MAIN_OBJECTS)
-# 	$(CC) $(CFLAGS) -o $@ $^
-
-# $(BUILD_DIR)/%.o: $(SRC_DIR)/adt/%.c
-# 	mkdir -p $(dir $@)
-# 	$(CC) $(CFLAGS) -c -o $@ $<
-
-# $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
-# 	mkdir -p $(dir $@)
-# 	$(CC) $(CFLAGS) -c -o $@ $<
-
-# $(BUILD_DIR): $(MAIN_FILE)
-# 	mkdir -p $(dir $@)
-# 	$(CC) $(CFLAGS) -c -o $@ $<
-
-
-.PHONY: all clean
-
+.PHONY: all clean run
 
 SRC_DIR = src
 ADT_DIR = $(SRC_DIR)/adt
+TEST_DIR = tests
 
 MAIN_SOURCES = $(wildcard $(SRC_DIR)/*.c)
-ADT_SOURCES = $(wildcard $(ADT_DIR)/*.c) 
+ADT_SOURCES = $(wildcard $(ADT_DIR)/*.c)
+TEST_SOURCES = $(wildcard $(TEST_DIR)/*.c)
 
+run: main
+	./main
 
-run: 
-	gcc $(ADT_SOURCES) $(MAIN_SOURCES) main.c -o main 
-		./main
+main: main.o $(ADT_SOURCES) $(MAIN_SOURCES)
+	gcc -Wall -std=c11 $^ -o $@
+
+main.o: main.c
+	gcc -Wall -std=c11 -c $< -o $@
+
+test: Driver_AdjMatrix
+
+Driver_AdjMatrix: $(TEST_DIR)/Driver_AdjMatrix.c $(ADT_SOURCES) $(MAIN_SOURCES)
+	gcc -Wall -std=c11 $^ -o $@
+	./$@
 
 clean:
-	rm -rf main.o 
+	rm -rf main main.o Driver_AdjMatrix

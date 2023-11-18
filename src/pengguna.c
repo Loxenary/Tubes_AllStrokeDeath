@@ -6,7 +6,7 @@ void daftar()
 {
     /*Kamus Lokal*/
     boolean dipake = FALSE;
-
+    MatrixChar m;
     /*Algoritma*/
     do 
     {
@@ -30,16 +30,16 @@ void daftar()
         }
     } while(dipake);
     
-    Word daftar_nama;
-
     printf("\n");
 
-    dipake = FALSE; /*buat loop yang sandi*/
-    do 
+    dipake = TRUE; /*buat loop yang sandi*/
+    while (dipake)
     {
         printf("Masukkan kata sandi:\n");
         START();
         CopyWordWithSpace();
+        printWord(currentWord);
+        // Word test=  MultipleInput();
         if (currentWord.Length > 20)
         {
             dipake = TRUE;
@@ -50,30 +50,17 @@ void daftar()
             dipake = FALSE;
             SwinsertLast(&password,currentWord);
         }
-    } while(dipake);
+    }
 
-    int idx = SwindexOf(dataNama,daftar_nama);
+    int idx = current_id+1;
     Word emptyword = {"",0};
 
     SwinsertAt(&bio,emptyword,idx);
     SwinsertAt(&phone,emptyword,idx);
     SwinsertAt(&Weton,emptyword,idx);
     insertAt(&JenisAkun,0,idx);
-
-    for (int i = 0; i <= 4; i++)
-    {
-        for (int j = 0; j <= 4; j++)
-        {
-            if ((i + j)%2 == 0)
-            {
-                MELMT(profile, i, j) = 'R';
-            }
-            else
-            {
-                MELMT(profile, i, j) = '*';
-            }
-        }
-    }
+    MatrixProfileDefault(&m);
+    overwriteMatrixChar(&profil,m,idx);
 
     printf("\nPengguna telah berhasil terdaftar. Masuk untuk menikmati fitur-fitur BurBir.\n\n");
 }
@@ -82,7 +69,6 @@ void masuk()
 {
     boolean gada;
     gada = TRUE;
-
     do 
     {
         printf("Masukkan nama:\n");
@@ -136,15 +122,8 @@ void masuk()
     printf(". Mari menjelajahi BurBir bersama Ande-Ande Lumut!\n\n");
 }
 
-void keluar(boolean *isLogin)
+void keluar()
 {
-    if (isLogin)
-    {
-        printf("Anda berhasil logout. Sampai jumpa di pertemuan berikutnya!\n\n");
-        *isLogin = FALSE;
-    }
-    else
-    {
-        printf("Anda belum login! Masuk terlebih dahulu\n\n");
-    }
+    isLogin = FALSE;
+
 }

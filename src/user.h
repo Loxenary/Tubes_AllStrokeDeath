@@ -9,10 +9,10 @@
 #define MAX_BIO_LENGTH 135
 #define MAX_PHONE_LENGTH 20
 
-// Warna profil
-#define RED 'R'
-#define GREEN 'G'
-#define BLUE 'B'
+// // Warna profil
+// #define RED 'R'
+// #define GREEN 'G'
+// #define BLUE 'B'
 
 // Weton
 #define PAHING "Pahing"

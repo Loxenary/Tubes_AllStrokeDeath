@@ -58,9 +58,9 @@ boolean isHapus(Word w){
 }
 
 //Keperluan Debugging
-void Daftar_Teman(ListStatikWord dataTeman){
+void Daftar_Teman(AdjMatrix dataTeman){
     if(isLogin){
-        ListStatikWord friends = dataTeman;
+        ListStatikWord friends = ListTeman(dataTeman,current_id);
         int jumlahTeman = SwlistLength(friends);
         Word nama = SELMT(dataNama,current_id);
         if(jumlahTeman > 0){
@@ -119,9 +119,9 @@ void Daftar_Teman(ListStatikWord dataTeman){
 // }
 
 
-void Hapus_Teman(ListStatikWord* dataTeman){
-    ListStatikWord friends = *dataTeman;
-    
+void Hapus_Teman(AdjMatrix* dataTeman){
+    ListStatikWord friends = ListTeman(*dataTeman,current_id);
+
     printf("Masukkan nama pengguna :\n");
     STARTWORD();
     WrdType temp = currentWord;
@@ -138,7 +138,10 @@ void Hapus_Teman(ListStatikWord* dataTeman){
             printf("Bukan teman anda");
         }
         else{
-            SwdeleteVal(dataTeman,temp);
+            int idx = SwindexOf(dataNama,currentWord);
+            int i,j;
+            GELMT(dataTeman,current_id,idx) = 0;
+            GELMT(dataTeman,idx,current_id) = 0;
             printWord(temp);
             printf(" berhasil dihapus dari\n");
             printf("daftar teman anda \n");

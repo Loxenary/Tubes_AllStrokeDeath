@@ -6,9 +6,11 @@
 
 #include "boolean.h"
 #include "charmachine.h"
+#include "datetime.h"
 
 #define NMax 280
 #define BLANK ' '
+#define ENTER '\n'
 
 typedef struct
 {
@@ -21,24 +23,40 @@ typedef Word WrdType;
 extern boolean EndWord;
 extern Word currentWord;
 
+void STARTFILEWORD(char* dir);
+
+void IgnoreLines();
+
+void IgnoreEnters();
+
 void IgnoreBlanks();
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : currentChar sembarang
    F.S. : currentChar ≠ BLANK atau currentChar = MARK */
+
+void IgnoreEnters();
+/* Mengabaikan satu atau beberapa ENTER
+   I.S. : currentChar sembarang
+   F.S. : currentChar != BLANK */
+
+void ADVWORD();
 
 void STARTWORD();
 /* I.S. : currentChar sembarang
    F.S. : EndWord = true, dan currentChar = MARK;
           atau EndWord = false, currentWord adalah kata yang sudah diakuisisi,
           currentChar karakter pertama sesudah karakter terakhir kata */
-void STARTFile();
 
-void ADVWORD();
+
+
+
 /* I.S. : currentChar adalah karakter pertama kata yang akan diakuisisi
    F.S. : currentWord adalah kata terakhir yang sudah diakuisisi,
           currentChar adalah karakter pertama dari kata berikutnya, mungkin MARK
           Jika currentChar = MARK, EndWord = true.
    Proses : Akuisisi kata menggunakan procedure SalinWord */
+
+void CopyLine();
 
 void CopyWord();
 /* Mengakuisisi kata, menyimpan dalam currentWord
@@ -61,7 +79,18 @@ Word MultipleInput();
 void CopyWordWithSpace();
 /*Mengakuisisi kata tanpa menskip spasi*/
 
+//Membaca sejumlah x line
 
 int toInt(Word nums);
 /*from Word to integer*/
+
+Word StringToWord(char* string, int size);
+
+void ADVLINE();
+
+DATETIME WordToDateTime(Word w);
+
+// concat word
+Word ConcatWord(Word w1, Word w2);
+
 #endif

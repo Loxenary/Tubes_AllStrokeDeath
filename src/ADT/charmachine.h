@@ -1,4 +1,4 @@
-/* File: mesinkar.h */
+   /* File: mesinkar.h */
 /* Definisi Mesin Karakter */
 
 #ifndef __MESIN_KAR_H_
@@ -7,6 +7,7 @@
 #include "boolean.h"
 
 #define MARK ';'
+#define EOF (-1)
 /* State Mesin */
 extern char currentChar;
 extern boolean EOP;
@@ -18,6 +19,11 @@ void START();
    F.S. : currentChar adalah karakter pertama pada pita
           Jika currentChar != MARK maka EOP akan padam (false)
           Jika currentChar = MARK maka EOP akan menyala (true) */
+
+
+void STARTFILE(char* dir);
+/* Memulai suatu File config*/
+
 
 void ADV();
 /* Pita dimajukan satu karakter.

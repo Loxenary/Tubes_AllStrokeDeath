@@ -12,6 +12,21 @@
         "liststatikword.h": "c",
         "stdio.h": "c",
         "database.h": "c",
-        "teman.h": "c"
+        "teman.h": "c",
+        "pengguna.h": "c",
+        "profile.h": "c",
+        "perintah.h": "c",
+        "profil.h": "c",
+        "pcolor.h": "c",
+        "matrix.h": "c",
+        "charmachine.h": "c",
+        "penggunaconfigs.h": "c",
+        "loaduser.h": "c",
+        "liststatikmatrixchar.h": "c",
+        "utas.h": "c",
+        "inisialisasi.h": "c",
+        "loadbalasan.h": "c",
+        "loaddraf.h": "c",
+        "loadutas.h": "c"
     }
 }
