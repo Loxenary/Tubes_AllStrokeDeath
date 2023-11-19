@@ -213,6 +213,7 @@ Word StringToWord(char* string, int size)
 
    return w;
 }
+
 // concat word
 Word ConcatWord(Word w1, Word w2) {
     Word result;
