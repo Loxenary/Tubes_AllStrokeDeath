@@ -1,59 +1,50 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ListDinWord.h"
-#include "ListStatikWord.h"
-#include "liststatik.h"
+#include "listDinWord.h"
 #include "wordmachine.h"
-#include "charmachine.h"
-#include "boolean.h"
-#include "Adjacency_Matrix.h"
-#include "matrix.h"
-/*#include "listdin.h"*/
+#include "adjacency_Matrix.h"
+#include "listStatikWord.h"
 #include "stack.h"
-#include "queue.h"
-#include "teman.h"
+#include "listdin.h"
+#include "liststatik.h"
+#include "matrix.h"
 #include "liststatikstack.h"
-//#include "datetime.h"
-#include "Kicau.h"
-#include "liststatikmatrixchar.h"
+#include "kicau.h"
+
 
 // #include "matrix.h"
 
 //General
-int wrdCapacity;
+extern int wrdCapacity;
 
 //Config Pengguna
-int current_id;
-int banyak_pengguna;
-boolean isLogin;
-ListStatikWord dataNama;
-ListStatikWord password;
-ListStatikWord bio;
-ListStatikWord phone;
-ListStatikWord Weton;
-ListStatik JenisAkun;
-//Foto Profile
-ListStatikMatrix profil;
-
-AdjMatrix matPertemanan;
-int addFriendCounter;
-Matrix matTambahTeman;
+extern int current_id;
+extern int banyak_pengguna;
+extern boolean isLogin;
+extern ListStatikWord dataNama;
+extern ListStatikWord password;
+extern ListStatikWord bio;
+extern ListStatikWord phone;
+extern ListStatikWord Weton;
+extern ListStatik JenisAkun;
+extern Matrix profile;
+extern AdjMatrix matPertemanan;
+extern int addFriendCounter;
+extern Matrix matTambahTeman;
 
 //Config Kicauan
-int jumlah_kicau;
-//ListKicau list_kicau;
-
+extern int jumlah_kicau;
+extern ListKicau list_kicau;
 
 //Config Balesan
-int jumlah_balasan;
-//ListDin id_kicau;
+extern int jumlah_balasan;
+extern ListDin id_kicau;
 //Tree untuk Balasan
 
 //Config Draf
-int jumlah_Draf;
-ListStatikStack draf;
-//List Stack yang isinya 2 word ama dateTime
+extern int jumlah_Draf;
+extern ListStatikStack draf;
 
 //Config Utas
-int jumlah_utas;
+extern int jumlah_utas;
 // Typedef yang berisi id Utas, dan linked Listnya

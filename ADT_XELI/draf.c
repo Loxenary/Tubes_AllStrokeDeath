@@ -2,6 +2,8 @@
 #include <time.h>
 #include "draf.h"
 #include "kicau.h"
+#include "datetime.h"
+#include "database.h"
 
 void buatDraf(WrdType nama)
 {
@@ -122,8 +124,9 @@ int lihatDraf(WrdType nama)
 
         if (fungsi.TabWord[0] == 'S')
         {
+            DATETIME waktu = ExtractLocalTimes();
             Push(&s, currentWord);
-            Push(&stime, datetime);
+            Push(&stime, waktu);
             overwriteDraf(&draf, index, s, stime);
             printf("Draf telah berhasil disimpan!\n");
             return 0;

@@ -146,7 +146,7 @@ void lihatProfil(WrdType nama)
     {
         printf("Wah, akun ");
         printWord(SELMT(dataNama, index));
-        printf("diprivat nih. Ikuti dulu yuk untuk bisa melihat profil ");
+        printf(" diprivat nih. Ikuti dulu yuk untuk bisa melihat profil ");
         printWord(SELMT(dataNama, index));
         printf("!\n\n");
     }
