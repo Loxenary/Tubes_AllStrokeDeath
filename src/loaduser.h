@@ -32,7 +32,7 @@ typedef struct {
     int banyak_request;
     // array request pertemanan
 } UserData;
-typedef struct {
+typedef struct FriendshipReques{
     int senderID;
     int receiverID;
     int status;

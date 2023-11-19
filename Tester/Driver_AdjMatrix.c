@@ -1,10 +1,7 @@
 #include <stdio.h>
 
-#include "./src/adt/adjacency_Matrix.h"
-
-#include "./src/adt/wordmachine.c"
-#include "./src/adt/adjacency_Matrix.c"
-#include "./src/adt/charmachine.c"
+#include "../src/adt/adjacency_Matrix.h"
+#include "../src/adt/wordmachine.h"
 
 int main(){
     AdjMatrix m;
@@ -22,21 +19,38 @@ int main(){
     PrintAdjMatrix(m);
 
     printf("Test4 : Delete a connection of 1 and 2\n");
-    deleteEdge(&m,1,2);    
+    DeleteEdge(&m,1,2);    
     PrintAdjMatrix(m);
 
     printf("Test 5: input a Word into Adj Matrix per line\n");
-
     printf("New Matrix 4x4 \n");
     AdjMatrix m2;
     CreateAdjMatrix(&m2,4);
     PrintAdjMatrix(m2);
+
+    printf("Input:\n");
+    char* l1 = "1 0 1 0";
+    char* l2 = "0 1 0 0";
+    char* l3 = "1 0 1 0";
+    char* l4 = "0 0 0 1";
+    Word wl1,wl2,wl3,wl4;
+    wl1 = StringToWord(l1,8);
+   
+    wl2 = StringToWord(l2,8);
+    wl3 = StringToWord(l3,8);
+    wl4 = StringToWord(l4,8);
+    printf("This is as a word\n");
+    printWord(wl1); printf("\n");
+    printWord(wl2); printf("\n");
+    printWord(wl3); printf("\n");
+    printWord(wl4); printf("\n");
+    printf("Output:\n");
     int i;
-    for(i = 0; i < 4; i++){
-        STARTWORD();
-        printf("Line : %d\n",i+1);
-        WordToAdjMatrix(&m2, currentWord,i);
-        PrintAdjMatrix(m2);
-    }
+    WordToAdjMatrix(&m2,wl1,0);
+    WordToAdjMatrix(&m2,wl2,1);
+    WordToAdjMatrix(&m2,wl3,2);
+    WordToAdjMatrix(&m2,wl4,3);
+    PrintAdjMatrix(m2);
+
     return 0;
 }

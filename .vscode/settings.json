@@ -8,6 +8,7 @@
         "kicau.h": "c",
         "datetime.h": "c",
         "adjacency_matrix.h": "c",
+        "stack.h": "c",
         "listutas.h": "c",
         "liststatikword.h": "c",
         "stdio.h": "c",
@@ -27,6 +28,9 @@
         "inisialisasi.h": "c",
         "loadbalasan.h": "c",
         "loaddraf.h": "c",
-        "loadutas.h": "c"
+        "loadutas.h": "c",
+        "times.h": "c",
+        "draf.h": "c",
+        "liststatikstack.h": "c"
     }
 }

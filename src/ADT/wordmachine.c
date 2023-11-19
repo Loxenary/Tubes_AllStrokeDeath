@@ -87,7 +87,7 @@ void printWord(Word word) {
 
 void CopyLine() {
       int i = 0;
-      while ((currentChar != ENTER && currentChar != MARK)) {
+      while ((currentChar != ENTER) && (retval != EOF)) {
          if (i == NMax)
                break;
          currentWord.TabWord[i] = currentChar;
@@ -95,6 +95,7 @@ void CopyLine() {
          i++;
       }
       currentWord.Length = i;
+
 }
 
 
@@ -131,7 +132,7 @@ Word MultipleInput() {
     START();
     IgnoreBlanks();
 
-    while (currentChar != MARK && currentChar != ';' && !EOP) {
+    while (currentChar != MARK && currentChar != ';' ) {
         // Stop when reaching MARK, ;, or end of input
         if (currentChar != MARK) {
             temp.TabWord[i] = currentChar;
@@ -168,19 +169,18 @@ void CopyWordWithSpace()
 
 
 int toInt(Word nums){
-    // asumsi bahwa isi nums adalah angka semua dalam bentuk char
-    // kamus
-    int  temp = 0;
-    // algoritma
-    for(int i = 0; i < nums.Length; i++){
-        if(nums.TabWord[i] != '\n' || nums.TabWord[i] != BLANK){
-            temp *= 10;
-            temp += nums.TabWord[i] - 48;
-            printf("%c\n",nums.TabWord[i]);
-        }
+    int i, result = 0;
+    if(nums.TabWord[0] == '0' && nums.Length == 1){
+        return 0;
     }
-    return temp;
-
+    for (i = 0; i < nums.Length; i++)
+    {
+        if (nums.TabWord[i] >= '0' && nums.TabWord[i] <= '9')
+            result = result * 10 + (nums.TabWord[i] - '0');
+    }
+    if (nums.TabWord[0] == '-') // Jika negatif
+        result = result * -1;
+    return result;
 }
 
 void IgnoreLines(){
@@ -213,18 +213,6 @@ Word StringToWord(char* string, int size)
 
    return w;
 }
-
-DATETIME WordToDateTime(Word w) {
-    DATETIME result;
-    int day, month, year, hour, minute, second;
-    
-    sscanf(w.TabWord, "%d/%d/%d %d:%d:%d", &day, &month, &year, &hour, &minute, &second);
-
-    CreateDATETIME(&result, day, month, year, hour, minute, second);
-
-    return result;
-}
-
 // concat word
 Word ConcatWord(Word w1, Word w2) {
     Word result;
@@ -238,8 +226,6 @@ Word ConcatWord(Word w1, Word w2) {
     }
     return result;
 }
-
-DATETIME WordToDateTime(Word w);
 
 // concat word
 Word ConcatWord(Word w1, Word w2);

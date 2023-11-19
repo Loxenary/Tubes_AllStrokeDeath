@@ -9,11 +9,11 @@
 #include "./adt/liststatik.h"
 #include "./adt/matrix.h"
 #include "./adt/liststatikmatrixchar.h"
+#include "./adt/liststatikstack.h"
 #include "kicau.h"
 
 
 // #include "matrix.h"
-
 //General
 extern int wrdCapacity;
 
@@ -32,13 +32,10 @@ extern ListStatikMatrix profil;
 
 extern AdjMatrix matPertemanan;
 extern int addFriendCounter;
-extern Matrix matTambahTeman;
 
 //Config Kicauan
 extern int jumlah_kicau;
 extern ListKicau list_kicau;
-
-
 
 //Config Balesan
 extern int jumlah_balasan;
@@ -47,6 +44,7 @@ extern ListDin id_kicau;
 
 //Config Draf
 extern int jumlah_Draf;
+extern ListStatikStack draf;
  //List Stack yang isinya 2 word ama dateTime
 
 //Config Utas

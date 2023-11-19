@@ -1,3 +1,11 @@
-# Tubes_AllStrokeDeath
+# TUBES ALSTRUKDAT
 
-masih load user dan kicau, itu pun masih blm bener kyknya T_T
+## PERINTAH UNTUK RUN
+
+### make 
+> menjalankan program utama
+
+### make test
+> Menjalankan program test
+#### List Test yang ada
+- Adjoin Matriks

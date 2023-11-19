@@ -7,10 +7,10 @@
 #include "boolean.h"
 
 #define MARK ';'
-#define EOF (-1)
 /* State Mesin */
 extern char currentChar;
 extern boolean EOP;
+extern int retval;
 
 void START();
 /* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.

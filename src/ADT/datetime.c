@@ -1,6 +1,5 @@
 #include "datetime.h"
 #include <stdio.h>
-#include <time.h>
 #include <math.h>
 
 
@@ -252,4 +251,51 @@ DATETIME ExtractLocalTimes() {
     CreateDATETIME(&temps, day, month, year, hour, minute, second);
 
     return temps;
+}
+
+DATETIME WordToDatetime(Word w){
+    int i;
+    int counter = 0;
+    int Y,M,D,h,m,s;
+    int k = 0;
+    Word temps;
+    for(i = 0; i < w.Length; i++){
+        char a = w.TabWord[i];
+
+        if(a == '/' || a == BLANK || a == ':' || i == w.Length-1){
+            counter++;
+            temps.Length = k;
+            k = 0;
+            switch (counter)
+            {
+            case 1:
+                D = toInt(temps);
+                break;
+            case 2:
+                M = toInt(temps);
+                break;
+            case 3:
+                Y = toInt(temps);
+                break;
+            case 4:
+                h = toInt(temps);
+                break;
+            case 5: 
+                m = toInt(temps);
+                break;
+            case 6: 
+                s = toInt(temps);
+                break;
+            default:
+                break;
+            }
+        }
+        else{
+            temps.TabWord[k] = currentWord.TabWord[i];
+            k++;
+        }
+    }
+    DATETIME time;
+    CreateDATETIME(&time,D,M,Y,h,m,s);
+    return time;
 }

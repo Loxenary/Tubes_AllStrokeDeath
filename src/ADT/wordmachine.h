@@ -6,7 +6,6 @@
 
 #include "boolean.h"
 #include "charmachine.h"
-#include "datetime.h"
 
 #define NMax 280
 #define BLANK ' '
@@ -87,8 +86,6 @@ int toInt(Word nums);
 Word StringToWord(char* string, int size);
 
 void ADVLINE();
-
-DATETIME WordToDateTime(Word w);
 
 // concat word
 Word ConcatWord(Word w1, Word w2);

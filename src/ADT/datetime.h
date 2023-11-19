@@ -7,6 +7,8 @@
 
 #include "boolean.h"
 #include "times.h"
+#include "wordmachine.h"
+
 #include <time.h>
 
 
@@ -97,5 +99,8 @@ long int DATETIMEDurasi(DATETIME DAw, DATETIME DAkh);
 /* Prekondisi: DAkh > DAw */
 
 DATETIME ExtractLocalTimes();
+
+DATETIME WordToDatetime(Word w);
+
 
 #endif

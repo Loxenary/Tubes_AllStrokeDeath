@@ -74,12 +74,14 @@ void Daftar_Teman(AdjMatrix dataTeman){
             {
                 printf("| ");
                 printWord(SELMT(friends,i));
+                printf("\n");
             }   
         }
         else{
-            printf("AWKKWW");
+            printf("Awkwkkw ");
             printWord(nama);
-            printf("GAPUNYA TEMEN KASIHAN BEUT\n");
+            printf(" Gapunya teman aduh\n");
+            printf("kacian");
         }
     }
     else{

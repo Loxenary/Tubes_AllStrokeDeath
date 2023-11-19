@@ -19,6 +19,7 @@ int SwlistLength(ListStatikWord l){
         }
     }
     return hasil;
+
 }
 
 void SwdeleteVal(ListStatikWord * l, WrdType w){
