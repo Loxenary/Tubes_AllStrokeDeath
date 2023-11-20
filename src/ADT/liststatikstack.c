@@ -3,12 +3,15 @@
 void CreateListStatikstack(ListStatikStack *l)
 /*membuat list statik berisi stack yang kosong*/
 {
-    for (int i = 0; i < 20; i++)
+    int i;
+    for (i = 0; i < CAPACITY; i++)
     {
-        Stack empty;
-        CreateEmpty(&empty);
-        LSSELMT(*l, i) = empty;
-        LSSTELMT(*l, i) = empty;
+        Stack emptyText, emptyWaktu;
+        CreateEmpty(&emptyText);
+        CreateEmpty(&emptyWaktu);
+
+        LSSELMT(*l, i) = emptyText;
+        LSSTELMT(*l, i) = emptyWaktu;
     }
 }
 

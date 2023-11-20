@@ -371,8 +371,8 @@ void ReadDrafData(const char *filename, ListDraf *listDraf) {
 
     CreateListStatikstack(&draf);
     Isianstack _Auth_Temps;
+    Isianstack _Time_Temps;
     Word _Auth_Word;
-    Word _Text_Word;
     int _amount_Temps;
     int j;
     CreateEmpty(&_Auth_Temps);
@@ -385,6 +385,14 @@ void ReadDrafData(const char *filename, ListDraf *listDraf) {
         printWord(_Auth_Word);
         printf("\n");
         printf("%d\n",_amount_Temps);
+        for(j= 0; j < _amount_Temps; j++){
+            readLine();
+            Push(&_Auth_Temps,currentWord);
+            LSSELMT(draf,id) = _Auth_Temps;
+            readLine();
+            Push(&_Auth_Temps, currentWord);
+            LSSTELMT(draf,id) = _Time_Temps;
+        }
     }
     fclose(file);
 }
