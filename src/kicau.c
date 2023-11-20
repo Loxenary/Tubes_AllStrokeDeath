@@ -4,9 +4,9 @@
 
 void CreateListKicau(ListKicau *l, int Capacity)
 {
+    KCAPACITY(l) = Capacity;
     KBUFFER(*l) = (kicauan*)malloc(KCAPACITY(l)*sizeof(kicauan));
     KNEFF(*l) = 0;
-    KCAPACITY(l) = Capacity;
 }
 
 
@@ -30,8 +30,8 @@ void inputKicau(ListKicau l)
     
 }
 
-void DisplayKicauan(ListKicau l){
-    Word user =SELMT(dataNama,current_id);
+void DisplayKicauan(ListKicau l, int id){
+    Word user = SELMT(dataNama,id-1);
     int i;
     for(i = 0; i < KNEFF(l); i++){
         kicauan temp = KELMT(l,i);
@@ -104,7 +104,6 @@ kicauan CreateDefinedKicau(Word author, Word text, int Likes, DATETIME dates, in
 
 void InsertDeclaredLastKicau(ListKicau *l, kicauan kicau){
     KNEFF(*l)++;
-    jumlah_kicau++;
     KELMT(*l,NEFF(*l)-1) = kicau;
 }
 

@@ -124,33 +124,45 @@ void Daftar_Teman(AdjMatrix dataTeman){
 void Hapus_Teman(AdjMatrix* dataTeman){
     ListStatikWord friends = ListTeman(*dataTeman,current_id);
 
-    printf("Masukkan nama pengguna :\n");
-    STARTWORD();
-    WrdType temp = currentWord;
-    printf("Apakah anda yakin ingin\n");
-    printf("menghapus ");
-    printWord(temp);
-    printf(" dari daftar teman\n");
-    printf("anda? (YA/TIDAK)\n");
-    STARTWORD();
+    if(jumlah_Teman > 0){
+        printf("Masukkan nama pengguna :\n");
+        STARTWORD();
+        WrdType temp = currentWord;
 
-    if(isHapus(currentWord)){
-        if(!SwisValExist(friends,temp)){
-            printWord(temp);
-            printf("Bukan teman anda");
+        if(SwisValExist(dataNama,currentWord)){
+            printf("Pengguna tidak ditemukan\n");
         }
         else{
-            int idx = SwindexOf(dataNama,currentWord);
-            int i,j;
-            GELMT(dataTeman,current_id,idx) = 0;
-            GELMT(dataTeman,idx,current_id) = 0;
+            printf("Apakah anda yakin ingin\n");
+            printf("menghapus ");
             printWord(temp);
-            printf(" berhasil dihapus dari\n");
-            printf("daftar teman anda \n");
+            printf(" dari daftar teman\n");
+            printf("anda? (YA/TIDAK)\n");
+            STARTWORD();
+
+            if(isHapus(currentWord)){
+                if(!SwisValExist(friends,temp)){
+                    printWord(temp);
+                    printf("Bukan teman anda");
+                }
+                else{
+                    int idx = SwindexOf(dataNama,currentWord);
+                    int i,j;
+                    GELMT(dataTeman,current_id,idx) = 0;
+                    GELMT(dataTeman,idx,current_id) = 0;
+                    printWord(temp);
+                    printf(" berhasil dihapus dari\n");
+                    printf("daftar teman anda \n");
+                }
+            }
+            else{
+                printf("Penghapusan teman dibatalkan \n");
+            }
         }
     }
     else{
-        printf("Penghapusan teman dibatalkan \n");
+        printf("Kamu gapunya teman, ,mana bisa hapus teman\n");
+        printf("hadeuh\n");
     }
 
 }   

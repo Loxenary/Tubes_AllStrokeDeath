@@ -11,7 +11,7 @@ typedef struct Kicau
     int Likes;
     Word Auth;
     DATETIME dates;
-    ListUtas next_utas;
+    // ListDin id_utas;
     // BAddress next_Balasan;
 } kicauan;
 
@@ -23,8 +23,8 @@ typedef struct List_Kicau
 }ListKicau;
 
 //Kicauan Definition
-#define UNEXT(k) (k)->next_Address
-#define BNEXT(k) (k)->next_Balasan
+// #define UNEXT(k) (k)->next_Address
+// #define BNEXT(k) (k)->next_Balasan
 #define KAUTH(k) (k)->Auth
 #define KDATE(k) (k)->dates
 #define KTEXT(k) (k)->Text
@@ -54,7 +54,7 @@ void InsertDeclaredLastKicau(ListKicau *l, kicauan kicau);
 
 void ubah_kicauan(int idKicau, ListKicau l);
 
-void DisplayKicauan(ListKicau l);
+void DisplayKicauan(ListKicau l, int id);
 
 
 #endif

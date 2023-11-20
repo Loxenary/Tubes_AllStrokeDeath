@@ -259,12 +259,13 @@ DATETIME WordToDatetime(Word w){
     int Y,M,D,h,m,s;
     int k = 0;
     Word temps;
-    for(i = 0; i < w.Length; i++){
+    for(i = 0; i <= w.Length; i++){
         char a = w.TabWord[i];
 
-        if(a == '/' || a == BLANK || a == ':' || i == w.Length-1){
+        if(a == '/' || a == BLANK || a == ':' || i == w.Length){
             counter++;
             temps.Length = k;
+            printf("\n%d\n",k);
             k = 0;
             switch (counter)
             {
@@ -284,6 +285,7 @@ DATETIME WordToDatetime(Word w){
                 m = toInt(temps);
                 break;
             case 6: 
+                printf("%c",a);
                 s = toInt(temps);
                 break;
             default:
@@ -291,6 +293,7 @@ DATETIME WordToDatetime(Word w){
             }
         }
         else{
+            
             temps.TabWord[k] = currentWord.TabWord[i];
             k++;
         }

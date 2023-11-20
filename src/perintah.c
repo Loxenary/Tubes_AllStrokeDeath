@@ -90,12 +90,10 @@ void perintah(){
             // Display Daftar Teman    
             } else if(isWordEqualString(currentWord, Daftar_teman)){
                 Daftar_Teman(matPertemanan);
-                printf("jalankan perintah daftar_teman\n");
 
             // Hapus Pertemanan    
             } else if(isWordEqualString(currentWord, Hapus_teman)){
                 Hapus_Teman(&matPertemanan);
-                printf("jalankan perintah hapus_teman\n");
             } 
 
             // Display Daftar Permintaan Pertemanan
@@ -115,7 +113,7 @@ void perintah(){
 
             // Display Kicauan    
             } else if(isWordEqualString(currentWord, Kicauan)){
-                DisplayKicauan(list_kicau);
+                DisplayKicauan(list_kicau,current_id);
                 printf("jalankan perintah kicauan\n");
 
             // Menyukai Kicauan    
