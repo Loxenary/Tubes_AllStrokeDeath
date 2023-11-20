@@ -57,6 +57,7 @@ void ReadUserData(const char *filename, UserData *userData) {
     SwprintList(dataNama);
     printf("\n");
     CreateAdjMatrix(&matPertemanan,banyak_pengguna);
+    PrioQueueInitialize(&permintaanTeman,100);
 
     // Read user data
     for (i = 0; i < banyak_pengguna; i++) {
@@ -146,10 +147,12 @@ void ReadUserData(const char *filename, UserData *userData) {
     printf("\n");
     // Read friendship requests
     readLine();
-    int banyak_permintaan = toInt(currentWord);
+    addFriendCounter = toInt(currentWord);
     // printf("\nBanyak permintaan pertemanan: %d\n", banyak_permintaan);
-    int senderId, receiverId, status;
-    for (i = 0; i < banyak_permintaan; i++) {
+    Word sender, receiver;
+    int popularity;
+    PermintaanPertemanan _friendReq_temps;
+    for (i = 0; i < addFriendCounter; i++) {
         ADVLINE();
 
         Word temps;
@@ -165,13 +168,13 @@ void ReadUserData(const char *filename, UserData *userData) {
                 switch (counter)
                 {
                 case 1:
-                    senderId = toInt(temps);
+                    sender = temps;
                     break;
                 case 2:
-                    receiverId = toInt(temps);
+                    receiver = temps;
                     break;
                 case 3:
-                    status = toInt(temps);
+                    popularity = toInt(temps);
                     break;
                 default:
                     break;
@@ -181,9 +184,14 @@ void ReadUserData(const char *filename, UserData *userData) {
                 temps.TabWord[k] = currentWord.TabWord[j]; 
                 k++;
             }
-
         }
-        // printf("%d %d %d\n",senderId,receiverId,status);
+        _friendReq_temps.pengirim = sender;
+        _friendReq_temps.penerima = receiver;
+        _friendReq_temps.kepopuleran = popularity;
+        printWord(_friendReq_temps.pengirim); printf(" ");
+        printWord(_friendReq_temps.penerima); printf(" ");
+        printf("%d",_friendReq_temps.kepopuleran); printf("\n");
+        Enqueue(&permintaanTeman,_friendReq_temps);
     }
 
     fclose(file);
@@ -371,8 +379,8 @@ void ReadDrafData(const char *filename, ListDraf *listDraf) {
 
     CreateListStatikstack(&draf);
     Isianstack _Auth_Temps;
+    Isianstack _Time_Temps;
     Word _Auth_Word;
-    Word _Text_Word;
     int _amount_Temps;
     int j;
     CreateEmpty(&_Auth_Temps);
@@ -385,6 +393,14 @@ void ReadDrafData(const char *filename, ListDraf *listDraf) {
         printWord(_Auth_Word);
         printf("\n");
         printf("%d\n",_amount_Temps);
+        for(j= 0; j < _amount_Temps; j++){
+            readLine();
+            Push(&_Auth_Temps,currentWord);
+            LSSELMT(draf,id) = _Auth_Temps;
+            readLine();
+            Push(&_Auth_Temps, currentWord);
+            LSSTELMT(draf,id) = _Time_Temps;
+        }
     }
     fclose(file);
 }
@@ -493,8 +509,8 @@ void loadconfig(char *folder, char *filename) {
             // ReadBalasanData(filename, &balasan);
             // TODO: Handle Balasan as needed
         } else if (i == 3) {
-            ListDraf listDraf;
-            ReadDrafData(filename, &listDraf);
+            // ListDraf listDraf;
+            // ReadDrafData(filename, &listDraf);
             // TODO: Handle ListDraf as needed
         } else if (i == 4) {
             // DataUtas datautas;

@@ -10,6 +10,7 @@
 #include "./adt/matrix.h"
 #include "./adt/liststatikmatrixchar.h"
 #include "./adt/liststatikstack.h"
+#include "./adt/prioqueue.h"
 #include "kicau.h"
 
 
@@ -32,7 +33,7 @@ extern ListStatikMatrix profil;
 
 extern AdjMatrix matPertemanan;
 extern int addFriendCounter;
-
+extern PrioQueue permintaanTeman;
 //Config Kicauan
 extern int jumlah_kicau;
 extern ListKicau list_kicau;
