@@ -1,13 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "tree.h"
+#include "wordmachine.h"
+#include "../database.h"
 
-addressTree newTNODE(ElType ID)
+addressTree newTNODE(IDType ID,WordType word)
 {
     addressTree newNode = (addressTree)malloc(sizeof(Node));
     if (newNode != NULL)
     {
         ID(newNode) = ID;
+        BAUTH(newNode) = SELMT(dataNama,current_id) ;
+        BDATE(newNode) = ExtractLocalTimes() ;
+        BTEXT(newNode) = word;
         FirstChild(newNode) = NULL;
         NextSibling(newNode) = NULL;
     }
@@ -20,18 +25,18 @@ void dealocateTNODE(addressTree P)
 }
 
 /* *** Konstruktor *** */
-void createTree(Tree *T,ElType IDParents)
+void createTree(Tree *T,IDType IDParents,WordType word)
 {
-    Root(*T) = newTNODE(IDParents);
+    Root(*T) = newTNODE(IDParents,word);
 }
 
-void AddChild(ElType IDParent, ElType IDChild, Tree *T)
+void AddChild(Tree T,IDType IDParent, IDType IDChild,Word word)
 {
-    Tree p = *T;
+    Tree p = T;
     addressTree parentNode = SearchTNode(p, IDParent);
     if (parentNode != NULL)
     {
-        addressTree childNode = newTNODE(IDChild);
+        addressTree childNode = newTNODE(IDChild,word);
         addressTree lastChild = FirstChild(parentNode);
         if (lastChild == NULL)
         {
@@ -48,7 +53,7 @@ void AddChild(ElType IDParent, ElType IDChild, Tree *T)
     }
 }
 
-void DelChild(ElType IDParent, ElType IDChild, Tree *T)
+void DelChild(Tree *T,IDType IDParent, IDType IDChild)
 {
     Tree p = *T;
     addressTree parentNode = SearchTNode(p, IDParent);
@@ -77,7 +82,7 @@ void DelChild(ElType IDParent, ElType IDChild, Tree *T)
 }
 
 /* *** Operasi lain *** */
-addressTree SearchTNode(Tree T, ElType ID)
+addressTree SearchTNode(Tree T, IDType ID)
 {
     addressTree p = Root(T);
     if (p == NULL)
@@ -103,32 +108,7 @@ addressTree SearchTNode(Tree T, ElType ID)
         }
         return NULL;
     }
-}
-
-int NbElmt(Tree T)
-{
-    if (Root(T) == NULL)
-    {
-        return 0;
-    }
-    else
-    {
-        int count = 1;
-        addressTree child = FirstChild(Root(T));
-        while (child != NULL)
-        {
-            Root(T) = child;
-            count += NbElmt(T);
-            child = NextSibling(child);
-        }
-        return count;
-    }
-}
-
-int MaxNbElmt(Tree T)
-{
-    return CAPACITY;
-}
+} 
 
 boolean IsTreeEmpty(Tree T)
 {
@@ -140,13 +120,13 @@ boolean IsOneElmt(Tree T)
     return Root(T) != NULL && FirstChild(Root(T)) == NULL;
 }
 
-boolean IsLeaf(Tree T, ElType ID)
+boolean IsLeaf(Tree T, IDType ID)
 {
     addressTree node = SearchTNode(T, ID);
     return node != NULL && FirstChild(node) == NULL;
 }
 
-boolean IsRoot(Tree T, ElType ID)
+boolean IsRoot(Tree T, IDType ID)
 {
     return Root(T) != NULL && ID(Root(T)) == ID;
 }

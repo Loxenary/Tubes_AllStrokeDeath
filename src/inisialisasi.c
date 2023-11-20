@@ -1,9 +1,12 @@
 #include <stdio.h>
-#include "database.h"
+
 #include "inisialisasi.h"
+#include "database.h"
 // #include <ctype.h>
 
 #define FILENAME_MAX_LENGTH 256 // Adjust the size as needed
+
+
 
 void displayScreen() {
     char text[] = "baby shark doo doo doo doo doo doo\n";
@@ -22,7 +25,7 @@ void readLine(){
 }
 
 // Implementasi fungsi ReadUserData
-void ReadUserData(const char *filename, UserData *userData) {
+void ReadUserData(const char *filename) {
     FILE *file = fopen(filename, "r");
 
     if (file == NULL) {
@@ -198,7 +201,7 @@ void ReadUserData(const char *filename, UserData *userData) {
 }
 
 // Implementasi fungsi ReadKicauData
-void ReadKicauData(char* filename, kicauan* kicau) {
+void ReadKicauData(char* filename) {
     FILE *file = fopen(filename, "r");
 
     if (file == NULL) {
@@ -265,23 +268,29 @@ void ReadKicauData(char* filename, kicauan* kicau) {
 
 
 // Implementasi fungsi ReadBalasanData
-void ReadBalasanData(char* filename, Balasan* balasan) {
+void ReadBalasanData(char* filename) {
     FILE *file = fopen(filename, "r");
 
-    // if (file == NULL) {
-    //     printf("Error: Cannot open file %s\n", filename);
-    //     return;
-    // } else {
-    //     printf("File %s opened successfully\n", filename);
-    // }
-    // printf("Filename: %s\n", filename);
+    if (file == NULL) {
+        printf("Error: Cannot open file %s\n", filename);
+        return;
+    } else {
+        printf("File %s opened successfully\n", filename);
+    }
+    printf("Filename: %s\n", filename);
 
-    // // Membaca banyak kicauan yang memiliki balasan
-    // STARTFILEWORD(filename);
-    // balasan->kicauBalas = toInt(currentWord);
-    // printf("Jumlah balasan: %d\n", balasan->kicauBalas);
+    // Membaca banyak kicauan yang memiliki balasan
+    STARTFILEWORD(filename);
+    jumlah_balasan = toInt(currentWord);
+    printf("Jumlah balasan: %d\n", jumlah_balasan);
 
-    // // Membaca id kicauan yang memiliki balasan
+    int i;
+    for(i = 0; i < jumlah_balasan; i++){
+        readLine();
+        
+    }
+
+    // Membaca id kicauan yang memiliki balasan
     // ADVLINE(); currentWord.TabWord[currentWord.Length] = '\0';
     // balasan->idKicau = toInt(currentWord);
     // // printf("ID: %d\n", balasan->idKicau);
@@ -358,7 +367,7 @@ void readDrafHead(Word *Auth, int * amount){
 }
 
 // Implementasi fungsi ReadDrafData
-void ReadDrafData(const char *filename, ListDraf *listDraf) {
+void ReadDrafData(const char *filename) {
     FILE *file = fopen(filename, "r");
 
     if (file == NULL) {
@@ -407,7 +416,7 @@ void ReadDrafData(const char *filename, ListDraf *listDraf) {
 
 
 // Implementasi fungsi ReadUtasData
-void ReadUtasData(const char *filename, DataUtas *dataUtas) {
+void ReadUtasData(const char *filename) {
     FILE *file = fopen(filename, "r");
 
     // if (file == NULL) {
@@ -496,12 +505,12 @@ void loadconfig(char *folder, char *filename) {
 
         // Read data from the file using wordmachine
         if (i == 0) {
-            UserData userData;
-            ReadUserData(filename, &userData);
+
+            ReadUserData(filename);
             //Done
         } else if (i == 1) {
             kicauan kicauData;
-            ReadKicauData(filename, &kicauData);
+            ReadKicauData(filename);
             //Done
             // TODO: Handle kicauan as needed
         } else if (i == 2) {

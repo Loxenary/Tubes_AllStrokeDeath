@@ -11,6 +11,7 @@
 #include "./adt/liststatikmatrixchar.h"
 #include "./adt/liststatikstack.h"
 #include "./adt/prioqueue.h"
+#include "balasan.h"
 #include "kicau.h"
 
 
@@ -40,7 +41,7 @@ extern ListKicau list_kicau;
 
 //Config Balesan
 extern int jumlah_balasan;
-extern ListDin id_kicau;
+extern Balasan list_balasan;
 //Tree untuk Balasan
 
 //Config Draf

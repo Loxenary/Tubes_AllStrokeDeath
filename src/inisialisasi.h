@@ -1,10 +1,11 @@
 #include "kicau.h"
-#include "loaduser.h"
-#include "loadbalasan.h"
-#include "loaddraf.h"
-#include "loadutas.h"
 #include "./adt/wordmachine.h"
 #include "./adt/datetime.h"
+
+typedef enum {
+    Privat,
+    Publik
+} AccountType;
 
 void displayScreen();
 
@@ -14,15 +15,15 @@ void readLine();
 
 void readDrafHead(Word *Auth, int * amount);
 
-void ReadUserData(const char * filename, UserData *userData);
+void ReadUserData(const char * filename);
 
-void ReadKicauData(char* filename, kicauan* kicau);
+void ReadKicauData(char* filename);
 
-void ReadBalasanData(char * filename, Balasan * balasan);
+void ReadBalasanData(char * filename);
 
-void ReadDrafData(const char * filename, ListDraf * listDraf);
+void ReadDrafData(const char * filename);
 
-void ReadUtasData(const char * filename, DataUtas * dataUtas);
+void ReadUtasData(const char * filename);
 
 void loadconfig(char * folder, char * filename);
 
