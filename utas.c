@@ -138,7 +138,39 @@ void SambungUtas(int idUtas, int indexUtas){
 }
 
 void CetakUtas(Utas* u){
-    
+    // kamus
+    Address p;
+    int count;
+    // algoritma
+    p = u;
+    count = 0;
+    printf("| ID = %d\n", p->IdUtas);
+    printf("| ");
+    printWord(p->Author);
+    printf("\n");
+    printf("| ");
+    TulisDATETIME(p->dateTime);
+    printf("\n");
+    printf("| ");
+    printWord(p->texts);
+    printf("\n");
+
+    while(p != NULL){
+        count ++;
+        
+        printf("    | INDEX = %d\n", count);
+        printf("    | ");
+        printWord(p->Author);
+        printf("\n");
+        printf("    | ");
+        TulisDATETIME(p->dateTime);
+        printf("\n");
+        printf("    | ");
+        printWord(p->texts);
+        printf("\n");
+
+        p = NEXT(p);
+    }
 }
 
 boolean isId(int index){
