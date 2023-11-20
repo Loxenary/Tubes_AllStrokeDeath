@@ -14,6 +14,7 @@ ListStatikMatrix profil;
 
 AdjMatrix matPertemanan;
 int addFriendCounter;
+PrioQueue permintaanTeman;
 
 int jumlah_kicau;
 ListKicau list_kicau;
