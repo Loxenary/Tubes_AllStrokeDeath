@@ -3,9 +3,11 @@
 #ifndef TREE_H
 #define TREE_H
 
-#include "boolean.h"
-#include "wordmachine.h"
-#include "datetime.h"
+#include "./adt/boolean.h"
+#include "./adt/wordmachine.h"
+#include "./adt/datetime.h"
+#include "./kicau.h"
+
 
 /*  Kamus Umum */
 
@@ -14,12 +16,12 @@
 typedef int IDType;
 typedef Word WordType;
 
-typedef struct tNode *addressTree;
+typedef struct tNode* addressTree;
 typedef struct tNode {
-    int ID;
-    Word Auth;
-    DATETIME dates;
-    Word Text;    
+    int BID;
+    Word BAuth;
+    DATETIME Bdates;
+    Word BText;    
     addressTree firstChild;
     addressTree nextSibling;
 } Node;
@@ -30,14 +32,13 @@ typedef struct {
 
 
 // Balasan
-#define ID(P) (P)->ID
-#define BAUTH(P) (P)->Auth
-#define BDATE(P) (P)->dates
-#define BTEXT(P) (P)->Text
+#define BID(P) (P)->BID
+#define BAUTH(P) (P)->BAuth
+#define BDATE(P) (P)->Bdates
+#define BTEXT(P) (P)->BText
 #define FirstChild(P) (P)->firstChild
 #define NextSibling(P) (P)->nextSibling
 #define Root(T) (T).root
-
 
 /* Manajemen Memory */
 addressTree newTNODE(IDType ID, WordType Word);
@@ -50,7 +51,7 @@ void dealocateTNODE(addressTree P);
 /* F.S. P dikembalikan ke sistem */
 
 /* *** Konstruktor *** */
-void createTree(Tree *T,IDType IDParents,WordType word);
+void createTree(Tree *T,kicauan kicau);
 /* Mengirimkan sebuah pohon dengan satu elemen dengan ID = ID */
 
 void AddChild(Tree *T,IDType IDParent, IDType IDChild,Word word);
@@ -79,7 +80,11 @@ boolean IsLeaf(Tree T, IDType ID);
 boolean IsRoot(Tree T, IDType ID);
 /* Mengirimkan true jika ID adalah elemen root dari pohon T */
 
-void displayTree(addressTree node, int depth);
+void displayTreeLevel(addressTree node, int tingkatan);
 /* Mencetak Tree di terminal */          
+
+void displayTreeFull(Tree T);
+
+IDType searchIDmax(addressTree p);
 
 #endif 
