@@ -135,7 +135,7 @@ void lihatProfil(WrdType nama)
         printWord(SELMT(dataNama, index));
         printf("\n");
 
-        displayMatrixChar(LSMELMT(profil, index));
+        displayMatrixCharColoured(LSMELMT(profil, index));
         printf("\n\n");
     }
     else

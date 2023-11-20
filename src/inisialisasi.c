@@ -202,48 +202,56 @@ void ReadKicauData(char* filename, kicauan* kicau) {
     printf("Filename: %s\n", filename);
 
     STARTFILEWORD(filename);
-
+    currentWord.TabWord[currentWord.Length] = '\0';
+    currentWord.Length--;
     // Membaca banyak kicauan
     CreateListKicau(&list_kicau, 50); //50 as starter
     jumlah_kicau = toInt(currentWord);
     printf("Jumlah kicauan: %d\n", jumlah_kicau);
 
+    kicauan _temp_kicau;
+    Word _temp_word;
+    int _temp_likes;
+    Word _temp_auth;
+    DATETIME _temp_time;
+    int i;
     // Membaca kicauan
-    for (int i = 0; i < jumlah_kicau; i++) {
+    for (i = 0; i < jumlah_kicau; i++) {
         printf("\nReading kicau %d\n", i);
 
         // Membaca id kicauan
-        ADVLINE(); currentWord.TabWord[currentWord.Length] = '\0';
-        KELMT(list_kicau,i).id = toInt(currentWord);
-        printWord(currentWord);
-        printf("\n");
-
+        readLine();
+       
+        int id = toInt(currentWord);
         // Membaca text kicauan
-        ADVLINE(); currentWord.TabWord[currentWord.Length] = '\0';
-        KELMT(list_kicau,i).Text = currentWord;
-        printWord(currentWord);
-        printf("\n");
+
+        readLine();
+        
+        _temp_word = currentWord;
+       
 
         // Membaca jumlah like kicauan
-        ADVLINE(); currentWord.TabWord[currentWord.Length] = '\0';
-        KELMT(list_kicau,i).Likes = toInt(currentWord);
-        printWord(currentWord);
-        printf("\n");
+        readLine();
+        _temp_likes = toInt(currentWord);
+       
 
         // Membaca author kicauan
-        ADVLINE(); currentWord.TabWord[currentWord.Length] = '\0';
-        KELMT(list_kicau,i).Auth = currentWord;
+        readLine(); 
+        _temp_auth = currentWord;
 
         // Membaca tanggal waktu kicauan
-        DATETIME temp_time;
-        ADVLINE(); currentWord.TabWord[currentWord.Length] = '\0';
-        
-        KELMT(list_kicau,i).dates = WordToDatetime(currentWord);
-        TulisDATETIME(KELMT(list_kicau,i).dates);
 
+        readLine();
+        currentWord.Length++;
+        _temp_time =  WordToDatetime(currentWord);
+        
+        
+        _temp_kicau = CreateDefinedKicau(_temp_auth,_temp_word,_temp_likes,_temp_time,id);
+        InsertDeclaredLastKicau(&list_kicau,_temp_kicau);
+        DisplayKicauan(list_kicau,id);
     }
     printf("\n");
-    printf("TESTTTTTTTT");
+
     fclose(file);
 }
 
@@ -309,67 +317,75 @@ void ReadBalasanData(char* filename, Balasan* balasan) {
     fclose(file);
 }
 
+int isNum(char c){
+    if(c >= '0' || c <= '9');
+}
+
+void readDrafHead(Word *Auth, int * amount){
+    int i;
+    int k = 0;
+    int counter = 0;
+    Word temps;
+    for(i = 0; i < currentWord.Length; i++){
+        char a = currentWord.TabWord[i];
+        if(a == BLANK || isNum(a)){
+            counter++;
+        }
+        if(counter == 1){
+            Auth->Length = k;
+            k = 0;
+            
+        }
+        else if(counter > 1){
+            temps.TabWord[k] = currentWord.TabWord[i];
+            k++;
+        }
+        else{
+            Auth->TabWord[k] = currentWord.TabWord[i];
+            k++;
+        }
+    }
+    temps.Length = k;
+    *amount = toInt(temps);
+}
 
 // Implementasi fungsi ReadDrafData
 void ReadDrafData(const char *filename, ListDraf *listDraf) {
     FILE *file = fopen(filename, "r");
 
-    // if (file == NULL) {
-    //     printf("Error: Cannot open file %s\n", filename);
-    //     return;
-    // } else {
-    //     printf("File %s opened successfully\n", filename);
-    // }
-    // printf("Filename: %s\n", filename);
+    if (file == NULL) {
+        printf("Error: Cannot open file %s\n", filename);
+        return;
+    } else {
+        printf("File %s opened successfully\n", filename);
+    }
+    printf("Filename: %s\n", filename);
 
-    // // Initialize the word machine
-    // STARTFILEWORD(filename);
-    // printf("Word machine initialized\n");
+    // Initialize the word machine
+    STARTFILEWORD(filename);
+    printf("Word machine initialized\n");
 
-    // // Read the number of users with drafts
-    // listDraf->banyak_pengguna = toInt(currentWord);
-    // printf("Number of users with drafts: %d\n", listDraf->banyak_pengguna);
+    // Read the number of users with drafts
+    jumlah_Draf = toInt(currentWord);
+    printf("Number of users with drafts: %d\n", jumlah_Draf);
 
-    // // Read user drafts
-    // for (int i = 0; i < listDraf->banyak_pengguna; i++) {
-    //     listDraf->users[i].username.Length = 0;
-
-    //     while (1) {
-    //         ADVWORD(); currentWord.TabWord[currentWord.Length] = '\0';
-    //         if (isdigit(currentWord.TabWord[0])) {
-    //             listDraf->users[i].banyak_draf = toInt(currentWord);
-    //             printf("Nama: %s\n", listDraf->users[i].username.TabWord);
-    //             printf("Banyak draf: %d\n", listDraf->users[i].banyak_draf);
-    //             break;
-    //         } else {
-    //             for (int j = 0; j < currentWord.Length; j++) {
-    //                 listDraf->users[i].username.TabWord[listDraf->users[i].username.Length] = currentWord.TabWord[j];
-    //                 listDraf->users[i].username.Length++;
-    //             }
-    //             listDraf->users[i].username.TabWord[listDraf->users[i].username.Length] = ' ';
-    //         }
-    //     }
-
-    //     for (int j = 0; j < listDraf->users[i].banyak_draf; j++) {
-    //         // Isi draft
-    //         ADVLINE(); currentWord.TabWord[currentWord.Length] = '\0';
-    //         listDraf->users[i].draf[j].text.Length = currentWord.Length;
-    //         printf("Text draft %d: %s\n", j + 1, currentWord.TabWord);
-
-    //         // Datetime draft
-    //         ADVLINE();
-    //     //     currentWord.TabWord[currentWord.Length] = '\0';
-           
-    //     //         Day(listDraf->users[i].draf[j].datetime),
-    //     //         Month(listDraf->users[i].draf[j].datetime),
-    //     //         Year(listDraf->users[i].draf[j].datetime),
-    //     //         listDraf->users[i].draf[j].datetime.T.HH,
-    //     //         listDraf->users[i].draf[j].datetime.T.MM,
-    //     //         listDraf->users[i].draf[j].datetime.T.SS);
-    //     }
-
-    // }
-
+    CreateListStatikstack(&draf);
+    Isianstack _Auth_Temps;
+    Word _Auth_Word;
+    Word _Text_Word;
+    int _amount_Temps;
+    int j;
+    CreateEmpty(&_Auth_Temps);
+    printf("test");
+    // Read user drafts
+    for (int i = 0; i < jumlah_Draf; i++) {
+        readLine();
+        readDrafHead(&_Auth_Word, &_amount_Temps);
+        int id = SwindexOf(dataNama,_Auth_Word);
+        printWord(_Auth_Word);
+        printf("\n");
+        printf("%d\n",_amount_Temps);
+    }
     fclose(file);
 }
 
@@ -468,8 +484,8 @@ void loadconfig(char *folder, char *filename) {
             ReadUserData(filename, &userData);
             //Done
         } else if (i == 1) {
-            // kicauan kicauData;
-            // ReadKicauData(filename, &kicauData);
+            kicauan kicauData;
+            ReadKicauData(filename, &kicauData);
             //Done
             // TODO: Handle kicauan as needed
         } else if (i == 2) {
@@ -477,8 +493,8 @@ void loadconfig(char *folder, char *filename) {
             // ReadBalasanData(filename, &balasan);
             // TODO: Handle Balasan as needed
         } else if (i == 3) {
-            // ListDraf listDraf;
-            // ReadDrafData(filename, &listDraf);
+            ListDraf listDraf;
+            ReadDrafData(filename, &listDraf);
             // TODO: Handle ListDraf as needed
         } else if (i == 4) {
             // DataUtas datautas;
