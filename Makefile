@@ -19,8 +19,8 @@ all: main
 CC = gcc
 CFLAGS = -Wall -std=c11
 
-all: main
-	./main
+all: $(BUILD_DIR) main
+	valgrind --leak-check=full ./main
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -29,7 +29,7 @@ $(BUILD_DIR)/%.o: $(ADT_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/main.o: main.c
-	$(CC) $(CFLAGS) -std=c11 -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/%.o: $(TEST_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -37,7 +37,7 @@ $(BUILD_DIR)/%.o: $(TEST_DIR)/%.c
 main_obj = $(BUILD_DIR)/main.o
 
 main: $(main_obj) $(MAIN_OBJ) $(ADT_OBJ)
-	gcc -Wall -std=c11 $^ -o $@
+	 gcc -Wall -std=c11 $^ -o $@
 
 # Adjoin Matriks
 $(BUILD_DIR)/Driver_AdjMatrix.o: $(TEST_DIR)/Driver_AdjMatrix.c

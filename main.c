@@ -18,7 +18,7 @@ int main(){
        printf("\n");
 
        PrioQueue friendRequests;
-       PrioQueueInitialize(&friendRequests, MAX_REQUESTS);
+       PrioQueueInitialize(&friendRequests, 100);
 
        // Example usage
        sendFriendRequest(&friendRequests, StringToWord("Alice", 5), StringToWord("Bob", 3));

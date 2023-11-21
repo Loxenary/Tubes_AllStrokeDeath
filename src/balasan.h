@@ -1,19 +1,16 @@
 #ifndef BALASAN_H
 #define BALASAN_H
 
-#include "./adt/tree.h"
 #include "./adt/wordmachine.h"
 #include "./adt/datetime.h"
-#include "kicau.h"
+#include "./adt/tree.h" 
 
-typedef Tree Balasan;
-
-typedef struct ListBalasan
+typedef struct ListTree
 {
-    Balasan* balas;
+    Tree* balas;
     int nEff;
     int capacity;
-}ListBalasan;
+}ListTree;
 
 //List Balasan
 #define BBUFFER(l) (l).balas
@@ -21,16 +18,18 @@ typedef struct ListBalasan
 #define BCAPACITY(l) (l)->capacity
 #define BNEFF(l) (l).nEff
 
-void CreateListBalasan(ListBalasan *l, int Capacity);
+void CreateListTree(ListTree *l, int Capacity);
 
-void inputBalas(ListBalasan *l , int id_k,int id_b);
+void inputNewKicauToListTree(ListTree *l);
 
-void InsertNewBalasId(ListBalasan *l, Word Word,IDType id_k, IDType id_b);
+void InsertNewBalasId(ListTree *l, Word Word,IDType id_k, IDType id_b);
 
 void printNewBalasan(Tree k);
 
-void hapusBalasan(ListBalasan *l,IDType id_k,IDType id_b);
+void inputBalas(ListTree *l , int id_k,int id_b);
 
-void displayBalasan(ListBalasan l,IDType id_k);
+void hapusBalasan(ListTree *l,IDType id_k,IDType id_b);
+
+void displayBalasan(ListTree l,IDType id_k);
 
 #endif

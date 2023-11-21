@@ -5,7 +5,7 @@
 #include "stack.h"
 
 /*  Kamus Umum */
-#define CAPACITY 20
+#define LSCAPACITY 20
 /* Kapasitas penyimpanan */
 #define IDX_MIN 0
 /* Indeks minimum list */
@@ -16,8 +16,8 @@
 typedef Stack Isianstack;  /* type elemen List */
 typedef int IdxType;
 typedef struct {
-   Isianstack content[CAPACITY];
-   Isianstack waktu[CAPACITY];
+   Isianstack content[LSCAPACITY];
+   Isianstack waktu[LSCAPACITY];
 } ListStatikStack;
 /* Indeks yang digunakan [0..CAPACITY-1] */
 /* Jika l adalah ListStatik, cara deklarasi dan akses: */

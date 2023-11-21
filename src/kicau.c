@@ -99,12 +99,14 @@ kicauan CreateDefinedKicau(Word author, Word text, int Likes, DATETIME dates, in
     KLIKE(&temps) = Likes;
     KDATE(&temps) = dates;
     KTEXT(&temps) = text;
+    inputNewKicauToListTree(&list_balasan);
     return temps;
 }
 
 void InsertDeclaredLastKicau(ListKicau *l, kicauan kicau){
     KNEFF(*l)++;
     KELMT(*l,NEFF(*l)-1) = kicau;
+    inputNewKicauToListTree(&list_balasan);
 }
 
 void ubah_kicauan(int idKicau, ListKicau l)

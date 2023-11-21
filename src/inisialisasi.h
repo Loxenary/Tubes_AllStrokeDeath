@@ -25,5 +25,7 @@ void ReadDrafData(const char * filename);
 
 void ReadUtasData(const char * filename);
 
+int read_id_balasan();
+
 void loadconfig(char * folder, char * filename);
 

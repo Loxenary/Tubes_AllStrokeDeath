@@ -52,6 +52,7 @@ void ReadUserData(const char *filename) {
     SwCreateListStatik(&bio);
     SwCreateListStatik(&phone);
     SwCreateListStatik(&Weton);
+    CreateListTree(&list_balasan,100);
     CreateListStatik(&JenisAkun);
     CreateListStatikMatrix(&profil);
 
@@ -200,6 +201,19 @@ void ReadUserData(const char *filename) {
     fclose(file);
 }
 
+int read_id_balasan(){
+    int i;
+    Word temps;
+    for(i =0; i < currentWord.Length; i++){
+        char a = currentWord.TabWord[i];
+        if(a == BLANK){
+            temps.Length = i+1;
+            return toInt(temps);
+        }
+        temps.TabWord[i] = a;
+    }
+}
+
 // Implementasi fungsi ReadKicauData
 void ReadKicauData(char* filename) {
     FILE *file = fopen(filename, "r");
@@ -226,9 +240,10 @@ void ReadKicauData(char* filename) {
     Word _temp_auth;
     DATETIME _temp_time;
     int i;
+    int len = jumlah_kicau;
     // Membaca kicauan
-    for (i = 0; i < jumlah_kicau; i++) {
-        printf("\nReading kicau %d\n", i);
+    for (i = 0; i < len; i++) {
+        printf("\nReading kicau %d\n", i+1);
 
         // Membaca id kicauan
         readLine();
@@ -282,12 +297,24 @@ void ReadBalasanData(char* filename) {
     // Membaca banyak kicauan yang memiliki balasan
     STARTFILEWORD(filename);
     jumlah_balasan = toInt(currentWord);
-    printf("Jumlah balasan: %d\n", jumlah_balasan);
-
+    printf("Jumlah kicau yang punya balasan: %d\n", jumlah_balasan);
     int i;
     for(i = 0; i < jumlah_balasan; i++){
         readLine();
+        int id_kicau = toInt(currentWord);
+        printf("%d\n",id_kicau);
         
+        // Read jumlah balasan
+        readLine();
+        int jumlah_balasan = toInt(currentWord);
+        printf("%d\n",jumlah_balasan);
+
+        int j;
+        for(j = 0; j < jumlah_balasan; j++){
+            readLine();
+            inputBalas(&list_balasan,id_kicau,0);
+            printf("id: %d\n",read_id_balasan());
+        }
     }
 
     // Membaca id kicauan yang memiliki balasan
@@ -509,13 +536,11 @@ void loadconfig(char *folder, char *filename) {
             ReadUserData(filename);
             //Done
         } else if (i == 1) {
-            kicauan kicauData;
             ReadKicauData(filename);
             //Done
             // TODO: Handle kicauan as needed
         } else if (i == 2) {
-            // Balasan balasan;
-            // ReadBalasanData(filename, &balasan);
+            ReadBalasanData(filename);
             // TODO: Handle Balasan as needed
         } else if (i == 3) {
             // ListDraf listDraf;

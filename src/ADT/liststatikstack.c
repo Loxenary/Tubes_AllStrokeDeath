@@ -4,7 +4,7 @@ void CreateListStatikstack(ListStatikStack *l)
 /*membuat list statik berisi stack yang kosong*/
 {
     int i;
-    for (i = 0; i < CAPACITY; i++)
+    for (i = 0; i < LSCAPACITY; i++)
     {
         Stack emptyText, emptyWaktu;
         CreateEmpty(&emptyText);

@@ -1,17 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "tree.h"
-#include "wordmachine.h"
 #include "../database.h"
 
-addressTree newTNODE(IDType ID,WordType word)
+
+addressTree newTNODE(IDType ID, WordType word)
 {
     addressTree newNode = (addressTree)malloc(sizeof(Node));
     if (newNode != NULL)
     {
-        ID(newNode) = ID;
-        BAUTH(newNode) = SELMT(dataNama,current_id) ;
-        BDATE(newNode) = ExtractLocalTimes() ;
+        BID(newNode) = ID;
+        BAUTH(newNode) = SELMT(dataNama, current_id);
+        BDATE(newNode) = ExtractLocalTimes();
         BTEXT(newNode) = word;
         FirstChild(newNode) = NULL;
         NextSibling(newNode) = NULL;
@@ -25,18 +25,28 @@ void dealocateTNODE(addressTree P)
 }
 
 /* *** Konstruktor *** */
-void createTree(Tree *T,IDType IDParents,WordType word)
+void createTree(Tree *T, kicauan kicau)
 {
-    Root(*T) = newTNODE(IDParents,word);
+    addressTree newNode = (addressTree)malloc(sizeof(Node));
+    if (newNode != NULL)
+    {
+        BID(newNode) = kicau.id;
+        BAUTH(newNode) = SELMT(dataNama, current_id);
+        BDATE(newNode) = ExtractLocalTimes();
+        BTEXT(newNode) = kicau.Text;
+        FirstChild(newNode) = NULL;
+        NextSibling(newNode) = NULL;
+    }
+    Root(*T) = newNode;
 }
 
-void AddChild(Tree T,IDType IDParent, IDType IDChild,Word word)
+void AddChild(Tree *T, IDType IDParent, IDType IDChild, Word word)
 {
-    Tree p = T;
+    Tree p = *T;
     addressTree parentNode = SearchTNode(p, IDParent);
     if (parentNode != NULL)
     {
-        addressTree childNode = newTNODE(IDChild,word);
+        addressTree childNode = newTNODE(IDChild, word);
         addressTree lastChild = FirstChild(parentNode);
         if (lastChild == NULL)
         {
@@ -53,7 +63,7 @@ void AddChild(Tree T,IDType IDParent, IDType IDChild,Word word)
     }
 }
 
-void DelChild(Tree *T,IDType IDParent, IDType IDChild)
+void DelChild(Tree *T, IDType IDParent, IDType IDChild)
 {
     Tree p = *T;
     addressTree parentNode = SearchTNode(p, IDParent);
@@ -61,7 +71,7 @@ void DelChild(Tree *T,IDType IDParent, IDType IDChild)
     {
         addressTree prevChild = NULL;
         addressTree child = FirstChild(parentNode);
-        while (child != NULL && ID(child) != IDChild)
+        while (child != NULL && BID(child) != IDChild)
         {
             prevChild = child;
             child = NextSibling(child);
@@ -89,10 +99,10 @@ addressTree SearchTNode(Tree T, IDType ID)
     {
         return NULL;
     }
-    else if (ID(p) == ID)
-    {
-        return p;
-    }
+    // else if (ID(p) == ID)
+    // {
+    //     return p;
+    // }
     else
     {
         addressTree child = FirstChild(p);
@@ -108,7 +118,7 @@ addressTree SearchTNode(Tree T, IDType ID)
         }
         return NULL;
     }
-} 
+}
 
 boolean IsTreeEmpty(Tree T)
 {
@@ -128,20 +138,65 @@ boolean IsLeaf(Tree T, IDType ID)
 
 boolean IsRoot(Tree T, IDType ID)
 {
-    return Root(T) != NULL && ID(Root(T)) == ID;
+    return Root(T) != NULL && BID(Root(T)) == ID;
 }
 
-void displayTree(addressTree node, int depth) {
-    if (node != NULL) {
-        int i;
-        for (i = 0; i < depth; i++) {
-            printf("  ");  // Mencetak spasi untuk indentasi
-        }
-        printf("%d\n", ID(node));  // Mencetak ID node saat ini
-        addressTree child = FirstChild(node);
-        while (child != NULL) {
-            displayTree(child, depth + 1);  // Rekursif ke anak-anak
-            child = NextSibling(child);
-        }
+void displayTreeLevel(addressTree node, int tingkatan)
+{
+
+    if (node == NULL)
+    {
+        return;
     }
+    // Menampilkan informasi dari simpul saat ini dengan format khusus
+    printf("%*s| ID = %d\n", tingkatan * 3, "", BID(node));
+
+    if (isTeman(matPertemanan,SELMT(dataNama,current_id-1), BAUTH(node)))
+    {
+        printf("%*s| ", (tingkatan) * 3, "");
+        printWord(BAUTH(node));
+        printf("\n");
+        printf("%*s| ", (tingkatan) * 3, "");
+        TulisDATETIME(BDATE(node));
+        printf("\n");
+        printf("%*s| ", (tingkatan) * 3, "");
+        printWord(BTEXT(node));
+        printf("\n");
+    }
+    else
+    {
+        printf("%*s| PRIVAT\n", (tingkatan) * 3, "");
+        printf("%*s| PRIVAT\n", (tingkatan) * 3, "");
+        printf("%*s| PRIVAT\n", (tingkatan) * 3, "");
+    }
+
+    // Lanjutkan ke anak pertama dengan level yang lebih dalam
+    displayTreeLevel(FirstChild(node), tingkatan + 1);
+
+    // Lanjutkan ke saudara kandung berikutnya pada level yang sama
+    displayTreeLevel(NextSibling(node), tingkatan);
+}
+
+void displayTreeFull(Tree T)
+{
+    addressTree p = Root(T);
+    displayTreeLevel(p, 0);
+}
+
+IDType searchIDmax(addressTree p)
+{
+    IDType maxID = BID(p); // Inisialisasi dengan nilai simpul saat ini
+
+    // Cari nilai maksimum di anak-anak simpul
+    addressTree currentChild = FirstChild(p);
+    while (currentChild != NULL)
+    {
+        IDType childMax = searchIDmax(currentChild);
+        if (childMax > maxID)
+        {
+            maxID = childMax;
+        }
+        currentChild = NextSibling(currentChild); // Pindah ke saudara kandung berikutnya
+    }
+    return maxID;
 }
