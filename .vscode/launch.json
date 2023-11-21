@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": true,
+      "cwd": "c:/Users/Axel Santadi/Documents/Cool_Yeah/Tingkat_2/Semester_3/Alstrukdat/tubes/tubes_1/githubnya",
+      "program": "c:/Users/Axel Santadi/Documents/Cool_Yeah/Tingkat_2/Semester_3/Alstrukdat/tubes/tubes_1/githubnya/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}
