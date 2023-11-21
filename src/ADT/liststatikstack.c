@@ -6,30 +6,21 @@ void CreateListStatikstack(ListStatikStack *l)
     int i;
     for (i = 0; i < LSCAPACITY; i++)
     {
-        Stack emptyText, emptyWaktu;
-        CreateEmpty(&emptyText);
-        CreateEmpty(&emptyWaktu);
+        Stack empty;
+        CreateEmpty(&empty);
 
-        LSSELMT(*l, i) = emptyText;
-        LSSTELMT(*l, i) = emptyWaktu;
+        LSSELMT(*l, i) = empty;
     }
 }
 
-Stack ambilDraf(ListStatikStack l, int idx)
+Stack ambilDrafdanDatetime(ListStatikStack l, int idx)
 /*mereturn stack berisi draf milik akun pada index ke-idx pada list datanama*/
 {
     return (LSSELMT(l, idx));
 }
 
-Stack ambilWaktuDraf(ListStatikStack l, int idx)
-/*mereturn stack berisi waktu terakhir draf diedit milik akun pada index ke-idx pada list datanama*/
-{
-    return (LSSTELMT(l, idx));
-}
-
-void overwriteDraf(ListStatikStack *l, int idx, Stack s, Stack stime)
+void overwriteDraf(ListStatikStack *l, int idx, Stack s)
 /*meng-overwrite data draf pada liststatikstack dengan stack yang sudah diedit pada fungsi draf*/
 {
     LSSELMT(*l, idx) = s;
-    LSSTELMT(*l, idx) = s;
 }

@@ -10,6 +10,10 @@ void SwCreateListStatik(ListStatikWord *l){
     }
 }
 
+// void SwCreateListStatikWrdDin(ListStatikWordDin *l){
+//     l->neff = 0;
+// }
+
 int SwlistLength(ListStatikWord l){
     int i,hasil;
     hasil = 0;
@@ -141,14 +145,20 @@ void SwinsertAt(ListStatikWord *l, WrdType val, IdxType idx){
     *l = l1;
 }
 
-void SwdeleteFirst(ListStatikWord *l, WrdType *val){
+// void SwinsertLastWordDin(ListStatikWordDin *l, WordDin val)
+// {
+//     SELMTD(*l,l->neff-1) = val;
+//     l->neff++;
+// }
+
+void SwdeleteFirst(ListStatikWord *l, WrdType *val)
+{
     int i;
     *val = SELMT(*l,SwgetFirstIdx(*l));
     for(i =SwgetFirstIdx(*l); i<SwlistLength(*l); i++){
         SELMT(*l,i) = SELMT(*l,i+1);
     }
     SELMT(*l,SwgetLastIdx(*l) + 1) = STATICMARK;
-    
 }
 
 void SwinsertLast(ListStatikWord *l, WrdType val){

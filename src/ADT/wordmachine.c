@@ -85,6 +85,14 @@ void printWord(Word word) {
    }
 }
 
+// void printWordDin(WordDin word){
+//     int i;
+//     for (i = 0; i < word.Length; i++) {
+//       printf("%c", word.container[i]);
+//     }
+//     i++;
+// }
+
 void CopyLine() {
       int i = 0;
       while ((currentChar != ENTER) && (retval != EOF)) {
@@ -201,6 +209,31 @@ void IgnoreEnters()
     }
 }
 
+// void CreateWord(WordDin * word, int Capacity){
+//     word->Capacity = Capacity;
+//     word->Length = 0;
+//     word = (char*) malloc ((Capacity+1) * sizeof(char));
+// }
+
+// void expandWord(WordDin *word, int Capacity_increase)
+// {
+//     int newCapacity = word->Capacity + Capacity_increase;
+//     char *newTabWord = (char *)malloc((newCapacity + 1) * sizeof(char));  // +1 for the null terminator
+
+//     if (newTabWord != NULL) {
+//         // Copy existing content to the new block
+//         for (int i = 0; i <= word->Length; i++) {
+//             newTabWord[i] = word->container[i];
+//         }
+
+//         // Free the old block
+//         free(word->container);
+
+//         // Update fields in the WordDin structure
+//         word->container = newTabWord;
+//         word->Capacity = newCapacity;
+//     }
+// }
 
 Word StringToWord(char* string, int size)
 /*  Mengubah array of char (string) menjadi word */

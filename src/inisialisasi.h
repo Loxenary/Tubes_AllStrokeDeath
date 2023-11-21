@@ -13,8 +13,6 @@ int isNum(char c);
 
 void readLine();
 
-void readDrafHead(Word *Auth, int * amount);
-
 void ReadUserData(const char * filename);
 
 void ReadKicauData(char* filename);
