@@ -20,7 +20,7 @@ CC = gcc
 CFLAGS = -Wall -std=c11
 
 all: $(BUILD_DIR) main
-	valgrind --leak-check=full ./main
+	./main
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -37,12 +37,14 @@ $(BUILD_DIR)/%.o: $(TEST_DIR)/%.c
 main_obj = $(BUILD_DIR)/main.o
 
 main: $(main_obj) $(MAIN_OBJ) $(ADT_OBJ)
-	 gcc -Wall -std=c11 $^ -o $@
+	 gcc -g -Wall -std=c11 $^ -o $@
 
 # Adjoin Matriks
 $(BUILD_DIR)/Driver_AdjMatrix.o: $(TEST_DIR)/Driver_AdjMatrix.c
 	$(CC) $(CFLAGS) -c $< -o $@
 $(BUILD_DIR)/Driver_ListStatikWord.o: $(TEST_DIR)/Driver_ListStatikWord.c
+	$(CC) $(CFLAGS) -c $< -o $@
+$(BUILD_DIR)/Driver_ListUtas.o: $(TEST_DIR)/Driver_ListUtas.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 adjoin_obj = $(BUILD_DIR)/Driver_AdjMatrix.o
@@ -50,16 +52,24 @@ adjoin_obj = $(BUILD_DIR)/Driver_AdjMatrix.o
 # ListStatikWord
 Driver_AdjMatrix: $(adjoin_obj) $(MAIN_OBJ) $(ADT_OBJ)
 	gcc -Wall -std=c11 $^ -o $@
+
+Driver_ListUtas: $()
 list_statik_word_obj = $(BUILD_DIR)/Driver_ListStatikWord.o
 
-test: Driver_AdjMatrix Driver_ListStatikWord
+test: Driver_AdjMatrix Driver_ListStatikWord Driver_ListUtas
+	./Driver_ListUtas
 	./Driver_AdjMatrix
-	valgrind ./Driver_ListStatikWord -s --leak-check=full
+	./Driver_ListStatikWord
+# ListUtas
+list_utas_obj = $(BUILD_DIR)/Driver_ListUtas.o
 
 Driver_AdjMatrix: $(adjoin_obj) $(MAIN_OBJ) $(ADT_OBJ)
-	gcc -Wall -std=c11 $^ -o $@
+	gcc -g -Wall -std=c11 $^ -o $@
 
 Driver_ListStatikWord: $(list_statik_word_obj) $(MAIN_OBJ) $(ADT_OBJ)
+	gcc -Wall -std=c11 $^ -o $@
+
+Driver_ListUtas: $(list_utas_obj) $(MAIN_OBJ) $(ADT_OBJ)
 	gcc -Wall -std=c11 $^ -o $@
 clean:
 	rm -rf $(BUILD_DIR)/*.o main Driver_AdjMatrix Driver_ListStatikWord

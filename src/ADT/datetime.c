@@ -265,7 +265,6 @@ DATETIME WordToDatetime(Word w){
         if(a == '/' || a == BLANK || a == ':' || i == w.Length){
             counter++;
             temps.Length = k;
-            printf("\n%d\n",k);
             k = 0;
             switch (counter)
             {

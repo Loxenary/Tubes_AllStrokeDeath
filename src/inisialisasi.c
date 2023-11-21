@@ -2,6 +2,7 @@
 
 #include "inisialisasi.h"
 #include "database.h"
+#include "utas.h"
 // #include <ctype.h>
 
 #define FILENAME_MAX_LENGTH 256 // Adjust the size as needed
@@ -248,6 +249,7 @@ void ReadKicauData(char* filename) {
         // Membaca id kicauan
         readLine();
        
+       
         int id = toInt(currentWord);
         // Membaca text kicauan
 
@@ -445,18 +447,62 @@ void ReadDrafData(const char *filename) {
 // Implementasi fungsi ReadUtasData
 void ReadUtasData(const char *filename) {
     FILE *file = fopen(filename, "r");
+    
+    if (file == NULL) {
+        printf("Error: Cannot open file %s\n", filename);
+        return;
+    } else {
+        printf("File %s opened successfully\n", filename);
+    }
+    printf("Filename: %s\n", filename);
 
-    // if (file == NULL) {
-    //     printf("Error: Cannot open file %s\n", filename);
-    //     return;
-    // } else {
-    //     printf("File %s opened successfully\n", filename);
-    // }
-    // printf("Filename: %s\n", filename);
+    // Initialize the word machine
+    STARTFILEWORD(filename);
 
-    // // Initialize the word machine
-    // STARTFILEWORD(filename);
+    int haveUtas = toInt(currentWord);
+    
+    int i;
+    CreateListDinUtas(&utas_pointers, 100);
+    for(i =0; i< haveUtas; i++){
+        readLine();
+        int id_utas = toInt(currentWord);
+        int j;
+        readLine();
+        printWord(currentWord);
+        int jumlah_utas = toInt(currentWord);
+        printf("\n");
+        int id = 1;
+        for(j = 0; j < jumlah_utas; j++){
+            ListUtas temps;
+            CreateUtas(&temps);
+            
+            //TEXT
+            readLine();
+            Word _text = currentWord;
+            printWord(_text);
+            printf("\n");
 
+            //AUTHOR
+            readLine();
+            Word _auth = currentWord;
+            printWord(_auth);
+            printf("\n");
+            
+            //DATE
+            readLine();
+            DATETIME _time = WordToDatetime(currentWord);
+            TulisDATETIME(_time);
+            printf("\n");
+            addUtas(&temps,id,id_utas,_text,_auth,_time);
+            id++;
+            if(temps == NULL){
+                printf("llalalapopop");
+                break;
+            }
+            CetakUtas(temps);
+        }
+        
+    }
     // // Read the number of kicauan
     // dataUtas->banyak_kicauan = toInt(currentWord);
     // printf("Number of kicauan: %d\n", dataUtas->banyak_kicauan);
@@ -540,7 +586,7 @@ void loadconfig(char *folder, char *filename) {
             //Done
             // TODO: Handle kicauan as needed
         } else if (i == 2) {
-            ReadBalasanData(filename);
+            // ReadBalasanData(filename);
             // TODO: Handle Balasan as needed
         } else if (i == 3) {
             // ListDraf listDraf;
@@ -548,7 +594,7 @@ void loadconfig(char *folder, char *filename) {
             // TODO: Handle ListDraf as needed
         } else if (i == 4) {
             // DataUtas datautas;
-            // ReadUtasData(filename, &datautas);
+            ReadUtasData(filename);
             // TODO: Handle DataUtas as needed
         }
     }

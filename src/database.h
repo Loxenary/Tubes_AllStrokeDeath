@@ -11,6 +11,7 @@
 #include "./adt/liststatikmatrixchar.h"
 #include "./adt/liststatikstack.h"
 #include "./adt/prioqueue.h"
+#include "ListDinUtasan.h"
 #include "balasan.h"
 #include "kicau.h"
 
@@ -51,5 +52,7 @@ extern ListStatikStack draf;
 
 //Config Utas
 extern int jumlah_utas;
+extern ListDinUtas utas_pointers;
 
+extern int kicau_have_utas;
 // Typedef yang berisi id Utas, dan linked Listnya

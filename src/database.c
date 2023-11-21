@@ -30,5 +30,7 @@ ListStatikStack draf;
 int jumlah_balasan;
 ListTree list_balasan;
 int jumlah_utas;
+ListDinUtas utas_pointers;
 
+int kicau_have_utas;
 

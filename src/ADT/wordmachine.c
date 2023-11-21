@@ -65,18 +65,18 @@ void ADVWORD()
 }
 void CopyWord(){
     int i = 0;
-   while ((currentChar != ENTER) && (currentChar != BLANK) && (currentChar != MARK))
-   {
-      currentWord.TabWord[i] = currentChar;
-      ADV();
-      i++;
-   }
-    if(i > NMax){
-        currentWord.Length = NMax;
+    while ((currentChar != ENTER) && (currentChar != BLANK) && (currentChar != MARK))
+    {
+       currentWord.TabWord[i] = currentChar;
+       ADV();
+       i++;
     }
-    else{
-        currentWord.Length = i;
-    }
+     if(i > NMax){
+         currentWord.Length = NMax;
+     }
+     else{
+         currentWord.Length = i;
+     }
 }
 void printWord(Word word) {
    int i;

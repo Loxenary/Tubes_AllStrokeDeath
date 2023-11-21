@@ -88,7 +88,9 @@ void InsertNewLastKicau(ListKicau *l, Word Word)
     KDATE(&temp) = ExtractLocalTimes();
     KTEXT(&temp) = Word;
     KNEFF(*l)++;
+    temp.next_Utas = NULL;
     KELMT(*l,NEFF(*l)-1) = temp;
+    
 }
 
 kicauan CreateDefinedKicau(Word author, Word text, int Likes, DATETIME dates, int id)
@@ -99,6 +101,7 @@ kicauan CreateDefinedKicau(Word author, Word text, int Likes, DATETIME dates, in
     KLIKE(&temps) = Likes;
     KDATE(&temps) = dates;
     KTEXT(&temps) = text;
+    temps.next_Utas = NULL;
     inputNewKicauToListTree(&list_balasan);
     return temps;
 }
