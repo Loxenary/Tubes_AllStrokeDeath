@@ -2,7 +2,7 @@
 #define KICAU_H
 
 #include "teman.h"
-#include "listutas.h"
+#include "ListUtas.h"
 
 typedef struct Kicau
 {

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "teman.h"
+#include "database.h"
 
 // AdjMatrix Mat_Teman(){
 //     AdjMatrix m;
@@ -16,7 +17,8 @@
 //     return m;
 // }
 
-ListStatikWord ListTeman(AdjMatrix m, int idx){
+ListStatikWord ListTeman(AdjMatrix m, int idx)
+{
     ListStatikWord teman;
     SwCreateListStatik(&teman);
     int i;
@@ -26,16 +28,17 @@ ListStatikWord ListTeman(AdjMatrix m, int idx){
             SwinsertLast(&teman,SELMT(dataNama,i));
         }
     }
-    
-
     return teman;
 }
 
-boolean isTeman(AdjMatrix *m, int vecU, int vecV){
-    if(GELMT(m,vecU,vecV) == 1){
+boolean isTeman(AdjMatrix TemanMat, Word user1, Word user2){
+    
+    if(GELMT(&TemanMat,SwindexOf(dataNama, user1),SwindexOf(dataNama, user2)) == 1){
         return TRUE;
     }
-    return FALSE;
+    else{
+        return FALSE;
+    }
 }
 
 int jumlah_Teman(AdjMatrix m, int idx){
@@ -55,9 +58,9 @@ boolean isHapus(Word w){
 }
 
 //Keperluan Debugging
-void Daftar_Teman(ListStatikWord dataTeman){
+void Daftar_Teman(AdjMatrix dataTeman){
     if(isLogin){
-        ListStatikWord friends = dataTeman;
+        ListStatikWord friends = ListTeman(dataTeman,current_id);
         int jumlahTeman = SwlistLength(friends);
         Word nama = SELMT(dataNama,current_id);
         if(jumlahTeman > 0){
@@ -71,12 +74,14 @@ void Daftar_Teman(ListStatikWord dataTeman){
             {
                 printf("| ");
                 printWord(SELMT(friends,i));
+                printf("\n");
             }   
         }
         else{
-            printf("AWKKWW");
+            printf("Awkwkkw ");
             printWord(nama);
-            printf("GAPUNYA TEMEN KASIHAN BEUT\n");
+            printf(" Gapunya teman aduh\n");
+            printf("kacian");
         }
     }
     else{
@@ -116,33 +121,48 @@ void Daftar_Teman(ListStatikWord dataTeman){
 // }
 
 
-void Hapus_Teman(ListStatikWord* dataTeman){
-    ListStatikWord friends = *dataTeman;
-    
-    printf("Masukkan nama pengguna :\n");
-    STARTWORD();
-    WrdType temp = currentWord;
-    printf("Apakah anda yakin ingin\n");
-    printf("menghapus ");
-    printWord(temp);
-    printf(" dari daftar teman\n");
-    printf("anda? (YA/TIDAK)\n");
-    STARTWORD();
+void Hapus_Teman(AdjMatrix* dataTeman){
+    ListStatikWord friends = ListTeman(*dataTeman,current_id);
 
-    if(isHapus(currentWord)){
-        if(!SwisValExist(friends,temp)){
-            printWord(temp);
-            printf("Bukan teman anda");
+    if(jumlah_Teman > 0){
+        printf("Masukkan nama pengguna :\n");
+        STARTWORD();
+        WrdType temp = currentWord;
+
+        if(SwisValExist(dataNama,currentWord)){
+            printf("Pengguna tidak ditemukan\n");
         }
         else{
-            SwdeleteVal(dataTeman,temp);
+            printf("Apakah anda yakin ingin\n");
+            printf("menghapus ");
             printWord(temp);
-            printf(" berhasil dihapus dari\n");
-            printf("daftar teman anda \n");
+            printf(" dari daftar teman\n");
+            printf("anda? (YA/TIDAK)\n");
+            STARTWORD();
+
+            if(isHapus(currentWord)){
+                if(!SwisValExist(friends,temp)){
+                    printWord(temp);
+                    printf("Bukan teman anda");
+                }
+                else{
+                    int idx = SwindexOf(dataNama,currentWord);
+                    int i,j;
+                    GELMT(dataTeman,current_id,idx) = 0;
+                    GELMT(dataTeman,idx,current_id) = 0;
+                    printWord(temp);
+                    printf(" berhasil dihapus dari\n");
+                    printf("daftar teman anda \n");
+                }
+            }
+            else{
+                printf("Penghapusan teman dibatalkan \n");
+            }
         }
     }
     else{
-        printf("Penghapusan teman dibatalkan \n");
+        printf("Kamu gapunya teman, ,mana bisa hapus teman\n");
+        printf("hadeuh\n");
     }
 
 }   

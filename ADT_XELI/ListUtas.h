@@ -2,7 +2,7 @@
 #define LIST_UTAS_H
 
 #include "boolean.h"
-#include "wordlist.h"
+#include "ListStatikWord.h"
 #include "listdin.h"
 #include "datetime.h"
 
@@ -29,7 +29,7 @@ typedef Address ListUtas;
 
 void CreateUtas(ListUtas *U, int Capacity);
 
-void InputUtas(ListUtas *U, int id,);
+void InputUtas(ListUtas *U, int id);
 
 
 #endif

@@ -1,23 +1,33 @@
 #include "database.h"
 
-int wrdCapacity;
-int current_id;
-int banyak_pengguna;
-boolean isLogin;
+int wrdCapacity = 0;
+int current_id = 0;
+int banyak_pengguna = 0;
+boolean isLogin = FALSE;
 ListStatikWord dataNama;
 ListStatikWord password;
 ListStatikWord bio;
 ListStatikWord phone;
 ListStatikWord Weton;
 ListStatik JenisAkun;
-Matrix profile;
+ListStatikMatrix profil;
+
 AdjMatrix matPertemanan;
 int addFriendCounter;
-Matrix matTambahTeman;
+PrioQueue permintaanTeman;
+
 int jumlah_kicau;
 ListKicau list_kicau;
-int jumlah_balasan;
+
 ListDin id_kicau;
-//Tree untuk Balasan
+
+//Config Draf
 int jumlah_Draf;
+ListStatikStack draf;
+
+
+//Tree untuk Balasan
+int jumlah_balasan;
+ListTree list_balasan;
 int jumlah_utas;
+

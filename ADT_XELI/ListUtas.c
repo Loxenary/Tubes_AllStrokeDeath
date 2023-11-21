@@ -1,4 +1,4 @@
-#include <stdio.h>
+/*#include <stdio.h>
 #include <stdlib.h>
 #include "ListUtas.h"
 
@@ -25,3 +25,4 @@ boolean IsIdxFound(ListUtas U){
 }
 
 
+*/
