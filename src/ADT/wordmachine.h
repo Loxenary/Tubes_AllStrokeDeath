@@ -17,6 +17,13 @@ typedef struct
    int Length;
 } Word;
 
+typedef struct{
+   char * container;
+   int Length;
+   int Capacity;
+} WordDin;
+
+
 typedef Word WrdType;
 /* State Mesin Word */
 extern boolean EndWord;
@@ -27,6 +34,12 @@ void STARTFILEWORD(char* dir);
 void IgnoreLines();
 
 void IgnoreEnters();
+
+// void expandWord(WordDin * word, int Capacity_increase);
+
+// void CreateWord(WordDin * word, int Capacity);
+
+// void printWordDin(WordDin word);
 
 void IgnoreBlanks();
 /* Mengabaikan satu atau beberapa BLANK

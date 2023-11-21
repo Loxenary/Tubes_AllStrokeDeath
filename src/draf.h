@@ -9,7 +9,7 @@
 void buatDraf(WrdType nama);
 /*berfungsi untuk membuat draf yang baru*/
 
-void lihatDraf(WrdType nama);
+int lihatDraf(WrdType nama);
 /*  berfungsi memanggil draf yang sudah pernah dibuat paling baru.
     jika kosong, maka akan ada output peringatan*/
 

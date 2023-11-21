@@ -101,9 +101,13 @@ void ReadUserData(const char *filename) {
         // printWord(currentWord);
         // printf("\n");
         readLine();
+        // WordDin wrd;
+        // CreateWord(&wrd,1000);
         SwinsertLast(&phone,currentWord);
+        // wrd.container = currentWord.TabWord;
+        // SwinsertLastWordDin(&phone,wrd);
+        // printWordDin(wrd);
 
-        
         // printWord(currentWord);
         // printf("\n");
         // simpan weton user
@@ -367,34 +371,6 @@ int isNum(char c){
     if(c >= '0' || c <= '9');
 }
 
-void readDrafHead(Word *Auth, int * amount){
-    int i;
-    int k = 0;
-    int counter = 0;
-    Word temps;
-    for(i = 0; i < currentWord.Length; i++){
-        char a = currentWord.TabWord[i];
-        if(a == BLANK || isNum(a)){
-            counter++;
-        }
-        if(counter == 1){
-            Auth->Length = k;
-            k = 0;
-            
-        }
-        else if(counter > 1){
-            temps.TabWord[k] = currentWord.TabWord[i];
-            k++;
-        }
-        else{
-            Auth->TabWord[k] = currentWord.TabWord[i];
-            k++;
-        }
-    }
-    temps.Length = k;
-    *amount = toInt(temps);
-}
-
 // Implementasi fungsi ReadDrafData
 void ReadDrafData(const char *filename) {
     FILE *file = fopen(filename, "r");
@@ -410,35 +386,59 @@ void ReadDrafData(const char *filename) {
     // Initialize the word machine
     STARTFILEWORD(filename);
     printf("Word machine initialized\n");
-
+    currentWord.TabWord[currentWord.Length] = '\0';
     // Read the number of users with drafts
     jumlah_Draf = toInt(currentWord);
     printf("Number of users with drafts: %d\n", jumlah_Draf);
-
+    int _temp_amount = 0;
     CreateListStatikstack(&draf);
-    Isianstack _Auth_Temps;
-    Isianstack _Time_Temps;
-    Word _Auth_Word;
-    int _amount_Temps;
-    int j;
-    CreateEmpty(&_Auth_Temps);
-    printf("test");
-    // Read user drafts
-    for (int i = 0; i < jumlah_Draf; i++) {
+    int i;
+    for(i = 0; i < jumlah_Draf; i++){
+        _temp_amount = 0;
         readLine();
-        readDrafHead(&_Auth_Word, &_amount_Temps);
-        int id = SwindexOf(dataNama,_Auth_Word);
-        printWord(_Auth_Word);
-        printf("\n");
-        printf("%d\n",_amount_Temps);
-        for(j= 0; j < _amount_Temps; j++){
-            readLine();
-            Push(&_Auth_Temps,currentWord);
-            LSSELMT(draf,id) = _Auth_Temps;
-            readLine();
-            Push(&_Auth_Temps, currentWord);
-            LSSTELMT(draf,id) = _Time_Temps;
+        int k = 1;
+        char a = currentWord.TabWord[currentWord.Length-k];
+        int multiplayer= 1;
+        while (a != BLANK)
+        {
+            _temp_amount += (a - '0') * multiplayer;
+            multiplayer *= 10;
+            k++;
+            a = currentWord.TabWord[currentWord.Length - k];
         }
+        Word _current_user;
+        int h = 0;
+        int batas = currentWord.Length - k;
+        for(k = 0; k < batas; k++){
+            _current_user.TabWord[h] = currentWord.TabWord[k];
+            h++;
+        }
+        _current_user.Length = h;
+        printWord(_current_user);
+        printf(" %d\n",_temp_amount);
+        int id_kicau = SwindexOf(dataNama,_current_user);
+        Stack _temp_stack;
+        Stack _not_temp_stack;
+        CreateEmpty(&_temp_stack);
+        CreateEmpty(&_not_temp_stack);
+        for(h = 0; h < _temp_amount;h++){
+            readLine();
+            Word text= currentWord;
+            printWord(currentWord);
+            printf("\n");
+            readLine();
+            printWord(currentWord);
+            DATETIME date = WordToDatetime(currentWord);
+            printf("\n");
+            Push(&_temp_stack,text, date);
+        }
+        for(h = 0; h < _temp_amount; h++){
+            Word _temp_text;
+            DATETIME _temp_time;
+            Pop(&_temp_stack,&_temp_text,&_temp_time);
+            Push(&_not_temp_stack,_temp_text,_temp_time);
+        }
+        overwriteDraf(&draf,id_kicau,_not_temp_stack);
     }
     fclose(file);
 }
@@ -484,22 +484,13 @@ void ReadUtasData(const char *filename) {
 
             //AUTHOR
             readLine();
-            Word _auth = currentWord;
-            printWord(_auth);
-            printf("\n");
-            
+            Word _auth = currentWord;            
             //DATE
             readLine();
             DATETIME _time = WordToDatetime(currentWord);
-            TulisDATETIME(_time);
             printf("\n");
             addUtas(&temps,id,id_utas,_text,_auth,_time);
             id++;
-            if(temps == NULL){
-                printf("llalalapopop");
-                break;
-            }
-            CetakUtas(temps);
         }
         
     }
@@ -590,7 +581,7 @@ void loadconfig(char *folder, char *filename) {
             // TODO: Handle Balasan as needed
         } else if (i == 3) {
             // ListDraf listDraf;
-            // ReadDrafData(filename, &listDraf);
+            ReadDrafData(filename);
             // TODO: Handle ListDraf as needed
         } else if (i == 4) {
             // DataUtas datautas;

@@ -25,6 +25,11 @@ typedef struct ListStatikWord{
    WrdType contents[SCAPACITY]; /* memori tempat penyimpan elemen (container) */
 } ListStatikWord;
 
+// typedef struct ListStatikWordDin{
+//    WordDin tabs[SCAPACITY];
+//    int neff;
+// } ListStatikWordDin;
+
 extern WrdType STATICMARK;
 /* Indeks yang digunakan [0..CAPACITY-1] */
 /* Jika l adalah ListStatikWord, cara deklarasi dan akses: */
@@ -37,10 +42,15 @@ extern WrdType STATICMARK;
 
 /* ********** SELEKTOR ********** */
 #define SELMT(l, i) (l).contents[(i)]
+#define SELMTD(l,i) (l).tabs[(i)]
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create List kosong  */
 void SwCreateListStatik(ListStatikWord *l);
+
+// void SwCreateListStatikWrdDin(ListStatikWordDin *l);
+
+
 /* I.S. l sembarang */
 /* F.S. Terbentuk List l kosong dengan kapasitas CAPACITY */
 /* Proses: Inisialisasi semua elemen List l dengan MARK */
@@ -119,6 +129,7 @@ void SwinsertLast(ListStatikWord *l, WrdType val);
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
 
+// void SwinsertLastWordDin(ListStatikWordDin *l, WordDin val);
 /* ********** MENGHAPUS ELEMEN ********** */
 /* *** Menghapus elemen pertama *** */
 void SwdeleteFirst(ListStatikWord *l, WrdType *val);

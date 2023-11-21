@@ -62,9 +62,14 @@ void perintah(){
             // Masuk 
             if(isWordEqualString(currentWord, Masuk)){                        
                 printf("Wah Anda sudah masuk. Keluar dulu yuk!\n");
+                
+            }
+            else if(isWordEqualString(currentWord,Daftar)){
+                printf("Anda sudah masuk. Keluar terlebih dahulu untuk\nmelakukan daftar.\n");
+            }
 
             // Keluar    
-            } else if(isWordEqualString(currentWord, Keluar)){
+            else if(isWordEqualString(currentWord, Keluar)){
                 printf("Anda berhasil logout. \nSampai jumpa di pertemuan berikutnya!\n");
                 keluar();
 
@@ -74,7 +79,8 @@ void perintah(){
 
             // Lihat Profil    
             } else if(isWordEqualString(currentWord, Lihat_profil)){
-                lihatProfil(current_pengguna);
+                CopyWordWithSpace();
+                lihatProfil(currentWord);
                 printf("jalankan perintah lihat_profil\n");
 
             // Atur Jenis Akun    

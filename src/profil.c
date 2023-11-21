@@ -18,7 +18,7 @@ void gantiProfil(WrdType nama)
     printf("\n| Bio Akun: ");
     printWord(SELMT(bio, index));
     printf("\n| No HP: ");
-    printWord(SELMT(phone, index));
+    printWord(SELMT(phone,index));    
     printf("\n| Weton: ");
     printWord(SELMT(Weton, index));
 
@@ -43,64 +43,59 @@ void gantiProfil(WrdType nama)
     boolean cek = TRUE;
 
     Word cekAngka;
-    for (int i = 0; i <= 9; i++)
-    {
-        cekAngka.TabWord[i] = i;
-    }
-
     while (cek)
     {
+        i = 0;
         cek = TRUE;
+        boolean cek1 = TRUE;
         START();
+        IgnoreEnters();
         int len = 0;
         while (currentChar != BLANK && currentChar != ';')
-        {
-            currentChar -= '0';    
-            currentWord.TabWord[i] = currentChar;
+        { 
+            cekAngka.TabWord[len] = currentChar;
             ADV();
             len++;
-        }
-
-        for (int i = 0; i <= len; i++)
+        }   
+        cekAngka.Length = len;
+        for (int i = 0; i < len; i++)
         {
-            for (int j = 0; j <= 9; j++)
+            if(cekAngka.TabWord[i] < '0' || cekAngka.TabWord[i] > '9')
             {
-                if (currentWord.TabWord[i] != cekAngka.TabWord[j])
-                {
-                    cek = FALSE;
-                }
+                cek1 = FALSE;
             }
         }
-
-        if (cek)
+        if (cek1)
         {
-            SELMT(phone, index) = currentWord;
+            if(cekAngka.Length > 15){
+                cekAngka.Length = 15;
+            }
+            SELMT(phone, index) = cekAngka;
             cek = FALSE;
         }
         else
         {
-            printf("No HP tidak valid. Masukkan lagi yuk!");
-            cek = TRUE;
+            printf("No HP tidak valid. Masukkan lagi yuk!\n");
         }
     }
     
     printf("\nMasukkan Weton:\n");
-
+    cek = TRUE;
     while (cek)
     {
-        cek = TRUE;
         START();
+        Word Wet;
         int len = 0;
         while (currentChar != BLANK && currentChar != ';')
         {    
-            currentWord.TabWord[i] = currentChar;
+            Wet.TabWord[len] = currentChar;
             ADV();
             len++;
         }
 
-        if (cekWeton(currentWord) || len == 0)
+        if (cekWeton(Wet) || len == 0)
         {
-            SELMT(Weton, index) = currentWord;
+            SELMT(Weton, index) = Wet;
             cek = FALSE;
         }
         else
@@ -109,7 +104,7 @@ void gantiProfil(WrdType nama)
         }
     }
 
-    printf("Profil Anda sudah berhasil diperbarui!");
+    printf("Profil Anda sudah berhasil diperbarui!\n");
 }
 
 void lihatProfil(WrdType nama)
