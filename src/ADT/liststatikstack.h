@@ -17,7 +17,6 @@ typedef Stack Isianstack;  /* type elemen List */
 typedef int IdxType;
 typedef struct {
    Isianstack content[LSCAPACITY];
-   Isianstack waktu[LSCAPACITY];
 } ListStatikStack;
 /* Indeks yang digunakan [0..CAPACITY-1] */
 /* Jika l adalah ListStatik, cara deklarasi dan akses: */
@@ -31,18 +30,14 @@ typedef struct {
 /* ********** SELEKTOR ********** */
 
 #define LSSELMT(l, i) ((l).content[(i)])
-#define LSSTELMT(l, i) ((l).waktu[(i)])
 
 void CreateListStatikstack(ListStatikStack *l);
 /*membuat list statik berisi stack yang kosong*/
 
-Stack ambilDraf(ListStatikStack l, int idx);
+Stack ambilDrafdanDatetime(ListStatikStack l, int idx);
 /*mereturn stack berisi draf milik akun pada index ke-idx pada list datanama*/
 
-Stack ambilWaktuDraf(ListStatikStack l, int idx);
-/*mereturn stack berisi waktu terakhir draf diedit milik akun pada index ke-idx pada list datanama*/
-
-void overwriteDraf(ListStatikStack *l, int idx, Stack s, Stack stime);
+void overwriteDraf(ListStatikStack *l, int idx, Stack s);
 /*meng-overwrite data draf pada liststatikstack dengan stack yang sudah diedit pada fungsi draf*/
 
 

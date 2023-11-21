@@ -43,7 +43,7 @@ typedef struct
 #define DCAPACITY(l) (l).capacity
 
 /* ********** KONSTRUKTOR ********** */
-void DWCreateList(ListWord *l, int capacity);
+void DWCreateListWord(ListWord *l, int DCAPACITY);
 /* I.S. l sembarang, capacity > 0 */
 /* F.S. Terbentuk list dinamis l kosong dengan kapasitas capacity */
 
