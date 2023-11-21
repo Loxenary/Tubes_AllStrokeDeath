@@ -55,14 +55,7 @@ void buatDraf(WrdType nama)
 
 int lihatDraf(WrdType nama)
 {
-    time_t rawtime;
-    struct tm *local_time;
-
-    time(&rawtime);
-    local_time = localtime(&rawtime);
-
-    Word currentWord, fungsi, worddraf, waktudraf, drafbaru;
-    char currentChar;
+    Word fungsi, worddraf, waktudraf, drafbaru;
     int index, i = 0;
     if (SwindexOf(dataNama, nama) != IDX_UNDEF)
     {
