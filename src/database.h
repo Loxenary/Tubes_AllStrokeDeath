@@ -11,6 +11,7 @@
 #include "./adt/liststatikmatrixchar.h"
 #include "./adt/liststatikstack.h"
 #include "./adt/prioqueue.h"
+#include "utas.h"
 #include "ListDinUtasan.h"
 #include "balasan.h"
 #include "kicau.h"
