@@ -1,9 +1,15 @@
 #include <stdio.h>
 #include <time.h>
+<<<<<<< Updated upstream:ADT_XELI/draf.c
 #include "draf.h"
 #include "kicau.h"
 #include "datetime.h"
 #include "database.h"
+=======
+#include "database.h"
+#include "draf.h"
+
+>>>>>>> Stashed changes:src/draf.c
 
 void buatDraf(WrdType nama)
 {
@@ -39,7 +45,11 @@ void buatDraf(WrdType nama)
     if (fungsi.TabWord[0] == 'S')
     {
         Push(&s, currentWord);
+<<<<<<< Updated upstream:ADT_XELI/draf.c
         Push(&stime, datetime);
+=======
+        //Push(&stime, datetime);
+>>>>>>> Stashed changes:src/draf.c
         overwriteDraf(&draf, index, s, stime);
         printf("Draf telah berhasil disimpan!\n");
     }
@@ -53,7 +63,11 @@ void buatDraf(WrdType nama)
     }
 }
 
+<<<<<<< Updated upstream:ADT_XELI/draf.c
 int lihatDraf(WrdType nama)
+=======
+void lihatDraf(WrdType nama)
+>>>>>>> Stashed changes:src/draf.c
 {
     time_t rawtime;
     struct tm *local_time;
@@ -74,7 +88,10 @@ int lihatDraf(WrdType nama)
     if (IsEmpty(s))
     {
         printf("\nWhoops, anda belum memiliki draf apapun! Buat dulu ya :3\n\n");
+<<<<<<< Updated upstream:ADT_XELI/draf.c
         return 0;
+=======
+>>>>>>> Stashed changes:src/draf.c
     }
     else
     {
@@ -124,22 +141,38 @@ int lihatDraf(WrdType nama)
 
         if (fungsi.TabWord[0] == 'S')
         {
+<<<<<<< Updated upstream:ADT_XELI/draf.c
             DATETIME waktu = ExtractLocalTimes();
             Push(&s, currentWord);
             Push(&stime, waktu);
             overwriteDraf(&draf, index, s, stime);
             printf("Draf telah berhasil disimpan!\n");
             return 0;
+=======
+            Push(&s, currentWord);
+            //Push(&stime, datetime);
+            overwriteDraf(&draf, index, s, stime);
+            printf("Draf telah berhasil disimpan!\n");
+
+>>>>>>> Stashed changes:src/draf.c
         }
         else if(fungsi.TabWord[0] == 'T')
         {
             InsertNewLastKicau(&list_kicau, currentWord);
+<<<<<<< Updated upstream:ADT_XELI/draf.c
             return 0;
+=======
+
+>>>>>>> Stashed changes:src/draf.c
         }
         else
         {
             printf("Draf telah berhasil dihapus!\n");
+<<<<<<< Updated upstream:ADT_XELI/draf.c
             return 0;
+=======
+
+>>>>>>> Stashed changes:src/draf.c
         }
     }
     else

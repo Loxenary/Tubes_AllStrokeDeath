@@ -1,14 +1,21 @@
 #include <stdio.h>
+<<<<<<< Updated upstream:ADT_XELI/profil.c
 #include "Database.h"
 #include "charmachine.h"
 #include "wordmachine.h"
 #include "pcolor.h"
+=======
+#include "database.h"
+>>>>>>> Stashed changes:src/profil.c
 #include "profil.h"
 
 void gantiProfil(WrdType nama)
 {
+<<<<<<< Updated upstream:ADT_XELI/profil.c
     Word currentWord;
     char currentChar;
+=======
+>>>>>>> Stashed changes:src/profil.c
     int i = 0;
 
     int index;
@@ -69,7 +76,11 @@ void gantiProfil(WrdType nama)
         {
             for (int j = 0; j <= 9; j++)
             {
+<<<<<<< Updated upstream:ADT_XELI/profil.c
                 if (currentWord.TabWord[i] != cekAngka.TabWord[j]);
+=======
+                if (currentWord.TabWord[i] != cekAngka.TabWord[j])
+>>>>>>> Stashed changes:src/profil.c
                 {
                     cek = FALSE;
                 }
@@ -139,14 +150,22 @@ void lihatProfil(WrdType nama)
         printWord(SELMT(dataNama, index));
         printf("\n");
 
+<<<<<<< Updated upstream:ADT_XELI/profil.c
         displayMatrixChar(LSMELMT(profil, index));
+=======
+        displayMatrixCharColoured(LSMELMT(profil, index));
+>>>>>>> Stashed changes:src/profil.c
         printf("\n\n");
     }
     else
     {
         printf("Wah, akun ");
         printWord(SELMT(dataNama, index));
+<<<<<<< Updated upstream:ADT_XELI/profil.c
         printf(" diprivat nih. Ikuti dulu yuk untuk bisa melihat profil ");
+=======
+        printf("diprivat nih. Ikuti dulu yuk untuk bisa melihat profil ");
+>>>>>>> Stashed changes:src/profil.c
         printWord(SELMT(dataNama, index));
         printf("!\n\n");
     }
@@ -154,8 +173,11 @@ void lihatProfil(WrdType nama)
 
 void aturJenisAkun(WrdType nama)
 {
+<<<<<<< Updated upstream:ADT_XELI/profil.c
     Word currentWord;
     char currentChar;
+=======
+>>>>>>> Stashed changes:src/profil.c
     int index = SwindexOf(dataNama, nama), i = 0;
 
     if (ELMT(JenisAkun, index) == 0)

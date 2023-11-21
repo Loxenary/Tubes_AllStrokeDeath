@@ -6,6 +6,7 @@
 #define stackt_H
 
 #include "boolean.h"
+<<<<<<< Updated upstream:ADT_XELI/stack.h
 
 #define Nil -1
 #define MaxEl 100
@@ -29,6 +30,39 @@ typedef struct {
 /* Definisi akses dengan Selektor : Set dan Get */
 #define Top(S) (S).TOP
 #define InfoTop(S) (S).T[(S).TOP]
+=======
+#include "wordmachine.h"
+#include "datetime.h"
+
+/* Nil adalah stack dengan elemen kosong. */
+#define Nil -1
+
+/* Definisi ukuran awal stack. */
+#define InitialSize 10
+
+typedef Word infotype;
+typedef DATETIME infodate;
+typedef int address;   /* indeks tabel */
+
+/* Versi II: dengan alokasi dinamis */
+typedef struct {
+  infotype *T;      /* tabel penyimpan elemen */
+  infodate *TD;
+  address TOP;      /* alamat TOP: elemen puncak */
+  address MaxEl;    /* ukuran maksimum stack */
+} Stack;
+
+/* Definisi stack S kosong: S.TOP = Nil */
+/* Elemen yang dipakai menyimpan nilai Stack T[0]..T[MaxEl-1] */
+/* Jika S adalah Stack, maka akses elemen: */
+/* S.T[(S.TOP)] untuk mengakses elemen TOP */
+/* S.TOP adalah alamat elemen TOP */
+
+/* Definisi akses dengan Selektor: Set dan Get */
+#define Top(S) (S).TOP
+#define InfoTop(S) (S).T[(S).TOP]
+#define InfoTopD(S) (S).TD[(S).TOP]
+>>>>>>> Stashed changes:src/ADT/stack.h
 
 /* ************ Prototype ************ */
 /* *** Konstruktor/Kreator *** */
@@ -45,13 +79,21 @@ boolean IsFull(Stack S);
 /* Mengirim true jika tabel penampung nilai elemen stack penuh */
 
 /* ************ Menambahkan sebuah elemen ke Stack ************ */
+<<<<<<< Updated upstream:ADT_XELI/stack.h
 void Push(Stack * S, infotype X);
+=======
+void Push(Stack * S, infotype X, infodate Y);
+>>>>>>> Stashed changes:src/ADT/stack.h
 /* Menambahkan X sebagai elemen Stack S. */
 /* I.S. S mungkin kosong, tabel penampung elemen stack TIDAK penuh */
 /* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
 
 /* ************ Menghapus sebuah elemen Stack ************ */
+<<<<<<< Updated upstream:ADT_XELI/stack.h
 void Pop(Stack * S, infotype* X);
+=======
+void Pop(Stack * S, infotype* X, infodate* Y);
+>>>>>>> Stashed changes:src/ADT/stack.h
 /* Menghapus X dari Stack S. */
 /* I.S. S  tidak mungkin kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */

@@ -13,7 +13,11 @@ typedef int IndexMChar; /* Index baris, kolom */
 typedef char IsianMChar;
 typedef struct
 {
+<<<<<<< Updated upstream:ADT_XELI/matrixchar.h
    IsianMChar mem[ROW_CAP_MCHAR][COL_CAP_MCHAR];
+=======
+   IsianMChar memMChar[ROW_CAP_MCHAR][COL_CAP_MCHAR];
+>>>>>>> Stashed changes:src/ADT/matrixchar.h
    int rowEfMChar; /* banyaknya/ukuran baris yg terdefinisi */
    int colEfMChar; /* banyaknya/ukuran kolom yg terdefinisi */
 } MatrixChar;
@@ -24,6 +28,7 @@ typedef struct
 /* ********** DEFINISI PROTOTIPE PRIMITIF ********** */
 void createMatrixCharKosong(MatrixChar *m);
 /* *** Konstruktor membentuk Matrix *** */
+<<<<<<< Updated upstream:ADT_XELI/matrixchar.h
 void createMatrixProfileDefault(MatrixChar *m);
 /* Membentuk sebuah Matrix "kosong" yang siap diisi berukuran nRow x nCol di "ujung kiri" memori */
 /* I.S. nRow dan nCol adalah valid untuk memori matriks yang dibuat */
@@ -33,6 +38,14 @@ void createMatrixProfileDefault(MatrixChar *m);
 #define MCROW_EFF(M) (M).rowEf
 #define MCCOL_EFF(M) (M).colEf
 #define MCELMT(M, i, j) (M).mem[(i)][(j)]
+=======
+
+void MatrixProfileDefault(MatrixChar *m);
+/* *** Selektor *** */
+#define MCROW_EFF(M) (M).rowEfMChar
+#define MCCOL_EFF(M) (M).colEfMChar
+#define MCELMT(M, i, j) (M).memMChar[(i)][(j)]
+>>>>>>> Stashed changes:src/ADT/matrixchar.h
 
 IsianMChar getElmtMChar(MatrixChar m, int row, int col);
 /* Mengirimkan elemen m(i,j) */
