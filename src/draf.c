@@ -26,7 +26,7 @@ void buatDraf(WrdType nama)
         i++;
     }
 
-    printf("\nApakah anda ingin menghapus, menyimpan, atau menerbitkan draf ini?\n");
+    printf("\nApakah anda ingin menghapus, menyimpan, atau menerbitkan draf ini?(HAPUS / TERBIT / SIMPAN)\n");
     START();
     i = 0;
     while (currentChar != MARK)
@@ -81,7 +81,7 @@ int lihatDraf(WrdType nama)
         printf("\n");
     }
 
-    printf("Apakah anda ingin mengubah, menghapus, atau menerbitkan draf ini? (KEMBALI jika ingin kembali)\n");
+    printf("Apakah anda ingin mengubah, menghapus, atau menerbitkan draf ini? (UBAH / )\n");
     i = 0;
     START();
     while (currentChar != MARK)
