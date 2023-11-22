@@ -14,7 +14,7 @@ ADT_OBJ = $(patsubst $(ADT_DIR)/%.c,$(BUILD_DIR)/%.o, $(ADT_SOURCES))
 TEST_OBJ = $(patsubst $(TEST_DIR)/%.c, $(BUILD_DIR)/%.o, $(TEST_SOURCES))
 
 all: main
-	./main
+	valgrind  --leak-check=full ./main
 
 CC = gcc
 CFLAGS = -Wall -std=c11
