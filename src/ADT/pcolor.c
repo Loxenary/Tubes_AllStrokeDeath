@@ -26,3 +26,15 @@ void print_blue(char c)
     printf("%s%c", BLUE, c);
     printf("%s", NORMAL);
 }
+
+void print_light_blue(char c)
+{
+    printf("%s%c", LIGHT_BLUE, c);
+    printf("%s", NORMAL);
+}
+
+void print_pink(char c)
+{
+    printf("%s%c", PINK, c);
+    printf("%s", NORMAL);
+}
