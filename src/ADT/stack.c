@@ -6,7 +6,7 @@ void CreateEmpty(Stack *S){
     S->T = (infotype *)malloc((InitialSize) * sizeof(infotype));
     S->TD = (infodate *)malloc((InitialSize) * sizeof(infodate));
     if (S->T != NULL && S->TD != NULL) {
-        S->MaxEl = InitialSize;
+        MaxEl(*S) = InitialSize;
         S->TOP = Nil;
     }
 }
@@ -31,6 +31,11 @@ void Push(Stack * S, infotype X, infodate Y){
         Top(*S)++;
         InfoTop(*S) = X;
         InfoTopD(*S) = Y;
+    } else {
+        addCapacityS(S);
+        Top(*S)++;
+        InfoTop(*S) = X;
+        InfoTopD(*S) = Y;
     }
 }
 /* Menambahkan X sebagai elemen Stack S. */
@@ -48,10 +53,14 @@ void Pop(Stack * S, infotype* X, infodate *Y){
         {
         // Setelah pengurangan, TOP menjadi Nil
         // Stack kosong, atur TOP ke Nil agar sesuai dengan kondisi stack kosong
-        Top(*S) = Nil;
+            Top(*S) = Nil;
         }
     }
 }
 /* Menghapus X dari Stack S. */
 /* I.S. S  tidak mungkin kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
+
+void addCapacityS(Stack *S) {
+    MaxEl(*S) += 10;
+}

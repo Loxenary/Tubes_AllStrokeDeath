@@ -37,6 +37,7 @@ typedef struct {
 #define Top(S) (S).TOP
 #define InfoTop(S) (S).T[(S).TOP]
 #define InfoTopD(S) (S).TD[(S).TOP]
+#define MaxEl(S) (S).MaxEl
 
 /* ************ Prototype ************ */
 /* *** Konstruktor/Kreator *** */
@@ -63,5 +64,7 @@ void Pop(Stack * S, infotype* X, infodate *Y);
 /* Menghapus X dari Stack S. */
 /* I.S. S  tidak mungkin kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
+
+void addCapacityS(Stack *S);
 
 #endif
