@@ -3,8 +3,8 @@
 #include "./adt/datetime.h"
 
 typedef enum {
-    Privat,
-    Publik
+    Public,
+    Private
 } AccountType;
 
 void displayScreen();

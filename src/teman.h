@@ -25,4 +25,5 @@ void Hapus_Teman(AdjMatrix* dataTeman);
 //I.S. dataTeman adalah list yang terdefinisi, tidak kosong
 //F.S. akan mengurangi teman sesuai dengan nama yang dicari
 
+
 #endif

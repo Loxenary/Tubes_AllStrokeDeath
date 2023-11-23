@@ -123,9 +123,9 @@ void ReadUserData(const char *filename) {
         char * pub = "Publik";
 
         if (isWordEqualString(currentWord,pub)) {
-            SinsertLast(&JenisAkun,Publik);
+            SinsertLast(&JenisAkun,Public);
         } else {
-            SinsertLast(&JenisAkun,Privat);
+            SinsertLast(&JenisAkun,Private);
         }
         
         // printf("Jenis akun: %s\n", currentWord.TabWord);
@@ -235,6 +235,7 @@ void ReadKicauData(char* filename) {
     currentWord.TabWord[currentWord.Length] = '\0';
     currentWord.Length--;
     // Membaca banyak kicauan
+    CreateListDin(&kicau_with_balasan,50);
     CreateListKicau(&list_kicau, 50); //50 as starter
     jumlah_kicau = toInt(currentWord);
     printf("Jumlah kicauan: %d\n", jumlah_kicau);
@@ -299,7 +300,7 @@ void ReadBalasanData(char* filename) {
         printf("File %s opened successfully\n", filename);
     }
     printf("Filename: %s\n", filename);
-
+    
     // Membaca banyak kicauan yang memiliki balasan
     STARTFILEWORD(filename);
     jumlah_balasan = toInt(currentWord);
@@ -308,19 +309,16 @@ void ReadBalasanData(char* filename) {
     for(i = 0; i < jumlah_balasan; i++){
         readLine();
         int id_kicau = toInt(currentWord);
-        printf("%d\n",id_kicau);
-        
+        DinsertAt(&kicau_with_balasan,1,id_kicau);
         // Read jumlah balasan
         readLine();
         int jumlah_balasan = toInt(currentWord);
-        printf("%d\n",jumlah_balasan);
         int j;
         for(j = 0; j < jumlah_balasan; j++){
             readLine();
             int h = 0;
             char a = currentWord.TabWord[0];
             Word temp;
-            printWord(currentWord);
             while (a != ' ')
             {
                 temp.TabWord[h] = currentWord.TabWord[h];
@@ -343,25 +341,16 @@ void ReadBalasanData(char* filename) {
             }
             temp2.Length = k;
             int id2 = toInt(temp2);
-            
-            printf("\n");
-            
+                        
             readLine();
-            printWord(currentWord);     
             Word text = currentWord;
-            printWord(text);
-            printf("\n");
 
             readLine();
-            printWord(currentWord);
             Word auth = currentWord;
-            printWord(auth);
-            printf("\n");
             
             readLine();
-            printWord(currentWord);
+            
             DATETIME date = WordToDatetime(currentWord);
-            printf("\n");
             printf("\n");
 
             bacaConfigBalasan(&list_balasan,id_kicau,id,id2,text,auth,date);
@@ -509,7 +498,7 @@ void ReadUtasData(const char *filename) {
     STARTFILEWORD(filename);
 
     int haveUtas = toInt(currentWord);
-    
+    kicau_have_utas = haveUtas;
     int i;
     CreateListDinUtas(&utas_pointers, 100);
     for(i =0; i< haveUtas; i++){
@@ -626,7 +615,7 @@ void loadconfig(char *folder, char *filename) {
             //Done
             // TODO: Handle kicauan as needed
         } else if (i == 2) {
-            // ReadBalasanData(filename);
+            ReadBalasanData(filename);
             // TODO: Handle Balasan as needed
         } else if (i == 3) {
             // ListDraf listDraf;

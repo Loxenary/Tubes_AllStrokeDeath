@@ -158,6 +158,8 @@ void insertLast(ListDin *l, ElType val);
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
 /* ********** MENGHAPUS ELEMEN ********** */
+
+void DinsertAt(ListDin *l, ElType val, IdxType id);
 void deleteLast(ListDin *l, ElType *val);
 /* Proses : Menghapus elemen terakhir list */
 /* I.S. List tidak kosong */

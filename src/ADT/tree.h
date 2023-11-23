@@ -4,11 +4,9 @@
 #define TREE_H
 
 #include "boolean.h"
-#include "wordmachine.h"
 #include "datetime.h"
+#include "wordmachine.h"
 #include "../kicau.h"
-
-
 /*  Kamus Umum */
 
 /* Definisi Type Data */
@@ -19,6 +17,7 @@ typedef Word WordType;
 typedef struct tNode* addressTree;
 typedef struct tNode {
     int BID;
+    int RID;
     Word BAuth;
     DATETIME Bdates;
     Word BText;
@@ -86,14 +85,14 @@ boolean IsRoot(Tree T, IDType ID);
 /* Mengirimkan true jika ID adalah elemen root dari pohon T */
 
 void displayTreeLevel(addressTree node, int tingkatan);
-
+/* Formatting tree */
 void displayTreeLevelBalasan(addressTree node, int tingkatan);
-/* Mencetak Tree di terminal */          
+/* Formatting Balasan */          
 
 void displayTreeFull(Tree T);
-
+/* Mencetak Full biasa tanpa memperhatikan teman */
 void displayTreeFullBalasan(Tree T);
-
+/* Mencetak Full dengan memperhatikan teman*/
 IDType searchIDmax(addressTree p);
 
 #endif 

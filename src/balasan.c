@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "balasan.h"
 #include "database.h"
 
 void CreateListTree(ListTree *l, int Capacity)
@@ -30,6 +29,7 @@ void InsertNewBalasId(ListTree *l, Word Word,IDType id_k, IDType id_b)
     if (id_b == -1)
     {   
         AddChild(&(BELMT(*l,id_k-1)),id_k,idnew,Word);
+        insertAt(&list_balasan,1,id_k-1);
     }
     else
     {
@@ -79,6 +79,7 @@ void inputBalas(ListTree *l,int id_k,int id_b)
                 START();
                 CopyWordWithSpace();
                 InsertNewBalasId(l,currentWord,id_k,id_b);
+                DinsertAt(&kicau_with_balasan,1,id_k);
                 printNewBalasan((BELMT(*l,(id_k-1))));
             }
         }

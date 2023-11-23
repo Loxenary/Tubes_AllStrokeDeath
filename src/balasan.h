@@ -1,9 +1,8 @@
 #ifndef BALASAN_H
 #define BALASAN_H
 
-#include "./adt/wordmachine.h"
-#include "./adt/datetime.h"
-#include "./adt/tree.h" 
+#include "./adt/tree.h"
+
 
 typedef struct ListTree
 {

@@ -94,6 +94,9 @@ void processFriendRequest(PrioQueue* friendRequests, Word currentUser) {
         printf(" telah disetujui. Selamat! Anda telah berteman dengan ");
         printWord(request.pengirim);
         printf(".\n");
+        int id_teman = SwindexOf(dataNama, request.penerima);
+        int id_user=  SwindexOf(dataNama,currentUser);
+        AddEdge(&matPertemanan,id_teman, id_user);
     } else {
         // Deny friend request
         printf("Permintaan pertemanan dari ");

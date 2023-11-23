@@ -29,6 +29,8 @@ ListStatikStack draf;
 //Tree untuk Balasan
 int jumlah_balasan;
 ListTree list_balasan;
+ListDin kicau_with_balasan;
+
 int jumlah_utas;
 ListDinUtas utas_pointers;
 

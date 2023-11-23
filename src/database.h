@@ -14,7 +14,6 @@
 #include "utas.h"
 #include "ListDinUtasan.h"
 #include "balasan.h"
-#include "kicau.h"
 #include "draf.h"
 
 
@@ -44,6 +43,7 @@ extern ListKicau list_kicau;
 
 //Config Balesan
 extern int jumlah_balasan;
+extern ListDin kicau_with_balasan;
 extern ListTree list_balasan;
 //Tree untuk Balasan
 
@@ -56,5 +56,5 @@ extern ListStatikStack draf;
 extern int jumlah_utas;
 extern ListDinUtas utas_pointers;
 
-extern int kicau_have_utas;
+extern int kicau_have_utas; 
 // Typedef yang berisi id Utas, dan linked Listnya

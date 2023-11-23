@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "tree.h"
 #include "../database.h"
-
 addressTree newTNODE(IDType ID, WordType word)
 {
     addressTree newNode = (addressTree)malloc(sizeof(Node));

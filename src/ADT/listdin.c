@@ -198,6 +198,20 @@ void copyList(ListDin lIn, ListDin *lOut){
             ELMTD(*lOut,i) = ELMTD(lIn,i);
       }
 }
+
+void DinsertAt(ListDin *l, ElType val, IdxType id){
+      int i;
+      ListDin l1;
+      CreateListDin(&l1,50);
+      for(i = 0; i < id; i++){
+          ELMTD(l1,i) = ELMTD(*l,i);
+      }
+      for(i = id; i <= getLastIdx(*l); i++){
+          ELMTD(l1, i+1) = ELMTD(*l,i);
+      }
+      ELMTD(l1,id) = val;
+      *l = l1;
+}
 /* I.S. lIn terdefinisi tidak kosong, lOut sembarang */
 /* F.S. lOut berisi salinan dari lIn (identik, nEff dan capacity sama) */
 /* Proses : Menyalin isi lIn ke lOut */ 

@@ -25,4 +25,6 @@ void DeleteEdge(AdjMatrix *m, int u, int v);
 void WordToAdjMatrix(AdjMatrix *m, Word currentWord, int idx);
 
 void PrintAdjMatrix(AdjMatrix m);
+
+void expandAdjMatrix(AdjMatrix *m, int Additional);
 #endif

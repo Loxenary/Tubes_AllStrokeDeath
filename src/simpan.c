@@ -2,13 +2,13 @@
 
 #include "simpan.h"
 
-int createFolder(char *folderName){
+int createFolder(const char *folderName){
     struct stat st = {0};
     if(stat(folderName, &st) == 0){
         printf("Folder %s already esists.\n",folderName);
         return 1;
     }
-    if(mkdir(folderName) == 0){
+    if(mkdir(folderName,0777) == 0){
         printf("%s sudah berhasil dibuat.\n",folderName);
         return 0;
     }
@@ -57,7 +57,7 @@ void writeWord(Word wrd, char *folderName){
     // Example:
     FILE *balasanFile = fopen(balasanPath, "w");
     if (balasanFile != NULL) {
-        fprintf(balasanFile, "Content based on current data: %s\n", wrd);
+        fprintf(balasanFile, "Content based on current data: %s\n", wrd.TabWord);
         fclose(balasanFile);
     }
     // Repeat the process for other files...

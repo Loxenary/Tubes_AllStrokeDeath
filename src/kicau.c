@@ -90,6 +90,7 @@ void InsertNewLastKicau(ListKicau *l, Word Word)
     KNEFF(*l)++;
     temp.next_Utas = NULL;
     KELMT(*l,NEFF(*l)-1) = temp;
+    insertLast(&kicau_with_balasan,-1);
     
 }
 
@@ -108,6 +109,7 @@ kicauan CreateDefinedKicau(Word author, Word text, int Likes, DATETIME dates, in
 void InsertDeclaredLastKicau(ListKicau *l, kicauan kicau){
     KNEFF(*l)++;
     KELMT(*l,NEFF(*l)-1) = kicau;
+    insertLast(&kicau_with_balasan,-1);
     inputNewKicauToListTree(&list_balasan,kicau,NEFF(*l));
 }
 
@@ -132,4 +134,8 @@ void ubah_kicauan(int idKicau, ListKicau l)
             printf("milikmu!");
         }
     }
+}
+
+void expandKicau(ListKicau l, int additional){
+
 }

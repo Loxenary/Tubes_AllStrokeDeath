@@ -55,12 +55,14 @@ void daftar()
     int idx = current_id+1;
     Word emptyword = {"",0};
 
-    SwinsertAt(&bio,emptyword,idx);
-    SwinsertAt(&phone,emptyword,idx);
-    SwinsertAt(&Weton,emptyword,idx);
-    insertAt(&JenisAkun,0,idx);
+    SwinsertLast(&bio,emptyword);
+    SwinsertLast(&phone,emptyword);
+    SwinsertLast(&Weton,emptyword);
+    SinsertLast(&JenisAkun,0);
+    createMatrixCharKosong(&m);
     MatrixProfileDefault(&m);
-    overwriteMatrixChar(&profil,m,idx);
+    overwriteMatrixChar(&profil,m,3);
+    expandAdjMatrix(&matPertemanan,1);
 
     printf("\nPengguna telah berhasil terdaftar. Masuk untuk menikmati fitur-fitur BurBir.\n\n");
 }

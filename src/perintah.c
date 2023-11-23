@@ -36,6 +36,116 @@ void perintah(){
     printf(">> ");
     STARTWORD();
     while(!(isWordEqualString(currentWord, Tutup_program))){
+        //DEBUGGING PURPOSES
+        char * nama = "CHECKDATA";
+        if(isWordEqualString(currentWord,nama)){
+            printf("current id: \n");
+            printf("%d\n",current_id);
+            printf("Jumlah Pengguna: \n");
+            printf("%d\n",banyak_pengguna);
+            printf("Is Login: \n");
+            printf("%d\n",isLogin);
+            printf("Data Nama: \n");
+            SwprintList(dataNama);
+            printf("\n");
+            printf("Data Password: \n");
+            SwprintList(password);
+            printf("\n");
+            printf("Data bio: \n");
+            SwprintList(bio);
+            printf("\n");
+            printf("Data telepon: \n");
+            SwprintList(phone);
+            printf("\n");
+            printf("Data Weton: \n");
+            SwprintList(Weton);
+            printf("\n");
+            printf("Data Jenis Akun: \n");
+            SprintList(JenisAkun);
+            printf("\n");
+            printf("Data Profil: \n");
+            int i;
+            for(i = 0; i < SwlistLength(dataNama); i++){
+                displayMatrixCharColoured(LSMELMT(profil,i));
+                printf("\n");
+            }
+            printf("Data Pertemanan: \n");
+            PrintAdjMatrix(matPertemanan);
+            printf("Jumlah Permintaan pertemanan: \n");
+            printf("%d\n",addFriendCounter);
+            printf("Display Permintaan pertmanan: \n");
+            for(i = 0; i < addFriendCounter; i++){
+                printf("Pengirim: ");
+                printWord(permintaanTeman.array[i].pengirim);
+                printf(",Penerima: ");
+                printWord(permintaanTeman.array[i].penerima);
+                printf(", Kepopuleran: %d\n",permintaanTeman.array[i].kepopuleran);
+            }
+            printf("Jumlah kicau \n");
+            printf("%d\n",jumlah_kicau);
+            printf("Daftar Kicau \n");
+            for(i = 0; i < list_kicau.nEff; i++){
+                DisplayKicauan(list_kicau,i);
+            }
+            
+            printf("Jumlah Kicau yang punya Balasan: \n");
+            printf("%d\n",jumlah_balasan);
+
+            printf("Display Balasan: \n");
+            for(i = 0; i < jumlah_kicau; i++){
+                if(ELMTD(kicau_with_balasan,i) != -1){
+                    displayTreeFull(BELMT(list_balasan,i));
+                    printf("\n");
+                }
+            }
+            printf("Jumlah Pengguna yang punya Draf: \n");
+            printf("%d\n",jumlah_Draf);
+            printf("Display Draf: \n");
+            for(i = 0; i < SwlistLength(dataNama); i++){
+                ListStatikStack temps = draf;
+                if(MaxEl(LSSELMT(draf,i)) > 0){
+                    int j;
+                    printf("Untuk Draf Pengguna : ");
+                    printWord(SELMT(dataNama,i));
+                    printf("\n");
+                    for(j = 0; j < MaxEl(LSSELMT(temps,i));j++){
+                        infotype _temps_text;
+                        infodate _temps_date;
+                        Pop(&temps,&_temps_text,&_temps_date);
+                        printf("Draf ke %d: \n",j);
+                        printf("Text: \n");
+                        printWord(_temps_text);
+                        printf("\nDate: \n");
+                        TulisDATETIME(_temps_date);
+                        printf("\n");
+                    }
+                }
+            }
+
+            printf("Jumlah Kicau yang punya utas: \n");
+            printf("%d\n",jumlah_utas);
+
+            printf("Display ListUtas: \n");
+            for(i = 0; i < KNEFF(list_kicau); i++){
+                if(KELMT(list_kicau,i).next_Utas != NULL){
+                    printf("Utas pada kicau id: %d\n",KELMT(list_kicau,i).id);
+                    Address p = ELMTD_LDU(utas_pointers,i);
+                    while (p != NULL)
+                    {
+                        printf("id: %d",p->IdUtas);
+                        printf("Author: \n");
+                        printWord(p->Author);
+                        printf("Text: \n");
+                        printWord(p->texts);
+                        printf("Datetime: \n");
+                        TulisDATETIME(p->dateTime);
+                        p = NEXT(p);
+                    }
+                    
+                }
+            }
+        }
+    
         if(!(isLogin)){
             printf("\n");
             // belum login

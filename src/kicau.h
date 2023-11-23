@@ -3,7 +3,6 @@
 
 #include "teman.h"
 #include "listutas.h"
-#include "balasan.h"
 typedef struct Kicau
 {
     int id;
@@ -11,8 +10,6 @@ typedef struct Kicau
     int Likes;
     Word Auth;
     DATETIME dates;
-
-    // ListDin id_utas;
     Address next_Utas;
 } kicauan;
 
@@ -56,6 +53,8 @@ void InsertDeclaredLastKicau(ListKicau *l, kicauan kicau);
 void ubah_kicauan(int idKicau, ListKicau l);
 
 void DisplayKicauan(ListKicau l, int id);
+
+void expandKicau(ListKicau l, int additional);
 
 
 #endif

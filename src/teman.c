@@ -57,6 +57,7 @@ boolean isHapus(Word w){
     return (w.TabWord[0] == 'Y');
 }
 
+
 //Keperluan Debugging
 void Daftar_Teman(AdjMatrix dataTeman){
     if(isLogin){

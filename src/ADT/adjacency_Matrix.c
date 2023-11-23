@@ -50,3 +50,15 @@ void PrintAdjMatrix(AdjMatrix m){
         printf("\n");
     }
 }
+void expandAdjMatrix(AdjMatrix *m, int Additional){
+
+    AdjMatrix temps;
+    CreateAdjMatrix(&temps,m->Vertices + Additional);
+    int i,j;
+    for(i = 0; i < m->Vertices; i++){
+        for(j = 0; j < m->Vertices; j++){
+            GELMT(&temps,i,j) = GELMT(m,i,j);
+        }
+    }
+    *m = temps;
+}

@@ -2,7 +2,7 @@
 .DEFAULT_GOAL := all
 SRC_DIR = src
 ADT_DIR = $(SRC_DIR)/adt
-TEST_DIR = Tester
+TEST_DIR = tester
 BUILD_DIR = build
 
 MAIN_SOURCES = $(wildcard $(SRC_DIR)/*.c)
@@ -19,19 +19,16 @@ all: main
 CC = gcc
 CFLAGS = -Wall -std=c11
 
-all: $(BUILD_DIR) main
-	./main
-
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/%.o: $(ADT_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(BUILD_DIR)/main.o: main.c
+$(BUILD_DIR)/%.o : $(TEST_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(BUILD_DIR)/%.o: $(TEST_DIR)/%.c
+$(BUILD_DIR)/main.o: main.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 main_obj = $(BUILD_DIR)/main.o
@@ -39,37 +36,52 @@ main_obj = $(BUILD_DIR)/main.o
 main: $(main_obj) $(MAIN_OBJ) $(ADT_OBJ)
 	 gcc -g -Wall -std=c11 $^ -o $@
 
-# Adjoin Matriks
-$(BUILD_DIR)/Driver_AdjMatrix.o: $(TEST_DIR)/Driver_AdjMatrix.c
-	$(CC) $(CFLAGS) -c $< -o $@
-$(BUILD_DIR)/Driver_ListStatikWord.o: $(TEST_DIR)/Driver_ListStatikWord.c
-	$(CC) $(CFLAGS) -c $< -o $@
-$(BUILD_DIR)/Driver_ListUtas.o: $(TEST_DIR)/Driver_ListUtas.c
-	$(CC) $(CFLAGS) -c $< -o $@
+# Test File
 
-adjoin_obj = $(BUILD_DIR)/Driver_AdjMatrix.o
+TEST_BINARIES = $(patsubst $(TEST_DIR)/%.c, $(BUILD_DIR)/%,$(TEST_SOURCES:.c=.o	 ))
 
-# ListStatikWord
-Driver_AdjMatrix: $(adjoin_obj) $(MAIN_OBJ) $(ADT_OBJ)
-	gcc -Wall -std=c11 $^ -o $@
+$(BUILD_DIR)/test_%.o: $(TEST_DIR)/test_%.c
+	@echo "Compiling $< into $@ with dependencies: $(ADT_OBJ)"
+	$(CC) $(CFLAGS) -c $< -o $@ $(ADT_OBJ) I$(ADT_OBJ)
 
-Driver_ListUtas: $()
-list_statik_word_obj = $(BUILD_DIR)/Driver_ListStatikWord.o
+run_tests: $(TEST_BINARIES)
+	@echo "TEST_BINARIES: $(TEST_BINARIES)"
+	@for test_binary in $(TEST_BINARIES); do \
+		echo "Running test: $$test_binary"; \
+		./$${test_binary}; \
+   	done
 
-test: Driver_AdjMatrix Driver_ListStatikWord Driver_ListUtas
-	./Driver_ListUtas
-	./Driver_AdjMatrix
-	./Driver_ListStatikWord
-# ListUtas
-list_utas_obj = $(BUILD_DIR)/Driver_ListUtas.o
+# # Adjoin Matriks
+# $(BUILD_DIR)/Driver_AdjMatrix.o: $(TEST_DIR)/Driver_AdjMatrix.c
+# 	$(CC) $(CFLAGS) -c $< -o $@
+# $(BUILD_DIR)/Driver_ListStatikWord.o: $(TEST_DIR)/Driver_ListStatikWord.c
+# 	$(CC) $(CFLAGS) -c $< -o $@
+# $(BUILD_DIR)/Driver_ListUtas.o: $(TEST_DIR)/Driver_ListUtas.c
+# 	$(CC) $(CFLAGS) -c $< -o $@
 
-Driver_AdjMatrix: $(adjoin_obj) $(MAIN_OBJ) $(ADT_OBJ)
-	gcc -g -Wall -std=c11 $^ -o $@
+# adjoin_obj = $(BUILD_DIR)/Driver_AdjMatrix.o
 
-Driver_ListStatikWord: $(list_statik_word_obj) $(MAIN_OBJ) $(ADT_OBJ)
-	gcc -Wall -std=c11 $^ -o $@
+# # ListStatikWord
+# Driver_AdjMatrix: $(adjoin_obj) $(MAIN_OBJ) $(ADT_OBJ)
+# 	gcc -Wall -std=c11 $^ -o $@
 
-Driver_ListUtas: $(list_utas_obj) $(MAIN_OBJ) $(ADT_OBJ)
-	gcc -Wall -std=c11 $^ -o $@
+# Driver_ListUtas: $()
+# list_statik_word_obj = $(BUILD_DIR)/Driver_ListStatikWord.o
+
+# test: Driver_AdjMatrix Driver_ListStatikWord Driver_ListUtas
+# 	#./Driver_ListUtas
+# 	./Driver_AdjMatrix
+# 	./Driver_ListStatikWord
+# # ListUtas
+# list_utas_obj = $(BUILD_DIR)/Driver_ListUtas.o
+
+# Driver_AdjMatrix: $(adjoin_obj) $(MAIN_OBJ) $(ADT_OBJ)
+# 	gcc -g -Wall -std=c11 $^ -o $@
+
+# Driver_ListStatikWord: $(list_statik_word_obj) $(MAIN_OBJ) $(ADT_OBJ)
+# 	gcc -Wall -std=c11 $^ -o $@
+
+# Driver_ListUtas: $(list_utas_obj) $(MAIN_OBJ) $(ADT_OBJ)
+# 	gcc -Wall -std=c11 $^ -o $@
 clean:
 	rm -rf $(BUILD_DIR)/*.o main Driver_AdjMatrix Driver_ListStatikWord

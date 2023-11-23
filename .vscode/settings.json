@@ -36,6 +36,9 @@
       "balasan.h": "c",
       "liststatik.h": "c",
       "listdinutasan.h": "c",
-      "simpan.h": "c"
+      "simpan.h": "c",
+      "matrixchar.h": "c",
+      "prioqueue.h": "c",
+      "listdin.h": "c"
     }
 }

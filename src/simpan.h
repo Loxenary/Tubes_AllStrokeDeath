@@ -2,7 +2,7 @@
 #include "./adt/wordmachine.h"
 
 
-int createFolder(char *folderName);
+int createFolder(const char *folderName);
 
 int simpan();
 
