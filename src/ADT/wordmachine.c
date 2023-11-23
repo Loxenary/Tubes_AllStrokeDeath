@@ -1,9 +1,11 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "boolean.h"
 #include "wordmachine.h"
 
 boolean EndWord;
 Word currentWord;
+WordDin currentWordDin;
 
 
 void IgnoreBlanks(){ // This is to Ignore the current Char when its a blank
@@ -85,6 +87,11 @@ void printWord(Word word) {
    }
 }
 
+void printWordDin(WordDin word) {
+   for (int i = 0; i < word.Length; i++) {
+      printf("%c", word.container[i]);
+   }
+}
 // void printWordDin(WordDin word){
 //     int i;
 //     for (i = 0; i < word.Length; i++) {
@@ -120,7 +127,22 @@ boolean isWordEqual(Word w1, Word w2){
             }
         }
         return TRUE;
-        
+    }
+}
+
+boolean isWordDinEqual(WordDin w1, WordDin w2){
+    int i;
+    if(w1.Length != w2.Length){
+        return FALSE;
+    }
+    else{
+        for (i = 0; i < w1.Length; i++)
+        {
+            if(w1.container[i] != w2.container[i]){
+                return FALSE;
+            }
+        }
+        return TRUE;
     }
 }
 
@@ -263,3 +285,29 @@ Word ConcatWord(Word w1, Word w2) {
 
 // concat word
 Word ConcatWord(Word w1, Word w2);
+
+void copyWordDin()
+{
+    if (currentWordDin.container == NULL)
+    {
+        currentWordDin.container = (char *)malloc(NMax * sizeof(char));
+        currentWordDin.Length = 0;
+        currentWordDin.Capacity = NMax;
+    }
+    // Mengosongkan currentWord
+    currentWordDin.Length = 0;
+
+    // Mengakuisisi kata sampai bertemu BLANK atau MARK
+    while (currentChar != ';') {
+        // Memastikan masih cukup kapasitas
+        if (currentWordDin.Length < currentWordDin.Capacity - 1) {
+            currentWordDin.container[currentWordDin.Length] = currentChar;
+            currentWordDin.Length++;
+        } else {
+            currentWordDin.Capacity++;
+            currentWordDin.container[currentWordDin.Length] = currentChar;
+            currentWordDin.Length++;
+        }
+        ADV();
+    }
+}
