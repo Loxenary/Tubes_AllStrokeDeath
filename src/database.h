@@ -11,6 +11,7 @@
 #include "./adt/liststatikmatrixchar.h"
 #include "./adt/liststatikstack.h"
 #include "./adt/prioqueue.h"
+#include "./ADT/listStatikWordDin.h"
 #include "utas.h"
 #include "ListDinUtasan.h"
 #include "balasan.h"
@@ -29,7 +30,7 @@ extern int MaxWordCapacity;
 extern ListStatikWord dataNama;
 extern ListStatikWord password;
 extern ListStatikWord bio;
-extern ListStatikWord phone;
+extern ListStatikWordDin phone;
 extern ListStatikWord Weton;
 extern ListStatik JenisAkun;
 extern ListStatikMatrix profil;

@@ -18,7 +18,7 @@ void gantiProfil(WrdType nama)
     printf("\n| Bio Akun: ");
     printWord(SELMT(bio, index));
     printf("\n| No HP: ");
-    printWord(SELMT(phone,index));    
+    printWordDin(LSWDELMT(phone,index));    
     printf("\n| Weton: ");
     printWord(SELMT(Weton, index));
 
@@ -42,7 +42,7 @@ void gantiProfil(WrdType nama)
     printf("\nMasukkan No HP:\n");
     boolean cek = TRUE;
 
-    Word cekAngka;
+    WordDin cekAngka;
     while (cek)
     {
         i = 0;
@@ -51,26 +51,23 @@ void gantiProfil(WrdType nama)
         START();
         IgnoreEnters();
         int len = 0;
-        while (currentChar != BLANK && currentChar != ';')
+        while (currentChar != ';')
         { 
-            cekAngka.TabWord[len] = currentChar;
+            cekAngka.container[len] = currentChar;
             ADV();
             len++;
         }   
         cekAngka.Length = len;
         for (int i = 0; i < len; i++)
         {
-            if(cekAngka.TabWord[i] < '0' || cekAngka.TabWord[i] > '9')
+            if(cekAngka.container[i] < '0' || cekAngka.container[i] > '9')
             {
                 cek1 = FALSE;
             }
         }
         if (cek1)
         {
-            if(cekAngka.Length > 15){
-                cekAngka.Length = 15;
-            }
-            SELMT(phone, index) = cekAngka;
+            LSWDELMT(phone, index) = cekAngka;
             cek = FALSE;
         }
         else
@@ -122,7 +119,7 @@ void lihatProfil(WrdType nama)
         printf("\n| Bio Akun: ");
         printWord(SELMT(bio, index));
         printf("\n| No HP: ");
-        printWord(SELMT(phone, index));
+        printWordDin(LSWDELMT(phone, index));
         printf("\n| Weton: ");
         printWord(SELMT(Weton, index));
 

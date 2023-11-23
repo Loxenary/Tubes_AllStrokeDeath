@@ -23,11 +23,12 @@ typedef struct{
    int Capacity;
 } WordDin;
 
-
 typedef Word WrdType;
+typedef WordDin WrdDinType;
 /* State Mesin Word */
 extern boolean EndWord;
 extern Word currentWord;
+extern WordDin currentWordDin;
 
 void STARTFILEWORD(char* dir);
 
@@ -102,5 +103,11 @@ void ADVLINE();
 
 // concat word
 Word ConcatWord(Word w1, Word w2);
+
+void copyWordDin();
+
+void printWordDin(WordDin word);
+
+boolean isWordDinEqual(WordDin w1, WordDin w2);
 
 #endif
