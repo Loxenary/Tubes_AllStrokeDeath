@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include "listStatikWordDin.h"
 
-WrdDinType STATICMARK = {"",-1};
+WrdDinType STATICMARKDIN = {"",-1};
 
 void SwdCreateListStatik(ListStatikWordDin *l){
     int i;
     for(i=0;i<SCAPACITY;i++){
-        LSWDELMT(*l,i) = STATICMARK;
+        LSWDELMT(*l,i) = STATICMARKDIN;
     }
 }
 
@@ -18,7 +18,7 @@ int SwdlistLength(ListStatikWordDin l){
     int i,hasil;
     hasil = 0;
     for(i=0;i<SCAPACITY;i++){
-        if(LSWDELMT(l,i).Length != STATICMARK.Length){
+        if(LSWDELMT(l,i).Length != STATICMARKDIN.Length){
             hasil++;
         }
     }
@@ -48,7 +48,7 @@ IdxType SwdgetFirstIdx(ListStatikWordDin l){
     int i;
     if(SwdlistLength(l)!=0){
         for(i = 0; i < SwdlistLength(l); i++){
-            if(LSWDELMT(l,i).Length != STATICMARK.Length){
+            if(LSWDELMT(l,i).Length != STATICMARKDIN.Length){
                 return i;
             }
         }
@@ -60,7 +60,7 @@ IdxType SwdgetLastIdx(ListStatikWordDin l){
     int i;
     if(SwdlistLength(l)!=0){
         for(i = SwdlistLength(l)-1; i >= 0; i--){
-            if(LSWDELMT(l,i).Length != STATICMARK.Length){
+            if(LSWDELMT(l,i).Length != STATICMARKDIN.Length){
                 return i;
             }
         }
@@ -98,7 +98,7 @@ void SwdprintList(ListStatikWordDin l){
     int i;
     printf("[");
     for(i = 0; i < SwdlistLength(l); i++){
-        if(LSWDELMT(l,i).Length != STATICMARK.Length){
+        if(LSWDELMT(l,i).Length != STATICMARKDIN.Length){
             printWordDin(LSWDELMT(l,i));
         }
         if(i < SwdlistLength(l)-1){
@@ -158,7 +158,7 @@ void SwddeleteFirst(ListStatikWordDin *l, WrdDinType *val)
     for(i =SwdgetFirstIdx(*l); i<SwdlistLength(*l); i++){
         LSWDELMT(*l,i) = LSWDELMT(*l,i+1);
     }
-    LSWDELMT(*l,SwdgetLastIdx(*l) + 1) = STATICMARK;
+    LSWDELMT(*l,SwdgetLastIdx(*l) + 1) = STATICMARKDIN;
 }
 
 void SwdinsertLast(ListStatikWordDin *l, WrdDinType val){
@@ -183,7 +183,7 @@ void SwddeleteAt(ListStatikWordDin *l, WrdDinType *val, IdxType idx){
 
 void SwddeleteLast(ListStatikWordDin *l, WrdDinType *val){
     *val = LSWDELMT(*l, SwdgetLastIdx(*l));
-    LSWDELMT(*l,SwdgetLastIdx(*l)) = STATICMARK;
+    LSWDELMT(*l,SwdgetLastIdx(*l)) = STATICMARKDIN;
 }
 
 
