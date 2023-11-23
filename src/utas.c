@@ -181,28 +181,30 @@ void SambungUtas(int idUtas, int indexUtas){
 void CetakUtas(ListUtas u){
     // kamus
     Address p;
+    kicauan kicauan_utama;
     int count;
     // algoritma
     if(u == NULL){
         printf("Kosong");
     } else{
+
         p = u;
-        count = 0;
+        kicauan_utama = getKicau(p->Idkicau);
+
+        count = 1;
         printf("testing\n");
-        printf("| ID = %d\n", p->IdUtas);
+        printf("| ID = %d\n", p->Idkicau);
         printf("| ");
         printWord(p->Author);
         printf("\n");
         printf("| ");
-        TulisDATETIME(p->dateTime);
+        TulisDATETIME(kicauan_utama.dates);
         printf("\n");
         printf("| ");
-        printWord(p->texts);
+        printWord(kicauan_utama.Text);
         printf("\n");
 
-        while(NEXT(p) != NULL){
-            count ++;
-            p = NEXT(p);
+        while((p) != NULL){
             
             printf("    | INDEX = %d\n", count);
             printf("    | ");
@@ -214,6 +216,9 @@ void CetakUtas(ListUtas u){
             printf("    | ");
             printWord(p->texts);
             printf("\n");
+            
+            count ++;
+            p = NEXT(p);
 
             
         }
