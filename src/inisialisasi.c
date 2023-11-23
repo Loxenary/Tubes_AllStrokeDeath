@@ -62,6 +62,7 @@ void ReadUserData(const char *filename) {
     CreateListTree(&list_balasan,100);
     CreateListStatik(&JenisAkun);
     CreateListStatikMatrix(&profil);
+    CreateListDinUtas(&utas_pointers, 100);
 
     printf("\n");
     
@@ -508,19 +509,24 @@ void ReadUtasData(const char *filename) {
     int haveUtas = toInt(currentWord);
     kicau_have_utas = haveUtas;
     int i;
-    CreateListDinUtas(&utas_pointers, 100);
+    
     for(i =0; i< haveUtas; i++){
         readLine();
-        int id_utas = toInt(currentWord);
+        int id_kicau = toInt(currentWord);
         int j;
         readLine();
         printWord(currentWord);
         int jumlah_utas = toInt(currentWord);
         printf("\n");
         int id = 1;
+        
+        //akses next addres dari kicauan dgn id = id_utas
+
+        
+        ListUtas lk = (KELMT(list_kicau, i)).next_Utas;
+
+        // INSERT TO LIST DIN UTASAN
         for(j = 0; j < jumlah_utas; j++){
-            ListUtas temps;
-            CreateUtas(&temps);
             
             //TEXT
             readLine();
@@ -535,7 +541,10 @@ void ReadUtasData(const char *filename) {
             readLine();
             DATETIME _time = WordToDatetime(currentWord);
             printf("\n");
-            addUtas(&temps,id,id_utas,_text,_auth,_time);
+            addUtas(&(KELMT(list_kicau, id_kicau).next_Utas),listLengthDinUtas(utas_pointers)+1,id_kicau,_text,_auth,_time);
+            if(j == 0){
+                insertLastDinUtas(&utas_pointers, KELMT(list_kicau, id_kicau).next_Utas);
+            }
             id++;
         }
         
