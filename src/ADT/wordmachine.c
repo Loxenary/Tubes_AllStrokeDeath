@@ -257,16 +257,26 @@ void IgnoreEnters()
 //     }
 // }
 
-Word StringToWord(char* string, int size)
-/*  Mengubah array of char (string) menjadi word */
-{
-   Word w;
-   w.Length = size;
+Word StringToWord(char* string, int size) {
+    Word w;
+    w.Length = size;
 
-   for (int i = 0; i < size; i++)
-      w.TabWord[i] = string[i];
+    for (int i = 0; i < size; i++) {
+        if (i < NMax) {
+            w.TabWord[i] = string[i];
+        } else {
+            break;
+        }
+    }
 
-   return w;
+    // Null-terminate the TabWord array
+    if (size < NMax) {
+        w.TabWord[size] = '\0';
+    } else {
+        w.TabWord[NMax - 1] = '\0';
+    }
+
+    return w;
 }
 
 // concat word
