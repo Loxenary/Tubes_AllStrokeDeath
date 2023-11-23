@@ -7,6 +7,12 @@ boolean EndWord;
 Word currentWord;
 WordDin currentWordDin;
 
+void initialWordDin(WordDin * w, int capacity)
+{
+    w->container = (char *)malloc(capacity * sizeof(char));
+    w->Length = 0;
+    w->Capacity = capacity;
+}
 
 void IgnoreBlanks(){ // This is to Ignore the current Char when its a blank
     while(currentChar == BLANK || currentChar == '\n'){
@@ -32,6 +38,17 @@ void ADVLINE() {
     } else {
         CopyLine();
     }
+}
+
+
+void ADVLINEDIN(){
+    IgnoreBlanks();
+    if (currentChar == ENTER) {
+        EndWord = TRUE;
+    } else {
+        CopyLineDin();
+    }
+    
 }
 
 void STARTFILEWORD(char* dir)  // tadi diubah
@@ -103,8 +120,9 @@ void printWordDin(WordDin word) {
 void CopyLine() {
       int i = 0;
       while ((currentChar != ENTER) && (retval != EOF)) {
-         if (i == NMax)
+         if (i == NMax){
                break;
+         }
          currentWord.TabWord[i] = currentChar;
          ADV();
          i++;
@@ -112,6 +130,36 @@ void CopyLine() {
       currentWord.Length = i;
 
 }
+
+
+void CopyLineDin() {
+    initialWordDin(&currentWordDin, 280);
+    int counter = 1;
+    int i = 0;
+    while ((currentChar != ENTER) && (retval != EOF)) {
+        currentWordDin.container[i] = currentChar;
+        ADV();
+        i++;
+
+        if (i > 280 * counter) {
+            // Initialize a temporary WordDin with a smaller capacity (280)
+            WordDin tempWord;
+            counter++;
+            initialWordDin(&tempWord, 280 * counter);
+
+            int j;
+            for (j = 0; j < 280 * (counter - 1); j++) {
+                tempWord.container[j] = currentWordDin.container[j];
+            }
+
+            // Update currentWordDin with the temporary WordDin
+            currentWordDin = tempWord;
+            free(tempWord.container);
+        }
+    }
+    currentWordDin.Length = i;
+}
+
 
 
 boolean isWordEqual(Word w1, Word w2){
@@ -311,3 +359,4 @@ void copyWordDin()
         ADV();
     }
 }
+

@@ -25,9 +25,8 @@ void readLine(){
     currentWord.Length--;
 }
 
-void readLineWD()
-{
-    ADVLINE();
+void readLineDin(){
+    ADVLINEDIN();
     currentWordDin.container[currentWordDin.Length] = '\0';
     currentWordDin.Length--;
 }
@@ -58,7 +57,7 @@ void ReadUserData(const char *filename) {
     SwCreateListStatik(&dataNama); // Global Data untuk ListStatik
     SwCreateListStatik(&password);
     SwCreateListStatik(&bio);
-    SwCreateListStatik(&phone);
+    SwdCreateListStatik(&phone);
     SwCreateListStatik(&Weton);
     CreateListTree(&list_balasan,100);
     CreateListStatik(&JenisAkun);
@@ -107,10 +106,10 @@ void ReadUserData(const char *filename) {
         // printf("Phone: %s\n", userData->phone[i].TabWord);
         // printWord(currentWord);
         // printf("\n");
-        readLine();
+        readLineDin();
         // WordDin wrd;
         // CreateWord(&wrd,1000);
-        SwinsertLast(&phone,currentWord);
+        SwdinsertLast(&phone,currentWordDin);
         // wrd.container = currentWord.TabWord;
         // SwinsertLastWordDin(&phone,wrd);
         // printWordDin(wrd);
@@ -224,6 +223,8 @@ int read_id_balasan(){
         }
         temps.TabWord[i] = a;
     }
+
+    return -1;
 }
 
 // Implementasi fungsi ReadKicauData

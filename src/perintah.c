@@ -56,7 +56,7 @@ void perintah(){
             SwprintList(bio);
             printf("\n\n");
             printf("Data telepon: \n");
-            SwprintList(phone);
+            SwdprintList(phone);
             printf("\n\n");
             printf("Data Weton: \n");
             SwprintList(Weton);
@@ -135,7 +135,7 @@ void perintah(){
             }
             printf("\n======================== DATA UTAS ========================\n");
             printf("Jumlah Kicau yang punya utas: \n");
-            printf("%d\n",jumlah_utas);
+            printf("%d\n",kicau_have_utas);
 
             printf("Display ListUtas: \n");
 

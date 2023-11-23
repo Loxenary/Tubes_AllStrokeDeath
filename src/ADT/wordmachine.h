@@ -30,6 +30,8 @@ extern boolean EndWord;
 extern Word currentWord;
 extern WordDin currentWordDin;
 
+void initialWordDin(WordDin * w, int capacity);
+
 void STARTFILEWORD(char* dir);
 
 void IgnoreLines();
@@ -71,6 +73,8 @@ void STARTWORD();
 
 void CopyLine();
 
+void CopyLineDin();
+
 void CopyWord();
 /* Mengakuisisi kata, menyimpan dalam currentWord
    I.S. : currentChar adalah karakter pertama dari kata
@@ -100,6 +104,8 @@ int toInt(Word nums);
 Word StringToWord(char* string, int size);
 
 void ADVLINE();
+
+void ADVLINEDIN();
 
 // concat word
 Word ConcatWord(Word w1, Word w2);
