@@ -23,13 +23,11 @@ void ubahKicauToNewBalasan(Tree *t, kicauan new)
     BDATE(Root(*t)) = new.dates;
 }
 
-void InsertNewBalasId(ListTree *l, Word Word,IDType id_k, IDType id_b)
+void InsertNewBalasId(ListTree *l, Word Word,IDType id_k, IDType id_b,IDType idnew)
 {
-    IDType idnew = searchIDmax(Root(BELMT(*l,id_k-1))) + 1; 
     if (id_b == -1)
     {   
-        AddChild(&(BELMT(*l,id_k-1)),id_k,idnew,Word);
-        insertAt(&list_balasan,1,id_k-1);
+        AddChildMinSatu(&(BELMT(*l,id_k-1)),id_k,idnew,Word);
     }
     else
     {
@@ -38,14 +36,14 @@ void InsertNewBalasId(ListTree *l, Word Word,IDType id_k, IDType id_b)
     jumlah_balasan++;
 }
 
-void printNewBalasan(Tree balas)
+void printNewBalasan(Tree balas,IDType id_b)
 {
-    addressTree p = SearchTNode(Root(balas),jumlah_balasan);
+    addressTree p = SearchTNode(Root(balas),id_b);
     printf("Selamat! balasan telah diterbitkan!\n");
-    printf("Detil balasan:");
-    printf("| ID = %d\n",current_id); 
+    printf("Detil balasan:\n");
+    printf("| ID = %d\n",BID(p)); 
     printf("| ");
-    printWord(SELMT(dataNama,current_id));
+    printWord(BAUTH(p));
     printf("\n| ");
     TulisDATETIME(BDATE(p));
     printf("\n");
@@ -56,6 +54,7 @@ void printNewBalasan(Tree balas)
 
 void inputBalas(ListTree *l,int id_k,int id_b)
 {   
+
     if(id_k > KNEFF(list_kicau))
     {
         printf("Wah, tidak terdapat kicauan yang ingin Anda balas!\n\n");
@@ -78,35 +77,40 @@ void inputBalas(ListTree *l,int id_k,int id_b)
                 printf("Masukkan balasan:\n");
                 START();
                 CopyWordWithSpace();
-                InsertNewBalasId(l,currentWord,id_k,id_b);
-                DinsertAt(&kicau_with_balasan,1,id_k);
-                printNewBalasan((BELMT(*l,(id_k-1))));
+                IDType idnew = searchIDmaxWithoutRootId(Root(BELMT(*l,id_k-1)));
+                idnew++; 
+                InsertNewBalasId(l,currentWord,id_k,id_b,idnew);
+                printNewBalasan((BELMT(*l,(id_k-1))),idnew);
             }
         }
         else
         {
-            addressTree balasan = SearchTNodeWithoutRoot(Root(BELMT(*l,id_k)),id_b);
-            if (balasan != NULL)
+            addressTree balasan = SearchTNode(Root(BELMT(*l,id_k-1)),id_b);
+            if (balasan == NULL)
             {
-                int idxauthbalasan = SwindexOf(dataNama,BAUTH(balasan));
-                int idxauthkicau = SwindexOf(dataNama,BAUTH(Root(BELMT(*l,id_k-1))));
-                
-                if(!isTeman(matPertemanan,SELMT(dataNama,current_id-1), BAUTH(Root(BELMT(*l,id_k-1))) ) && !isTeman(matPertemanan,SELMT(dataNama,current_id-1),BAUTH(balasan)) && ELMT(JenisAkun,idxauthbalasan) && ELMT(JenisAkun,idxauthkicau)) 
+                printf("Wah, tidak terdapat balasan yang ingin Anda balas!\n\n");    
+                return;
+            }
+            int idxauthbalasan = SwindexOf(dataNama,BAUTH(balasan));
+            int idxauthkicau = SwindexOf(dataNama,BAUTH(Root(BELMT(*l,id_k-1))));
+            if(idxauthbalasan != -1 && idxauthkicau != -1 && !isTeman(matPertemanan,SELMT(dataNama,current_id-1), BAUTH(Root(BELMT(*l,id_k-1))) ) && !isTeman(matPertemanan,SELMT(dataNama,current_id-1),BAUTH(balasan)) && ELMT(JenisAkun,idxauthbalasan) && ELMT(JenisAkun,idxauthkicau)) 
+            {
+                printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman dengan akun tersebut!\n\n");
+                return;
+            }
+            else
+            {   
+                if (BCAPACITY(l) == BNEFF(*l))
                 {
-                    printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman dengan akun tersebut!\n\n");
+                    expandListTree(l,BCAPACITY(l));    
                 }
-                else
-                {
-                    if (BCAPACITY(l) == BNEFF(*l))
-                    {
-                        expandListTree(l,BCAPACITY(l));    
-                    }
-                    printf("Masukkan balasan:\n");
-                    START();
-                    CopyWordWithSpace();
-                    InsertNewBalasId(l,currentWord,id_k,id_b);
-                    printNewBalasan((BELMT(*l,(id_k-1))));
-                }
+                printf("Masukkan balasan:\n");
+                START();
+                CopyWordWithSpace();
+                IDType idnew = searchIDmaxWithoutRootId(Root(BELMT(*l,id_k-1)));
+                idnew++;
+                InsertNewBalasId(l,currentWord,id_k,id_b,idnew);
+                printNewBalasan((BELMT(*l,(id_k-1))),idnew);
             }
         }   
     }
@@ -116,7 +120,7 @@ void hapusBalasan(ListTree *l,IDType id_k,IDType id_b)
 {
     if (id_k > KNEFF(list_kicau))
     {
-        printf("Hei, ini balasan punya siapa? Jangan dihapus ya!\n");
+        printf("Balasan tidak ditemukan\n");
     }
     else
     {
@@ -128,14 +132,22 @@ void hapusBalasan(ListTree *l,IDType id_k,IDType id_b)
 
         else if (isWordEqual(BAUTH(p) ,SELMT(dataNama,current_id-1)))
         {
-            printf("Balasan tidak ditemukan\n");
+            printf("Hei, ini balasan punya siapa? Jangan dihapus ya!\n");
         }
 
         else
         {
-            DelChild(&(BELMT(*l,id_k-1)),id_b,jumlah_balasan+1);
-            printf("Balasan berhasil dihapus\n");
-        }        
+            addressTree p = findParent(Root(BELMT(*l,id_k-1)),id_b);
+            if (p != NULL)
+            {
+                DelChild(&(BELMT(*l,id_k-1)),BID(p),id_b);
+                printf("Balasan berhasil dihapus\n");
+            }
+            else
+            {
+                printf("NULL COKKK\n");
+            }
+        }
     }
 }   
 
@@ -143,18 +155,18 @@ void displayBalasan(ListTree l ,IDType id_k )
 {
     if (id_k > KNEFF(list_kicau))
     {
-        printf("Tidak terdapat kicauan dengan id tersebut!");
+        printf("Tidak terdapat kicauan dengan id tersebut!\n");
     }
     else
     {   
         Tree p = BELMT(l,id_k-1);
-        if(FirstChild(Root(p))  != NULL)
+        if(FirstChild(Root(p)) == NULL)
         {
             printf("Belum terdapat balasan apapun pada kicauan tersebut. Yuk balas kicauan tersebut!\n");
         }   
         else
         {
-            displayTreeFull(p);
+            displayTreeFullBalasan(p);
         }
     }
 }
@@ -171,7 +183,7 @@ void bacaConfigBalasan(ListTree *l, int id_k, int id_b, int id_baru, Word text, 
         AddChildConfig(&(BELMT(*l, id_k - 1)), id_k, id_baru, text, Date, Auth,id_b);
     }
     else
-    {
+        {
         addressTree p = SearchTNodeWithoutRoot(Root(BELMT(*l, id_k - 1)), id_b);
         AddChildConfig(&(BELMT(*l, id_k - 1)), BID(p), id_baru, text, Date, Auth,id_b);
     }

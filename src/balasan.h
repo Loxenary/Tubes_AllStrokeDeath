@@ -23,9 +23,9 @@ void inputNewKicauToListTree(ListTree *l,kicauan kicau,IdxType id);
 
 void ubahKicauToNewBalasan(Tree *t, kicauan new);
 
-void InsertNewBalasId(ListTree *l, Word Word,IDType id_k, IDType id_b);
+void InsertNewBalasId(ListTree *l, Word Word,IDType id_k, IDType id_b,IDType idnew);
 
-void printNewBalasan(Tree k);
+void printNewBalasan(Tree k,IDType idnew);
 
 void inputBalas(ListTree *l , int id_k,int id_b);
 

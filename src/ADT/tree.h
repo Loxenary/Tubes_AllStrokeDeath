@@ -55,11 +55,15 @@ void dealocateTNODE(addressTree P);
 void createTree(Tree *T,kicauan kicau);
 /* Mengirimkan sebuah pohon dengan satu elemen dengan ID = ID */
 
+void AddChildMinSatu(Tree *T, IDType IDParent, IDType IDChild, Word word);
+
 void AddChild(Tree *T,IDType IDParent, IDType IDChild,Word word);
 /* Mengadakan seorang anak dengan ID = IDChild dari seorang induk dengan ID = IDParent pada pohon T */
 /* I.S. T tidak kosong. IDChild dan IDParent adalah elemen terdefinisi, IDParent harus ada dalam T, IDChild belum ada */
 /* F.S. Sebuah node dengan ID = IDChild dan Parent bertambah satu node */
 void AddChildConfig(Tree *T, IDType IDParent, IDType IDChild, Word Text,DATETIME date,WordType Auth,IDType id_b);
+
+addressTree findParent(addressTree root, IDType targetID);
 
 void DelChild(Tree *T, IDType IDParent, IDType IDChild);
 /* Menghapus seorang anak dengan ID = IDChild dari seorang induk dengan ID = IDParent pada pohon T */
@@ -71,6 +75,8 @@ addressTree SearchTNode(addressTree root, IDType ID);
 /* Mengirimkan address node dengan ID = ID jika ditemukan, mengirimkan NULL jika tidak ditemukan */
 
 addressTree SearchTNodeWithoutRoot(addressTree root, IDType ID);
+
+boolean hasChild(Tree T);
 
 boolean IsTreeEmpty(Tree T);
 /* Mengirimkan true jika pohon T kosong */
@@ -94,5 +100,7 @@ void displayTreeFull(Tree T);
 void displayTreeFullBalasan(Tree T);
 /* Mencetak Full dengan memperhatikan teman*/
 IDType searchIDmax(addressTree p);
+
+IDType searchIDmaxWithoutRootId(addressTree p);
 
 #endif 

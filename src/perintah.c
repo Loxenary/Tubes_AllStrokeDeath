@@ -102,10 +102,15 @@ void perintah(){
 
             printf("Display Balasan: \n");
             for(i = 0; i < jumlah_kicau; i++){
-                if(ELMTD(kicau_with_balasan,i) != -1){
+                if (hasChild(BELMT(list_balasan,i)))
+                {
+                    printf("Kicauan dengan ID %d yang dibuat oleh ",BID(Root(BELMT(list_balasan,i))));                
+                    printWord(BAUTH(Root(BELMT(list_balasan,i))));
+                    printf("\n\n");
                     displayTreeFull(BELMT(list_balasan,i));
                     printf("\n");
                 }
+                
             }
 
             printf("\n======================== DATA DRAF ========================\n");
@@ -282,25 +287,22 @@ void perintah(){
                 int idkicau = toInt(currentWord);
                 ADVWORD();
                 int idbalasan = toInt(currentWord);
+                inputBalas(&list_balasan,idkicau,idbalasan);
                 
 
             } else if(isWordEqualString(currentWord, Balasan)){
                 printf("jalankan perintah balasan\n");
                 ADVWORD();
                 int idkicau = toInt(currentWord);
-                printf("idkicau: %d\n", idkicau);
-                printf("len: %d\n", currentWord.Length);
+                displayBalasan(list_balasan,idkicau);
 
             } else if(isWordEqualString(currentWord, Hapus_balasan)){
-                printf("jalankan perintah hapus_balasan");
+                printf("jalankan perintah hapus_balasan\n");
                 ADVWORD();
                 int idkicau = toInt(currentWord);
-                printf("idkicau: %d\n", idkicau);
-                printf("len: %d\n", currentWord.Length);
                 ADVWORD();
                 int idbalasan = toInt(currentWord);
-                printf("idbalasan: %d\n", idbalasan);
-                printf("len: %d\n", currentWord.Length);
+                hapusBalasan(&list_balasan,idkicau,idbalasan);
 
             } else if(isWordEqualString(currentWord, Buat_draf)){
                 buatDraf(current_pengguna);

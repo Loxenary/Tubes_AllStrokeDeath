@@ -57,10 +57,33 @@ void createTree(Tree *T, kicauan kicau)
     Root(*T) = newNode;
 }
 
-void AddChild(Tree *T, IDType IDParent, IDType IDChild, Word word)
+void AddChildMinSatu(Tree *T, IDType IDParent, IDType IDChild, Word word)
 {
     Tree p = *T;
     addressTree parentNode = SearchTNode(Root(p), IDParent);
+    if (parentNode != NULL)
+    {
+        addressTree childNode = newTNODE(IDChild, word);
+        addressTree lastChild = FirstChild(parentNode);
+        if (lastChild == NULL)
+        {
+            FirstChild(parentNode) = childNode;
+        }
+        else
+        {
+            while (NextSibling(lastChild) != NULL)
+            {
+                lastChild = NextSibling(lastChild);
+            }
+            NextSibling(lastChild) = childNode;
+        }
+    }
+}
+
+void AddChild(Tree *T, IDType IDParent, IDType IDChild, Word word)
+{
+    Tree p = *T;
+    addressTree parentNode = SearchTNodeWithoutRoot(Root(p), IDParent);
     if (parentNode != NULL)
     {
         addressTree childNode = newTNODE(IDChild, word);
@@ -132,6 +155,32 @@ void AddChildConfig(Tree *T, IDType IDParent,IDType IDChild, Word Text, DATETIME
     }
 }
 
+addressTree findParent(addressTree root, IDType childID) {
+    if (root == NULL) {
+        return NULL; // Return NULL if the tree is empty
+    }
+
+    addressTree child = FirstChild(root);
+    while (child != NULL) {
+        if (BID(child) == childID) {
+            return root; // Found the parent
+        }
+        child = NextSibling(child);
+    }
+
+    // Recursively search the subtrees of the root's children
+    child = FirstChild(root);
+    while (child != NULL) {
+        addressTree result = findParent(child, childID);
+        if (result != NULL) {
+            return result; // If the parent is found in a subtree, return the result
+        }
+        child = NextSibling(child);
+    }
+
+    return NULL; // Return NULL if the parent is not found
+}
+
 void DelChild(Tree *T, IDType IDParent, IDType IDChild)
 {
     Tree p = *T;
@@ -147,6 +196,7 @@ void DelChild(Tree *T, IDType IDParent, IDType IDChild)
         }
         if (child != NULL)
         {
+            printf("Deleting child with ID: %d\n", BID(child)); // Print the ID of the child to delete
             if (prevChild == NULL)
             {
                 FirstChild(parentNode) = NextSibling(child);
@@ -198,6 +248,11 @@ addressTree SearchTNodeWithoutRoot(addressTree t, IDType ID)
     {
         return SearchTNode(p,ID);
     }
+}
+
+boolean hasChild(Tree T)
+{
+    return FirstChild(Root(T)) != NULL;
 }
 
 boolean IsTreeEmpty(Tree T)
@@ -255,8 +310,29 @@ void displayTreeLevelBalasan(addressTree node, int tingkatan)
     }
     // Menampilkan informasi dari simpul saat ini dengan format khusus
     printf("%*s| ID = %d\n", tingkatan * 3, "", BID(node));
-
-    if (isTeman(matPertemanan, SELMT(dataNama, current_id - 1), BAUTH(node)))
+    int idx = SwindexOf(dataNama,BAUTH(node));
+    if(SELMT(JenisAkun,idx) == 1)
+    {
+        if (isTeman(matPertemanan, SELMT(dataNama, current_id - 1), BAUTH(node)))
+        {
+            printf("%*s| ", (tingkatan) * 3, "");
+            printWord(BAUTH(node));
+            printf("\n");
+            printf("%*s| ", (tingkatan) * 3, "");
+            TulisDATETIME(BDATE(node));
+            printf("\n");
+            printf("%*s| ", (tingkatan) * 3, "");
+            printWord(BTEXT(node));
+            printf("\n\n");
+        }
+        else
+        {
+            printf("%*s| PRIVAT\n", (tingkatan) * 3, "");
+            printf("%*s| PRIVAT\n", (tingkatan) * 3, "");
+            printf("%*s| PRIVAT\n", (tingkatan) * 3, "");
+        }
+    }
+    else
     {
         printf("%*s| ", (tingkatan) * 3, "");
         printWord(BAUTH(node));
@@ -268,12 +344,7 @@ void displayTreeLevelBalasan(addressTree node, int tingkatan)
         printWord(BTEXT(node));
         printf("\n\n");
     }
-    else
-    {
-        printf("%*s| PRIVAT\n", (tingkatan) * 3, "");
-        printf("%*s| PRIVAT\n", (tingkatan) * 3, "");
-        printf("%*s| PRIVAT\n", (tingkatan) * 3, "");
-    }
+    
 
     // Lanjutkan ke anak pertama dengan level yang lebih dalam
     displayTreeLevel(FirstChild(node), tingkatan + 1);
@@ -296,18 +367,28 @@ void displayTreeFullBalasan(Tree T)
 
 IDType searchIDmax(addressTree p)
 {
-    IDType maxID = BID(p); // Inisialisasi dengan nilai simpul saat ini
-
-    // Cari nilai maksimum di anak-anak simpul
-    addressTree currentChild = FirstChild(p);
-    while (currentChild != NULL)
-    {
-        IDType childMax = searchIDmax(currentChild);
-        if (childMax > maxID)
-        {
-            maxID = childMax;
-        }
-        currentChild = NextSibling(currentChild); // Pindah ke saudara kandung berikutnya
+    if (p == NULL) {
+        return -1; // Return an error code or handle accordingly
     }
-    return maxID;
+
+    int maxChildID = BID(p); // Initialize with the ID of the node
+
+    addressTree child = FirstChild(p);
+    while (child != NULL) {
+        int childID = searchIDmax(child); // Recursively find the maximum ID among the children of this child
+
+        if (childID > maxChildID) {
+            maxChildID = childID;
+        }
+
+        child = NextSibling(child);
+    }
+
+    return maxChildID;
+} 
+
+IDType searchIDmaxWithoutRootId(addressTree p)
+{
+    addressTree child = FirstChild(p); // Ganti nama variabel dari 'l' menjadi 'child'
+    return searchIDmax(p);
 }

@@ -44,7 +44,6 @@ extern ListKicau list_kicau;
 
 //Config Balesan
 extern int jumlah_balasan;
-extern ListDin kicau_with_balasan;
 extern ListTree list_balasan;
 //Tree untuk Balasan
 

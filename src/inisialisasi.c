@@ -244,7 +244,6 @@ void ReadKicauData(char* filename) {
     currentWord.TabWord[currentWord.Length] = '\0';
     currentWord.Length--;
     // Membaca banyak kicauan
-    CreateListDin(&kicau_with_balasan,50);
     CreateListKicau(&list_kicau, 50); //50 as starter
     jumlah_kicau = toInt(currentWord);
     printf("Jumlah kicauan: %d\n", jumlah_kicau);
@@ -318,7 +317,6 @@ void ReadBalasanData(char* filename) {
     for(i = 0; i < jumlah_balasan; i++){
         readLine();
         int id_kicau = toInt(currentWord);
-        DinsertAt(&kicau_with_balasan,1,id_kicau);
         // Read jumlah balasan
         readLine();
         int jumlah_balasan = toInt(currentWord);
