@@ -69,13 +69,13 @@ Address getLastElement_LinkedUtas(ListUtas u){
     return p;
 }
 
-void insertAt_LinkedUtas( ListUtas* u, int idutas, int idkicau, int idx, WrdType text, WrdType auth, DATETIME date){
+void insertAt_LinkedUtas(ListUtas u, int idutas, int idkicau, int idx, WrdType text, WrdType auth, DATETIME date){
     // kamus
     int count;
     Address p, loc;
     // algoritma
     count = 0;
-    loc = (*u);
+    loc = FIRST(u);
     p = newUtas(idutas,idkicau,text,auth,date);
     if(p != NULL){
         while(count < idx - 1){
@@ -99,13 +99,13 @@ int length_LinkedUtas(ListUtas u){
     return count;
 }
 
-void deleteAt_LinkedUtas(ListUtas* u, int idx){
+void deleteAt_LinkedUtas(ListUtas u, int idx){
     // kamus
     Address p,loc;
     int count;
     // algoritma
     count = 0;
-    loc = (*u);
+    loc = (u);
     while(count < idx-1){
         count++;
         loc = NEXT(loc);
