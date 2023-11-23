@@ -351,7 +351,6 @@ Word ConcatWord(Word w1, Word w2) {
 }
 
 // concat word
-Word ConcatWord(Word w1, Word w2);
 
 void copyWordDin()
 {
