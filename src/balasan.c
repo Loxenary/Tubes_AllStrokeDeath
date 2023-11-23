@@ -3,30 +3,25 @@
 #include "balasan.h"
 #include "database.h"
 
-
 void CreateListTree(ListTree *l, int Capacity)
 {
-    BBUFFER(*l) = (Tree*)malloc(BCAPACITY(l)*sizeof(Tree));
+    BBUFFER(*l) = (Tree*)malloc(Capacity*sizeof(Tree));
     BNEFF(*l) = 0;
     BCAPACITY(l) = Capacity;
-
-    for (int i = 0; i < KNEFF(list_kicau); i++)
-    {
-        kicauan p = KELMT(list_kicau,i);
-        Tree T;
-        createTree(&T,p);
-        BELMT(*l,i) = T;
-    }
-    BNEFF(*l) = KNEFF(*l);
 }
 
-void inputNewKicauToListTree(ListTree *l)
+void inputNewKicauToListTree(ListTree *l,kicauan kicau,IdxType id)
 {
     BNEFF(*l)++;
-    kicauan p = KELMT(list_kicau,KNEFF(list_kicau) - 1);
     Tree T;
-    createTree(&T,p);
-    BELMT(*l,KNEFF(list_kicau) - 1) = T;
+    createTree(&T,kicau);
+    BELMT(*l,id-1) = T;
+}
+
+void ubahKicauToNewBalasan(Tree *t, kicauan new)
+{
+    BTEXT(Root(*t)) = new.Text;
+    BDATE(Root(*t)) = new.dates;
 }
 
 void InsertNewBalasId(ListTree *l, Word Word,IDType id_k, IDType id_b)
@@ -45,7 +40,7 @@ void InsertNewBalasId(ListTree *l, Word Word,IDType id_k, IDType id_b)
 
 void printNewBalasan(Tree balas)
 {
-    addressTree p = SearchTNode(balas,jumlah_balasan);
+    addressTree p = SearchTNode(Root(balas),jumlah_balasan);
     printf("Selamat! balasan telah diterbitkan!\n");
     printf("Detil balasan:");
     printf("| ID = %d\n",current_id); 
@@ -67,35 +62,64 @@ void inputBalas(ListTree *l,int id_k,int id_b)
     }
     else
     {
-        
-        addressTree balasan = SearchTNode(BELMT(*l,id_k-1),id_b);
-        int idxauthbalasan = SwindexOf(dataNama,BAUTH(balasan));
-        int idxauthkicau = SwindexOf(dataNama,BAUTH(Root(BELMT(*l,id_k-1))));
-        
-        if(!isTeman(matPertemanan,SELMT(dataNama,current_id-1), BAUTH(Root(BELMT(*l,id_k-1))) ) && !isTeman(matPertemanan,SELMT(dataNama,current_id-1),BAUTH(balasan)) && ELMT(JenisAkun,idxauthbalasan) && ELMT(JenisAkun,idxauthkicau)) 
+        if (id_b == -1)
         {
-            printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman dengan akun tersebut!\n\n");
+            int idxauthkicau = SwindexOf(dataNama,BAUTH(Root(BELMT(*l,id_k-1))));
+            if(!isTeman(matPertemanan,SELMT(dataNama,current_id), BAUTH(Root(BELMT(*l,id_k-1))) ) && ELMT(JenisAkun,idxauthkicau) == 1) 
+            {
+                printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman dengan akun tersebut!\n\n");
+            }
+            else
+            {
+                if (BCAPACITY(l) == BNEFF(*l))
+                {
+                    expandListTree(l,BCAPACITY(l));    
+                }
+                printf("Masukkan balasan:\n");
+                START();
+                CopyWordWithSpace();
+                InsertNewBalasId(l,currentWord,id_k,id_b);
+                printNewBalasan((BELMT(*l,(id_k-1))));
+            }
         }
         else
         {
-            printf("Masukkan balasan:\n");
-            START();
-            CopyWordWithSpace();
-            InsertNewBalasId(l,currentWord,id_k,id_b);
-            printNewBalasan((BELMT(*l,(id_k-1))));
-        }
+            addressTree balasan = SearchTNodeWithoutRoot(Root(BELMT(*l,id_k)),id_b);
+            if (balasan != NULL)
+            {
+                int idxauthbalasan = SwindexOf(dataNama,BAUTH(balasan));
+                int idxauthkicau = SwindexOf(dataNama,BAUTH(Root(BELMT(*l,id_k-1))));
+                
+                if(!isTeman(matPertemanan,SELMT(dataNama,current_id-1), BAUTH(Root(BELMT(*l,id_k-1))) ) && !isTeman(matPertemanan,SELMT(dataNama,current_id-1),BAUTH(balasan)) && ELMT(JenisAkun,idxauthbalasan) && ELMT(JenisAkun,idxauthkicau)) 
+                {
+                    printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman dengan akun tersebut!\n\n");
+                }
+                else
+                {
+                    if (BCAPACITY(l) == BNEFF(*l))
+                    {
+                        expandListTree(l,BCAPACITY(l));    
+                    }
+                    printf("Masukkan balasan:\n");
+                    START();
+                    CopyWordWithSpace();
+                    InsertNewBalasId(l,currentWord,id_k,id_b);
+                    printNewBalasan((BELMT(*l,(id_k-1))));
+                }
+            }
+        }   
     }
 }
 
 void hapusBalasan(ListTree *l,IDType id_k,IDType id_b)
 {
-    printf("Hei, ini balasan punya siapa? Jangan dihapus ya!\n");
     if (id_k > KNEFF(list_kicau))
     {
+        printf("Hei, ini balasan punya siapa? Jangan dihapus ya!\n");
     }
     else
     {
-        addressTree p = SearchTNode(BELMT(*l,id_k-1),id_b);
+        addressTree p = SearchTNodeWithoutRoot(Root(BELMT(*l,id_k-1)),id_b);
         if (p == NULL)
         {
             printf("Balasan tidak ditemukan\n");
@@ -131,5 +155,23 @@ void displayBalasan(ListTree l ,IDType id_k )
         {
             displayTreeFull(p);
         }
+    }
+}
+
+void expandListTree(ListTree *l, int num)
+{
+      BCAPACITY(l)+=num;
+}
+
+void bacaConfigBalasan(ListTree *l, int id_k, int id_b, int id_baru, Word text, WordType Auth, DATETIME Date)
+{
+    if (id_b == -1)
+    {
+        AddChildConfig(&(BELMT(*l, id_k - 1)), id_k, id_baru, text, Date, Auth,id_b);
+    }
+    else
+    {
+        addressTree p = SearchTNodeWithoutRoot(Root(BELMT(*l, id_k - 1)), id_b);
+        AddChildConfig(&(BELMT(*l, id_k - 1)), BID(p), id_baru, text, Date, Auth,id_b);
     }
 }

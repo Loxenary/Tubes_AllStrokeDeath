@@ -139,22 +139,70 @@ void perintah(){
                 
             } else if(isWordEqualString(currentWord, Balas)){
                 printf("jalankan perintah balas\n");
+                ADVWORD();
+                int idkicau = toInt(currentWord);
+                ADVWORD();
+                int idbalasan = toInt(currentWord);
+                
+
             } else if(isWordEqualString(currentWord, Balasan)){
                 printf("jalankan perintah balasan\n");
+                ADVWORD();
+                int idkicau = toInt(currentWord);
+                printf("idkicau: %d\n", idkicau);
+                printf("len: %d\n", currentWord.Length);
+
             } else if(isWordEqualString(currentWord, Hapus_balasan)){
                 printf("jalankan perintah hapus_balasan");
+                ADVWORD();
+                int idkicau = toInt(currentWord);
+                printf("idkicau: %d\n", idkicau);
+                printf("len: %d\n", currentWord.Length);
+                ADVWORD();
+                int idbalasan = toInt(currentWord);
+                printf("idbalasan: %d\n", idbalasan);
+                printf("len: %d\n", currentWord.Length);
+
             } else if(isWordEqualString(currentWord, Buat_draf)){
                 printf("jalankan perintah buat_draf");
             } else if(isWordEqualString(currentWord, Lihat_draf)){
                 printf("jalankan perintah lihat_draf\n");
             } else if(isWordEqualString(currentWord, Utas)){
                 printf("jalankan perintah utas\n");
+                ADVWORD();
+                int idkicau = toInt(currentWord);
+                printf("idkicau: %d\n", idkicau);
+                printf("len: %d\n", currentWord.Length);
+                CreateRootUtas(idkicau);
             } else if(isWordEqualString(currentWord, Sambung_utas)){
                 printf("jalankan perintah sambung_utas\n");
+                ADVWORD();
+                int idutas = toInt(currentWord);
+                printf("idutas: %d\n", idutas);
+                printf("len: %d\n", currentWord.Length);
+                ADVWORD();
+                int indeks = toInt(currentWord);
+                printf("indeks: %d\n", indeks);
+                printf("len: %d\n", currentWord.Length);
+                SambungUtas(idutas, indeks);
             } else if(isWordEqualString(currentWord, Hapus_utas)){
                 printf("jalankan perintah hapus utas\n");
+                ADVWORD();
+                int idutas = toInt(currentWord);
+                printf("idutas: %d\n", idutas);
+                printf("len: %d\n", currentWord.Length);
+                ADVWORD();
+                int indeks = toInt(currentWord);
+                printf("indeks: %d\n", indeks);
+                printf("len: %d\n", currentWord.Length);
+                DeleteUtas(idutas, indeks);
             } else if(isWordEqualString(currentWord, Cetak_utas)){
                 printf("jalankan perintah cetak_utas\n");
+                ADVWORD();
+                int idutas = toInt(currentWord);
+                printf("idutas: %d\n", idutas);
+                printf("len: %d\n", currentWord.Length);
+                CetakUtas(utas_pointers.buffer[idutas-1]);
             } else if(isWordEqualString(currentWord, Simpan)){
                 printf("jalankan perintah simpan\n");
             } else if(isWordEqualString(currentWord, Muat)){
