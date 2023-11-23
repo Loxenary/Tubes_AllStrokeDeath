@@ -37,7 +37,7 @@ typedef struct List_Kicau
 
 void CreateListKicau(ListKicau *l, int Capacity);
 
-void inputKicau(ListKicau l);
+void inputKicau(ListKicau * l);
 
 void sukaKicauan(int idKicau, ListKicau l);
 

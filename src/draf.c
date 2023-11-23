@@ -18,34 +18,22 @@ void buatDraf(WrdType nama)
     Stack s = ambilDrafdanDatetime(draf, index);
 
     printf("\nMasukkan draf:\n");
-    START();
-    while (currentChar != MARK && i <= 280)
-    {
-        currentWord.TabWord[i] = currentChar;
-        ADV();
-        i++;
-    }
-
+    
+    fungsi = MultipleInput();
     printf("\nApakah anda ingin menghapus, menyimpan, atau menerbitkan draf ini?\n");
-    START();
-    i = 0;
-    while (currentChar != MARK)
-    {
-        fungsi.TabWord[i] = currentChar;
-        ADV();
-        i++;
-    }
 
-    if (fungsi.TabWord[0] == 'S')
+    Word temps;
+    temps = MultipleInput();
+    if (temps.TabWord[0] == 'S')
     {
         DATETIME waktu = ExtractLocalTimes();
-        Push(&s, currentWord, waktu);
+        Push(&s, fungsi, waktu);
         overwriteDraf(&draf, index, s);
         printf("Draf telah berhasil disimpan!\n");
     }
-    else if(fungsi.TabWord[0] == 'T')
+    else if(temps.TabWord[0] == 'T')
     {
-        InsertNewLastKicau(&list_kicau, currentWord);
+        InsertNewLastKicau(&list_kicau, fungsi);
     }
     else
     {
@@ -85,19 +73,18 @@ int lihatDraf(WrdType nama)
 
     printf("Apakah anda ingin mengubah(UBAH), menghapus(HAPUS), atau menerbitkan(TERBIT) draf ini? (KEMBALI jika ingin kembali)\n");
     i = 0;
-    STARTWORD();
-
-    if (currentWord.TabWord[0] == 'H')
+    fungsi = MultipleInput();
+    if (fungsi.TabWord[0] == 'H')
     {
         return 0;
     }
-    else if (currentWord.TabWord[0] == 'K')
+    else if (fungsi.TabWord[0] == 'K')
     {
         Push(&s, worddraf, waktu);
         overwriteDraf(&draf, index, s);
         return 0;
     }
-    else if (currentWord.TabWord[0] == 'U')
+    else if (fungsi.TabWord[0] == 'U')
     {
         printf("Masukkan draf yang baru:\n");
         i = 0;
@@ -110,15 +97,7 @@ int lihatDraf(WrdType nama)
         }
 
         printf("\nApakah anda ingin menghapus, menyimpan, atau menerbitkan draf ini?\n");
-        START();
-        i = 0;
-        while (currentChar != MARK)
-        {
-            fungsi.TabWord[i] = currentChar;
-            ADV();
-            i++;
-        }
-
+        MultipleInput();
         if (fungsi.TabWord[0] == 'S')
         {
             DATETIME waktu = ExtractLocalTimes();
@@ -140,7 +119,9 @@ int lihatDraf(WrdType nama)
     }
     else
     {
+        printf("testingtesting\n");
         InsertNewLastKicau(&list_kicau, worddraf);
+        overwriteDraf(&draf, index, s);
         return 0;
     }
 }

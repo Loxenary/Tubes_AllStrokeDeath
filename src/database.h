@@ -30,7 +30,7 @@ extern int MaxWordCapacity;
 extern ListStatikWord dataNama;
 extern ListStatikWord password;
 extern ListStatikWord bio;
-extern ListStatikWordDin phone;
+extern ListStatikWord phone;
 extern ListStatikWord Weton;
 extern ListStatik JenisAkun;
 extern ListStatikMatrix profil;

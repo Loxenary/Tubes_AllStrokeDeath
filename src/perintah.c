@@ -39,6 +39,7 @@ void perintah(){
         //DEBUGGING PURPOSES
         char * nama = "CHECKDATA";
         if(isWordEqualString(currentWord,nama)){
+            printf("\n======================== DATA PENGGUNA ========================\n");
             printf("current id: \n");
             printf("%d\n",current_id);
             printf("Jumlah Pengguna: \n");
@@ -47,28 +48,30 @@ void perintah(){
             printf("%d\n",isLogin);
             printf("Data Nama: \n");
             SwprintList(dataNama);
-            printf("\n");
+            printf("\n\n");
             printf("Data Password: \n");
             SwprintList(password);
-            printf("\n");
-            printf("Data bio: \n");
+            printf("\n\n");
+            printf("Data bio: \n"    );
             SwprintList(bio);
-            printf("\n");
+            printf("\n\n");
             printf("Data telepon: \n");
             SwprintList(phone);
-            printf("\n");
+            printf("\n\n");
             printf("Data Weton: \n");
             SwprintList(Weton);
-            printf("\n");
+            printf("\n\n");
             printf("Data Jenis Akun: \n");
             SprintList(JenisAkun);
-            printf("\n");
+            printf("\n\n");
             printf("Data Profil: \n");
             int i;
             for(i = 0; i < SwlistLength(dataNama); i++){
                 displayMatrixCharColoured(LSMELMT(profil,i));
                 printf("\n");
             }
+            printf("\n\n");
+            printf("\n======================== DATA PERTEMANAN ========================\n");
             printf("Data Pertemanan: \n");
             PrintAdjMatrix(matPertemanan);
             printf("Jumlah Permintaan pertemanan: \n");
@@ -77,55 +80,65 @@ void perintah(){
             for(i = 0; i < addFriendCounter; i++){
                 printf("Pengirim: ");
                 printWord(permintaanTeman.array[i].pengirim);
-                printf(",Penerima: ");
+                printf("| Penerima: ");
                 printWord(permintaanTeman.array[i].penerima);
-                printf(", Kepopuleran: %d\n",permintaanTeman.array[i].kepopuleran);
+                printf("| Kepopuleran: %d\n",permintaanTeman.array[i].kepopuleran);
             }
+
+            printf("\n======================== DATA KICAUAN ========================\n");
             printf("Jumlah kicau \n");
             printf("%d\n",jumlah_kicau);
             printf("Daftar Kicau \n");
-            for(i = 0; i < list_kicau.nEff; i++){
-                DisplayKicauan(list_kicau,i);
+            for(i = 0; i < jumlah_kicau; i++){
+                printDataKicauan(KELMT(list_kicau,i));
+                printf("test: \n");
             }
             
+
+            printf("\n======================== DATA BALASAN ========================\n");
             printf("Jumlah Kicau yang punya Balasan: \n");
             printf("%d\n",jumlah_balasan);
 
             printf("Display Balasan: \n");
-            for(i = 0; i < jumlah_kicau; i++){
-                if(ELMTD(kicau_with_balasan,i) != -1){
-                    displayTreeFull(BELMT(list_balasan,i));
-                    printf("\n");
-                }
-            }
+            // for(i = 0; i < jumlah_kicau; i++){
+            //     if(ELMTD(kicau_with_balasan,i) != -1){
+            //         displayTreeFull(BELMT(list_balasan,i));
+            //         printf("\n");
+            //     }
+            // }
+
+            printf("\n======================== DATA DRAF ========================\n");
             printf("Jumlah Pengguna yang punya Draf: \n");
             printf("%d\n",jumlah_Draf);
             printf("Display Draf: \n");
             for(i = 0; i < SwlistLength(dataNama); i++){
                 ListStatikStack temps = draf;
-                if(MaxEl(LSSELMT(draf,i)) > 0){
-                    int j;
+                if(!IsEmpty(LSSELMT(temps,i))){
+                    int j = 1;
                     printf("Untuk Draf Pengguna : ");
                     printWord(SELMT(dataNama,i));
                     printf("\n");
-                    for(j = 0; j < MaxEl(LSSELMT(temps,i));j++){
+                    Stack _current_Stack = LSSELMT(temps,i);
+                    while(!IsEmpty(_current_Stack)){
                         infotype _temps_text;
                         infodate _temps_date;
-                        Pop(&temps,&_temps_text,&_temps_date);
+                        Pop(&_current_Stack,&_temps_text,&_temps_date);
                         printf("Draf ke %d: \n",j);
                         printf("Text: \n");
                         printWord(_temps_text);
                         printf("\nDate: \n");
                         TulisDATETIME(_temps_date);
                         printf("\n");
+                        j++;
                     }
                 }
             }
-
+            printf("\n======================== DATA UTAS ========================\n");
             printf("Jumlah Kicau yang punya utas: \n");
             printf("%d\n",jumlah_utas);
 
             printf("Display ListUtas: \n");
+
             for(i = 0; i < KNEFF(list_kicau); i++){
                 if(KELMT(list_kicau,i).next_Utas != NULL){
                     printf("Utas pada kicau id: %d\n",KELMT(list_kicau,i).id);
@@ -224,7 +237,7 @@ void perintah(){
 
             // Input Kicau
             } else if(isWordEqualString(currentWord, Kicau)){
-                inputKicau(list_kicau);
+                inputKicau(&list_kicau);
                 printf("jalankan perintah kicau");
 
             // Display Kicauan    
@@ -274,8 +287,10 @@ void perintah(){
                 printf("len: %d\n", currentWord.Length);
 
             } else if(isWordEqualString(currentWord, Buat_draf)){
+                buatDraf(current_pengguna);
                 printf("jalankan perintah buat_draf");
             } else if(isWordEqualString(currentWord, Lihat_draf)){
+                lihatDraf(current_pengguna);
                 printf("jalankan perintah lihat_draf\n");
             } else if(isWordEqualString(currentWord, Utas)){
                 printf("jalankan perintah utas\n");

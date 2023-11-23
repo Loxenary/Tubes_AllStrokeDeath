@@ -13,6 +13,8 @@ int isNum(char c);
 
 void readLine();
 
+void readLineWD();
+
 void ReadUserData(const char * filename);
 
 void ReadKicauData(char* filename);

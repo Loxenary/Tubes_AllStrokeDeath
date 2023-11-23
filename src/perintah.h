@@ -4,6 +4,7 @@
 #include "./adt/wordmachine.h"
 #include "teman.h"
 #include "profil.h"
+#include "draf.h"
 
 void perintah();
 //Menjalankan perintah

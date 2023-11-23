@@ -10,7 +10,7 @@ void CreateListKicau(ListKicau *l, int Capacity)
 }
 
 
-void inputKicau(ListKicau l)
+void inputKicau(ListKicau * l)
 {
     printf("Masukkan kicauan:\n");
     Word text = MultipleInput();
@@ -20,18 +20,18 @@ void inputKicau(ListKicau l)
         printf("spasi!\n");
     }
     else{
-        InsertNewLastKicau(&l, text);
+        InsertNewLastKicau(l, text);
         printf("\n");
         printf("Selamat! kicauan telah\n");
         printf("diterbitkan!\n");
         printf("Detil kicauan: \n");
-        printDataKicauan(KELMT(l,KNEFF(l)-1));
+        printDataKicauan(l->kicau[l->nEff-1]);
     }
     
 }
 
 void DisplayKicauan(ListKicau l, int id){
-    Word user = SELMT(dataNama,id-1);
+    Word user = SELMT(dataNama,id);
     int i;
     for(i = 0; i < KNEFF(l); i++){
         kicauan temp = KELMT(l,i);
@@ -78,20 +78,41 @@ void sukaKicauan(int idKicau, ListKicau l){
     }
 }
 
-void InsertNewLastKicau(ListKicau *l, Word Word)
+void InsertNewLastKicau(ListKicau *l, Word word)
 {
+    jumlah_kicau++;
+    printf("Data: %d",jumlah_kicau);
+    kicauan temp;
+    KAUTH(&temp) = SELMT(dataNama,current_id);
+    printWord(temp.Auth);
+    KID(&temp) = jumlah_kicau;
+    KLIKE(&temp) = 0;
+    printf("%d",temp.Likes);
+    KDATE(&temp) = ExtractLocalTimes();
+    printWord(temp.Auth);
+    KTEXT(&temp) = word;
+    temp.next_Utas = NULL;
+    KNEFF(*l)++;
+    KELMT(*l,KNEFF(*l)-1) = temp;
+    printf("id: %d\n",KNEFF(*l)-1);
+    insertLast(&kicau_with_balasan,-1);
+}
+
+void InsertNewLastKicauWithDATETIME(ListKicau *l,Word word, DATETIME time){
     jumlah_kicau++;
     kicauan temp;
     KAUTH(&temp) = SELMT(dataNama,current_id);
+    printWord(temp.Auth);
     KID(&temp) = jumlah_kicau;
     KLIKE(&temp) = 0;
-    KDATE(&temp) = ExtractLocalTimes();
-    KTEXT(&temp) = Word;
+    printf("%d",temp.Likes);
+    KDATE(&temp) = time;
+    printWord(temp.Auth);
+    KTEXT(&temp) = word;
     KNEFF(*l)++;
     temp.next_Utas = NULL;
-    KELMT(*l,NEFF(*l)-1) = temp;
+    KELMT(*l,KNEFF(*l)-1) = temp;
     insertLast(&kicau_with_balasan,-1);
-    
 }
 
 kicauan CreateDefinedKicau(Word author, Word text, int Likes, DATETIME dates, int id)

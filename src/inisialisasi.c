@@ -25,7 +25,7 @@ void readLine(){
     currentWord.Length--;
 }
 
-void readlineWD()
+void readLineWD()
 {
     ADVLINE();
     currentWordDin.container[currentWordDin.Length] = '\0';
@@ -58,7 +58,7 @@ void ReadUserData(const char *filename) {
     SwCreateListStatik(&dataNama); // Global Data untuk ListStatik
     SwCreateListStatik(&password);
     SwCreateListStatik(&bio);
-    SwdCreateListStatik(&phone);
+    SwCreateListStatik(&phone);
     SwCreateListStatik(&Weton);
     CreateListTree(&list_balasan,100);
     CreateListStatik(&JenisAkun);
@@ -107,11 +107,10 @@ void ReadUserData(const char *filename) {
         // printf("Phone: %s\n", userData->phone[i].TabWord);
         // printWord(currentWord);
         // printf("\n");
-        readline();
-        // readlineWD();
-        // // WordDin wrd;
-        // // CreateWord(&wrd,1000);
-        // SwdinsertLast(&phone,currentWordDin);
+        readLine();
+        // WordDin wrd;
+        // CreateWord(&wrd,1000);
+        SwinsertLast(&phone,currentWord);
         // wrd.container = currentWord.TabWord;
         // SwinsertLastWordDin(&phone,wrd);
         // printWordDin(wrd);

@@ -7,7 +7,7 @@ boolean isLogin = FALSE;
 ListStatikWord dataNama;
 ListStatikWord password;
 ListStatikWord bio;
-ListStatikWordDin phone;
+ListStatikWord phone;
 ListStatikWord Weton;
 ListStatik JenisAkun;
 ListStatikMatrix profil;
