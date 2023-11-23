@@ -11,7 +11,7 @@
 #include "./adt/liststatikmatrixchar.h"
 #include "./adt/liststatikstack.h"
 #include "./adt/prioqueue.h"
-#include "./adt\/listStatikWordDin.h"
+#include "./adt/listStatikWordDin.h"
 #include "utas.h"
 #include "ListDinUtasan.h"
 #include "balasan.h"

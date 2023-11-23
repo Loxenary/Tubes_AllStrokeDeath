@@ -157,28 +157,27 @@ void AddChildConfig(Tree *T, IDType IDParent,IDType IDChild, Word Text, DATETIME
 
 addressTree findParent(addressTree root, IDType childID) {
     if (root == NULL) {
-        return NULL; // Return NULL if the tree is empty
+        return NULL; 
     }
 
     addressTree child = FirstChild(root);
     while (child != NULL) {
         if (BID(child) == childID) {
-            return root; // Found the parent
+            return root; 
         }
         child = NextSibling(child);
     }
 
-    // Recursively search the subtrees of the root's children
     child = FirstChild(root);
     while (child != NULL) {
         addressTree result = findParent(child, childID);
         if (result != NULL) {
-            return result; // If the parent is found in a subtree, return the result
+            return result;
         }
         child = NextSibling(child);
     }
 
-    return NULL; // Return NULL if the parent is not found
+    return NULL; 
 }
 
 void DelChild(Tree *T, IDType IDParent, IDType IDChild)
@@ -196,7 +195,6 @@ void DelChild(Tree *T, IDType IDParent, IDType IDChild)
         }
         if (child != NULL)
         {
-            printf("Deleting child with ID: %d\n", BID(child)); // Print the ID of the child to delete
             if (prevChild == NULL)
             {
                 FirstChild(parentNode) = NextSibling(child);
