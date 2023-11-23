@@ -9,12 +9,6 @@ int main(){
        char folder[250];
        char filename[250];
        loadconfig(folder, filename);
-       SwprintList(dataNama);
-       SwprintList(password);
-       SwprintList(bio);
-       SwprintList(Weton);
-       SprintList(JenisAkun);
-       printf("\n");
 
        // PrioQueue friendRequests;
        // PrioQueueInitialize(&friendRequests, 100);

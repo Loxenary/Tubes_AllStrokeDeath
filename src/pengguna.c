@@ -38,7 +38,6 @@ void daftar()
         printf("Masukkan kata sandi:\n");
         START();
         CopyWordWithSpace();
-        printWord(currentWord);
         // Word test=  MultipleInput();
         if (currentWord.Length > 20)
         {
@@ -61,8 +60,9 @@ void daftar()
     SinsertLast(&JenisAkun,0);
     createMatrixCharKosong(&m);
     MatrixProfileDefault(&m);
-    overwriteMatrixChar(&profil,m,3);
+    overwriteMatrixChar(&profil,m,banyak_pengguna);
     expandAdjMatrix(&matPertemanan,1);
+    banyak_pengguna++;
 
     printf("\nPengguna telah berhasil terdaftar. Masuk untuk menikmati fitur-fitur BurBir.\n\n");
 }

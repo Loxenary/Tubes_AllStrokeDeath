@@ -15,6 +15,7 @@ void perintah(){
     char * Ubah_foto_profil = "UBAH_FOTO_PROFIL";
     char * Daftar_teman = "DAFTAR_TEMAN";
     char * Hapus_teman = "HAPUS_TEMAN";
+    char * TAMBAH_teman = "TAMBAH_TEMAN";
     char * Daftar_permintaan_pertemanan = "DAFTAR_PERMINTAAN_PERTEMANAN";
     char * Setujui_pertemanan = "SETUJUI_PERTEMANAN";
     char * Kicau = "KICAU";
@@ -30,7 +31,7 @@ void perintah(){
     char * Sambung_utas = "SAMBUNG_UTAS";
     char * Hapus_utas = "HAPUS_UTAS";
     char * Cetak_utas = "CETAK_UTAS";
-    char * Simpan = "SIMPAN";
+    char * Simpan_word = "SIMPAN";
     char * Muat = "MUAT";
     isLogin = FALSE;
     printf(">> ");
@@ -179,8 +180,8 @@ void perintah(){
             } else if(isWordEqualString(currentWord, Daftar)){
                 daftar();
                 printf("jalankan printah Daftar\n");
-            } else if(isWordEqualString(currentWord, Simpan)){
-                // Simpan();
+            } else if(isWordEqualString(currentWord, Simpan_word)){
+                Simpan();
                 printf("jalankan perintah simpan\n");
             } else if(isWordEqualString(currentWord, Muat)){
                 // Muat();
@@ -213,7 +214,9 @@ void perintah(){
                 
             // Lihat Profil    
             } else if(isWordEqualString(currentWord, Lihat_profil)){
-                ADVWORD();
+                IgnoreEnters();
+                IgnoreBlanks();
+                CopyWordWithSpace();
                 lihatProfil(currentWord);
                 printf("jalankan perintah lihat_profil\n");
 
@@ -235,7 +238,9 @@ void perintah(){
             } else if(isWordEqualString(currentWord, Hapus_teman)){
                 Hapus_Teman(&matPertemanan);
             } 
-
+            else if(isWordEqualString(currentWord,TAMBAH_teman)){
+                // sendFriendRequest(&permintaanTeman, )
+            }
             // Display Daftar Permintaan Pertemanan
              else if(isWordEqualString(currentWord, Daftar_permintaan_pertemanan)){
                    //Daftar permintaan
@@ -339,11 +344,12 @@ void perintah(){
                 printf("idutas: %d\n", idutas);
                 printf("len: %d\n", currentWord.Length);
                 CetakUtas(utas_pointers.buffer[idutas-1]);
-            } else if(isWordEqualString(currentWord, Simpan)){
+            } else if(isWordEqualString(currentWord, Simpan_word)){
+                Simpan();
                 printf("jalankan perintah simpan\n");
             } else if(isWordEqualString(currentWord, Muat)){
                 printf("jalankan perintah muat\n");
-            }
+            } 
 
         }
         printf(">> ");

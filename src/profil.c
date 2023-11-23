@@ -24,6 +24,7 @@ void gantiProfil(WrdType nama)
 
     printf("\n\nMasukkan Bio Akun:\n");
     START();
+    IgnoreEnters();
     while (currentChar != BLANK && currentChar != ';' && i <= 135)
     {
         currentWord.TabWord[i] = currentChar;
@@ -48,8 +49,8 @@ void gantiProfil(WrdType nama)
         cek = TRUE;
         boolean cek1 = TRUE;
         START();
+        IgnoreEnters();
         copyWordDin();
-        printWordDin(currentWordDin);
         int j = 0;
         while (currentWordDin.container[j] == ENTER)
         {
@@ -94,6 +95,8 @@ void gantiProfil(WrdType nama)
 
 void lihatProfil(WrdType nama)
 {
+
+    
     int index;
     if (SwindexOf(dataNama, nama) != IDX_UNDEF)
     {
@@ -116,13 +119,12 @@ void lihatProfil(WrdType nama)
         printf("\n");
 
         displayMatrixCharColoured(LSMELMT(profil, index));
-        printf("\n\n");
     }
     else
     {
         printf("Wah, akun ");
         printWord(SELMT(dataNama, index));
-        printf("diprivat nih. Ikuti dulu yuk untuk bisa melihat profil ");
+        printf(" diprivat nih. Ikuti dulu yuk untuk bisa melihat profil ");
         printWord(SELMT(dataNama, index));
         printf("!\n\n");
     }
@@ -148,6 +150,7 @@ void aturJenisAkun(WrdType nama)
         if (currentWord.TabWord[0] == 'Y')
         {
             ELMT(JenisAkun, index) = 1;
+            printf("Akun anda sudah diubah menjadi akun Private.\n");
         }
         else
         {
@@ -169,6 +172,7 @@ void aturJenisAkun(WrdType nama)
         if (currentWord.TabWord[0] == 'Y')
         {
             ELMT(JenisAkun, index) = 0;
+            printf("Akun anda sudah diubah menjadi akun Publik.\n");
         }
         else
         {

@@ -1,11 +1,25 @@
-#include <sys/stat.h>
-#include "./adt/wordmachine.h"
+// #include <sys/types.h>
+// #include <sys/stat.h>
+// #include "./adt/wordmachine.h"
 
+// boolean isDirectoryExists(const char *path);
 
-int createFolder(const char *folderName);
+// void copyPath(char * dest, char * src);
 
-int simpan();
+// int stringLength(char * string);
 
-void writeConfigFile(char *folderName);
+// int createDirectory(char *path);
 
-void writeWord(Word wrd, char * folderName);
+// void saveBalasan(char *folder_path);
+
+// void saveDraf(char *folder_path);
+
+// void saveUtas(char *folder_path);
+
+// void saveKicauan(char *folder_path);
+
+// void savePengguna(char *folder_path);
+
+// void writeFile(Word w1,FILE *f);
+
+void Simpan();
