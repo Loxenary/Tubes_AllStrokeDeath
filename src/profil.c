@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "database.h"
-
+#include "./ADT/wordmachine.h"
 #include "profil.h"
 
 void gantiProfil(WrdType nama)
@@ -38,36 +38,27 @@ void gantiProfil(WrdType nama)
     {
         SELMT(bio, index) = currentWord;
     }
+    currentWord.TabWord[currentWord.Length] = '\0';
 
     printf("\nMasukkan No HP:\n");
     boolean cek = TRUE;
-
-    WordDin cekAngka;
     while (cek)
     {
         i = 0;
         cek = TRUE;
         boolean cek1 = TRUE;
         START();
-        IgnoreEnters();
-        int len = 0;
-        while (currentChar != ';')
-        { 
-            cekAngka.container[len] = currentChar;
-            ADV();
-            len++;
-        }   
-        cekAngka.Length = len;
-        for (int i = 0; i < len; i++)
+        copyWordDin();
+        /*for (int i = 0; i < currentWordDin.Length; i++)
         {
-            if(cekAngka.container[i] < '0' || cekAngka.container[i] > '9')
+            if(currentWordDin.container[i] < '0' || currentWordDin.container[i] > '9')
             {
                 cek1 = FALSE;
             }
-        }
+        }*/
         if (cek1)
         {
-            LSWDELMT(phone, index) = cekAngka;
+            LSWDELMT(phone, index) = currentWordDin;
             cek = FALSE;
         }
         else
@@ -80,24 +71,15 @@ void gantiProfil(WrdType nama)
     cek = TRUE;
     while (cek)
     {
-        START();
-        Word Wet;
-        int len = 0;
-        while (currentChar != BLANK && currentChar != ';')
-        {    
-            Wet.TabWord[len] = currentChar;
-            ADV();
-            len++;
-        }
-
-        if (cekWeton(Wet) || len == 0)
+        Word Wet = MultipleInput();
+        if (cekWeton(Wet) || Wet.Length == 0)
         {
             SELMT(Weton, index) = Wet;
             cek = FALSE;
         }
         else
         {
-            printf("Weton anda tidak valid.");
+            printf("Weton anda tidak valid.\n");
         }
     }
 
@@ -206,7 +188,11 @@ void ubahFotoProfil(WrdType nama)
 
 boolean cekWeton(Word Weton)
 {
-    char * legi = "Legi", * pahing = "Pahing", * pon = "Pon", * wage = "Wage", * kliwon = "Kliwon";
+    char * legi = "Legi";
+    char * pahing = "Pahing";
+    char * pon = "Pon";
+    char * wage = "Wage";
+    char * kliwon = "Kliwon";
     if(isWordEqualString(Weton,legi) || isWordEqualString(Weton,pahing) || isWordEqualString(Weton,pon) || isWordEqualString(Weton,wage) || isWordEqualString(Weton, kliwon))
     {
         return TRUE;

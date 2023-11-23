@@ -7,6 +7,12 @@ boolean EndWord;
 Word currentWord;
 WordDin currentWordDin;
 
+void initialWordDin(WordDin w, int capacity)
+{
+    w.container = (char *)malloc(capacity * sizeof(char));
+    w.Length = 0;
+    w.Capacity = capacity;
+}
 
 void IgnoreBlanks(){ // This is to Ignore the current Char when its a blank
     while(currentChar == BLANK || currentChar == '\n'){
@@ -31,6 +37,15 @@ void ADVLINE() {
         EndWord = TRUE;
     } else {
         CopyLine();
+    }
+}
+
+WordDin ADVLINEDIN() {
+    IgnoreBlanks();
+    if (currentChar == ENTER) {
+        EndWord = TRUE;
+    } else {
+        return CopyLineDin();
     }
 }
 
@@ -103,14 +118,31 @@ void printWordDin(WordDin word) {
 void CopyLine() {
       int i = 0;
       while ((currentChar != ENTER) && (retval != EOF)) {
-         if (i == NMax)
+         if (i == NMax){
                break;
+         }
          currentWord.TabWord[i] = currentChar;
          ADV();
          i++;
       }
       currentWord.Length = i;
 
+}
+
+WordDin CopyLineDin() {
+    WordDin w;
+    initialWordDin(w, 15);
+    
+    int i = 0;
+    while ((currentChar != ENTER) && (retval != EOF)) {
+        w.container[i] = currentChar;
+        ADV();
+        i++;
+    }
+
+    w.Length = i;
+
+    return w;
 }
 
 
@@ -311,3 +343,4 @@ void copyWordDin()
         ADV();
     }
 }
+

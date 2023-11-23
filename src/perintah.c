@@ -56,7 +56,7 @@ void perintah(){
             SwprintList(bio);
             printf("\n\n");
             printf("Data telepon: \n");
-            SwprintList(phone);
+            SwdprintList(phone);
             printf("\n\n");
             printf("Data Weton: \n");
             SwprintList(Weton);
