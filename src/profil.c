@@ -25,7 +25,7 @@ void gantiProfil(WrdType nama)
     printf("\n\nMasukkan Bio Akun:\n");
     START();
     IgnoreEnters();
-    while (currentChar != BLANK && currentChar != ';' && i <= 135)
+    while (currentChar != ';' && i <= 135)
     {
         currentWord.TabWord[i] = currentChar;
         ADV();
@@ -37,6 +37,7 @@ void gantiProfil(WrdType nama)
     }
     else
     {
+        currentWord.Length = i;
         SELMT(bio, index) = currentWord;
     }
     currentWord.TabWord[currentWord.Length] = '\0';
