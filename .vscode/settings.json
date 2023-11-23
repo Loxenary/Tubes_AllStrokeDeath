@@ -35,6 +35,7 @@
       "tree.h": "c",
       "balasan.h": "c",
       "liststatik.h": "c",
-      "listdinutasan.h": "c"
+      "listdinutasan.h": "c",
+      "simpan.h": "c"
     }
 }

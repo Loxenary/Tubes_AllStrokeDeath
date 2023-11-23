@@ -139,10 +139,10 @@ void ReadUserData(const char *filename) {
         for ( j= 0; j < 5; j++) {
             readLine();
             for(k = 0; k < 9; k++){
-                MELMT(temp,j,k*2) = currentWord.TabWord[k*2];
+                MELMT(temp,j,k) = currentWord.TabWord[k*2];
             }
         }
-        // displayMatrixCharColoured(temp);
+        displayMatrixCharColoured(temp);
         LSMELMT(profil,i) = temp;
 
     }
