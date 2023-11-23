@@ -3,7 +3,6 @@
 #include "tree.h"
 #include "../database.h"
 
-
 addressTree newTNODE(IDType ID, WordType word)
 {
     addressTree newNode = (addressTree)malloc(sizeof(Node));
@@ -12,6 +11,21 @@ addressTree newTNODE(IDType ID, WordType word)
         BID(newNode) = ID;
         BAUTH(newNode) = SELMT(dataNama, current_id);
         BDATE(newNode) = ExtractLocalTimes();
+        BTEXT(newNode) = word;
+        FirstChild(newNode) = NULL;
+        NextSibling(newNode) = NULL;
+    }
+    return newNode;
+}
+
+addressTree newTNODEConfig(IDType ID, WordType word,WordType Auth, DATETIME Date)
+{
+    addressTree newNode = (addressTree)malloc(sizeof(Node));
+    if (newNode != NULL)
+    {
+        BID(newNode) = ID;
+        BAUTH(newNode) = Auth;
+        BDATE(newNode) = Date;
         BTEXT(newNode) = word;
         FirstChild(newNode) = NULL;
         NextSibling(newNode) = NULL;
@@ -31,11 +45,15 @@ void createTree(Tree *T, kicauan kicau)
     if (newNode != NULL)
     {
         BID(newNode) = kicau.id;
-        BAUTH(newNode) = SELMT(dataNama, current_id);
-        BDATE(newNode) = ExtractLocalTimes();
+        BAUTH(newNode) = kicau.Auth;
+        BDATE(newNode) = kicau.dates;
         BTEXT(newNode) = kicau.Text;
         FirstChild(newNode) = NULL;
         NextSibling(newNode) = NULL;
+    }
+    else
+    {
+        fprintf(stderr, "Alokasi memori gagal.\n");
     }
     Root(*T) = newNode;
 }
@@ -43,7 +61,7 @@ void createTree(Tree *T, kicauan kicau)
 void AddChild(Tree *T, IDType IDParent, IDType IDChild, Word word)
 {
     Tree p = *T;
-    addressTree parentNode = SearchTNode(p, IDParent);
+    addressTree parentNode = SearchTNode(Root(p), IDParent);
     if (parentNode != NULL)
     {
         addressTree childNode = newTNODE(IDChild, word);
@@ -63,10 +81,62 @@ void AddChild(Tree *T, IDType IDParent, IDType IDChild, Word word)
     }
 }
 
+void AddChildConfig(Tree *T, IDType IDParent,IDType IDChild, Word Text, DATETIME date, WordType Auth,IDType id_b)
+{
+    Tree p = *T;
+    addressTree parentNode;
+    
+    if (id_b == -1)
+    {
+        parentNode = SearchTNode(Root(p), IDParent);
+    }
+    else
+    {
+        parentNode = SearchTNodeWithoutRoot(Root(p), IDParent);
+    }
+    
+    if (parentNode != NULL)
+    {
+        addressTree childNode = newTNODEConfig(IDChild, Text, Auth, date);
+        
+        if (childNode != NULL)
+        {
+            addressTree lastChild = FirstChild(parentNode);
+
+            if (lastChild == NULL)
+            {
+                FirstChild(parentNode) = childNode;
+            }
+            else
+            {
+                while (NextSibling(lastChild) != NULL)
+                {
+                    lastChild = NextSibling(lastChild);
+                }
+
+                NextSibling(lastChild) = childNode;
+            }
+
+            // Inisialisasi NextSibling dari childNode dengan NULL
+            NextSibling(childNode) = NULL;
+        }
+        else
+        {
+            // Handle error ketika gagal mengalokasikan memory untuk childNode
+            printf("Failed to allocate memory for childNode\n");
+        }
+    }
+    else
+    {
+        // Handle error ketika parentNode tidak ditemukan
+        printf("Parent node not found for IDParent = %d\n", IDParent);
+    }
+}
+
 void DelChild(Tree *T, IDType IDParent, IDType IDChild)
 {
     Tree p = *T;
-    addressTree parentNode = SearchTNode(p, IDParent);
+    addressTree parentNode = SearchTNode(Root(p), IDParent);
     if (parentNode != NULL)
     {
         addressTree prevChild = NULL;
@@ -92,31 +162,42 @@ void DelChild(Tree *T, IDType IDParent, IDType IDChild)
 }
 
 /* *** Operasi lain *** */
-addressTree SearchTNode(Tree T, IDType ID)
+addressTree SearchTNode(addressTree t, IDType ID)
 {
-    addressTree p = Root(T);
+    // Pengecekan kondisi awal
+    if (t == NULL)
+    {
+        return NULL;
+    }
+
+    // Cek apakah nilai pada node saat ini sama dengan targetValue
+    if (BID(t) == ID)
+    {
+        return t; // Jika sama, kembalikan alamat node
+    }
+
+    // Cari di anak pertama
+    addressTree childAddress = SearchTNode(FirstChild(t), ID);
+    if (childAddress != NULL)
+    {
+        return childAddress; // Jika ditemukan di anak pertama, kembalikan alamat node
+    }
+
+    // Cari di saudara berikutnya
+    addressTree siblingAddress = SearchTNode(NextSibling(t), ID);
+    return siblingAddress; // Kembalikan alamat node, mungkin NULL jika tidak ditemukan
+}
+
+addressTree SearchTNodeWithoutRoot(addressTree t, IDType ID)
+{
+    addressTree p = FirstChild(t);
     if (p == NULL)
     {
         return NULL;
     }
-    // else if (ID(p) == ID)
-    // {
-    //     return p;
-    // }
     else
     {
-        addressTree child = FirstChild(p);
-        while (child != NULL)
-        {
-            Root(T) = child;
-            addressTree result = SearchTNode(T, ID);
-            if (result != NULL)
-            {
-                return result;
-            }
-            child = NextSibling(child);
-        }
-        return NULL;
+        return SearchTNode(p,ID);
     }
 }
 
@@ -132,7 +213,7 @@ boolean IsOneElmt(Tree T)
 
 boolean IsLeaf(Tree T, IDType ID)
 {
-    addressTree node = SearchTNode(T, ID);
+    addressTree node = SearchTNode(Root(T), ID);
     return node != NULL && FirstChild(node) == NULL;
 }
 
@@ -150,8 +231,33 @@ void displayTreeLevel(addressTree node, int tingkatan)
     }
     // Menampilkan informasi dari simpul saat ini dengan format khusus
     printf("%*s| ID = %d\n", tingkatan * 3, "", BID(node));
+    printf("%*s| ", (tingkatan) * 3, "");
+    printWord(BAUTH(node));
+    printf("\n");
+    printf("%*s| ", (tingkatan) * 3, "");
+    TulisDATETIME(BDATE(node));
+    printf("\n");
+    printf("%*s| ", (tingkatan) * 3, "");
+    printWord(BTEXT(node));
+    printf("\n\n");
 
-    if (isTeman(matPertemanan,SELMT(dataNama,current_id-1), BAUTH(node)))
+    // Lanjutkan ke anak pertama dengan level yang lebih dalam
+    displayTreeLevel(FirstChild(node), tingkatan + 1);
+
+    // Lanjutkan ke saudara kandung berikutnya pada level yang sama
+    displayTreeLevel(NextSibling(node), tingkatan);
+}
+
+void displayTreeLevelBalasan(addressTree node, int tingkatan)
+{
+    if (node == NULL)
+    {
+        return;
+    }
+    // Menampilkan informasi dari simpul saat ini dengan format khusus
+    printf("%*s| ID = %d\n", tingkatan * 3, "", BID(node));
+
+    if (isTeman(matPertemanan, SELMT(dataNama, current_id - 1), BAUTH(node)))
     {
         printf("%*s| ", (tingkatan) * 3, "");
         printWord(BAUTH(node));
@@ -161,7 +267,7 @@ void displayTreeLevel(addressTree node, int tingkatan)
         printf("\n");
         printf("%*s| ", (tingkatan) * 3, "");
         printWord(BTEXT(node));
-        printf("\n");
+        printf("\n\n");
     }
     else
     {
@@ -179,8 +285,14 @@ void displayTreeLevel(addressTree node, int tingkatan)
 
 void displayTreeFull(Tree T)
 {
-    addressTree p = Root(T);
+    addressTree p = FirstChild(Root(T));
     displayTreeLevel(p, 0);
+}
+
+void displayTreeFullBalasan(Tree T)
+{
+    addressTree p = FirstChild(Root(T));
+    displayTreeLevelBalasan(p, 0);
 }
 
 IDType searchIDmax(addressTree p)

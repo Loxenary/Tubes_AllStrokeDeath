@@ -142,7 +142,7 @@ void ReadUserData(const char *filename) {
                 MELMT(temp,j,k) = currentWord.TabWord[k*2];
             }
         }
-        // displayMatrixCharColoured(temp);
+        displayMatrixCharColoured(temp);
         LSMELMT(profil,i) = temp;
 
     }
@@ -304,7 +304,7 @@ void ReadBalasanData(char* filename) {
     STARTFILEWORD(filename);
     jumlah_balasan = toInt(currentWord);
     printf("Jumlah kicau yang punya balasan: %d\n", jumlah_balasan);
-    int i;
+    int i;  
     for(i = 0; i < jumlah_balasan; i++){
         readLine();
         int id_kicau = toInt(currentWord);
@@ -314,13 +314,62 @@ void ReadBalasanData(char* filename) {
         readLine();
         int jumlah_balasan = toInt(currentWord);
         printf("%d\n",jumlah_balasan);
-
         int j;
         for(j = 0; j < jumlah_balasan; j++){
             readLine();
-            inputBalas(&list_balasan,id_kicau,0);
-            printf("id: %d\n",read_id_balasan());
+            int h = 0;
+            char a = currentWord.TabWord[0];
+            Word temp;
+            printWord(currentWord);
+            while (a != ' ')
+            {
+                temp.TabWord[h] = currentWord.TabWord[h];
+                h++;
+                a = currentWord.TabWord[h];
+            }
+            temp.Length = h;
+            int id = toInt(temp);
+            // printf("%d",id);
+
+            a = currentWord.TabWord[h];
+            Word temp2;
+            int k = 0;
+            while (h < currentWord.Length)
+            {
+                temp2.TabWord[k] = currentWord.TabWord[h];
+                h++;
+                a = currentWord.TabWord[h];
+                k++;
+            }
+            temp2.Length = k;
+            int id2 = toInt(temp2);
+            
+            printf("\n");
+            
+            readLine();
+            printWord(currentWord);     
+            Word text = currentWord;
+            printWord(text);
+            printf("\n");
+
+            readLine();
+            printWord(currentWord);
+            Word auth = currentWord;
+            printWord(auth);
+            printf("\n");
+            
+            readLine();
+            printWord(currentWord);
+            DATETIME date = WordToDatetime(currentWord);
+            printf("\n");
+            printf("\n");
+
+            bacaConfigBalasan(&list_balasan,id_kicau,id,id2,text,auth,date);
         }
+        printf("ini kicauan\n\n");
+        printDataKicauan(KELMT(list_kicau,id_kicau-1));
+        printf("\nini balasannya\n\n");
+        displayTreeFull(BELMT(list_balasan,id_kicau-1));
     }
 
     // Membaca id kicauan yang memiliki balasan

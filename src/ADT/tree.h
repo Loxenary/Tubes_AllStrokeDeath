@@ -19,10 +19,9 @@ typedef Word WordType;
 typedef struct tNode* addressTree;
 typedef struct tNode {
     int BID;
-    int RID;
     Word BAuth;
     DATETIME Bdates;
-    Word BText;    
+    Word BText;
     addressTree firstChild;
     addressTree nextSibling;
 } Node;
@@ -30,7 +29,6 @@ typedef struct tNode {
 typedef struct {
     addressTree root;
 } Tree;
-
 
 // Balasan
 #define BID(P) (P)->BID
@@ -48,6 +46,8 @@ addressTree newTNODE(IDType ID, WordType Word);
 /* Jika alokasi berhasil, Node dibuat dengan ID = ID, dan semua pointer diset NULL */
 /* Jika alokasi gagal, mengirimkan NULL */
 
+addressTree newTNODEConfig(IDType ID, WordType word,WordType Auth, DATETIME Date);
+
 void dealocateTNODE(addressTree P);
 /* I.S. P terdefinisi */
 /* F.S. P dikembalikan ke sistem */
@@ -60,6 +60,7 @@ void AddChild(Tree *T,IDType IDParent, IDType IDChild,Word word);
 /* Mengadakan seorang anak dengan ID = IDChild dari seorang induk dengan ID = IDParent pada pohon T */
 /* I.S. T tidak kosong. IDChild dan IDParent adalah elemen terdefinisi, IDParent harus ada dalam T, IDChild belum ada */
 /* F.S. Sebuah node dengan ID = IDChild dan Parent bertambah satu node */
+void AddChildConfig(Tree *T, IDType IDParent, IDType IDChild, Word Text,DATETIME date,WordType Auth,IDType id_b);
 
 void DelChild(Tree *T, IDType IDParent, IDType IDChild);
 /* Menghapus seorang anak dengan ID = IDChild dari seorang induk dengan ID = IDParent pada pohon T */
@@ -67,8 +68,10 @@ void DelChild(Tree *T, IDType IDParent, IDType IDChild);
 /* F.S. Node dengan ID = IDChild dan semua subtree yang dimilikinya dihapus dari pohon */
 
 /* *** Operasi lain *** */
-addressTree SearchTNode(Tree T, IDType ID);
+addressTree SearchTNode(addressTree root, IDType ID);
 /* Mengirimkan address node dengan ID = ID jika ditemukan, mengirimkan NULL jika tidak ditemukan */
+
+addressTree SearchTNodeWithoutRoot(addressTree root, IDType ID);
 
 boolean IsTreeEmpty(Tree T);
 /* Mengirimkan true jika pohon T kosong */
@@ -83,9 +86,13 @@ boolean IsRoot(Tree T, IDType ID);
 /* Mengirimkan true jika ID adalah elemen root dari pohon T */
 
 void displayTreeLevel(addressTree node, int tingkatan);
+
+void displayTreeLevelBalasan(addressTree node, int tingkatan);
 /* Mencetak Tree di terminal */          
 
 void displayTreeFull(Tree T);
+
+void displayTreeFullBalasan(Tree T);
 
 IDType searchIDmax(addressTree p);
 

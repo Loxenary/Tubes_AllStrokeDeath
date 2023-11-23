@@ -102,14 +102,13 @@ kicauan CreateDefinedKicau(Word author, Word text, int Likes, DATETIME dates, in
     KDATE(&temps) = dates;
     KTEXT(&temps) = text;
     temps.next_Utas = NULL;
-    inputNewKicauToListTree(&list_balasan);
     return temps;
 }
 
 void InsertDeclaredLastKicau(ListKicau *l, kicauan kicau){
     KNEFF(*l)++;
     KELMT(*l,NEFF(*l)-1) = kicau;
-    inputNewKicauToListTree(&list_balasan);
+    inputNewKicauToListTree(&list_balasan,kicau,NEFF(*l));
 }
 
 void ubah_kicauan(int idKicau, ListKicau l)
@@ -126,6 +125,7 @@ void ubah_kicauan(int idKicau, ListKicau l)
             printf("Selamat! kicauan telah diterbitkan! \n");
             printf("Detil kicauan: \n");
             printDataKicauan(KELMT(l,idKicau));
+            ubahKicauToNewBalasan(&BELMT(list_balasan,idKicau-1),KELMT(l,idKicau));
         }
         else{
             printf("Kicauan dengan ID = %d bukan\n",idKicau);
