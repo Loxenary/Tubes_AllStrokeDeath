@@ -1,12 +1,15 @@
+#ifndef PERMINTAANPERTEMANAN_H
+#define PERMINTAANPERTEMANAN_H
+
 #include "./adt/prioqueue.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include "teman.h"  // Assuming this includes necessary structures and functions
-#include "database.h"  // Assuming this includes necessary structures and functions
+#include "teman.h"
+#include "database.h"
 
 boolean isFriendRequestExist(PrioQueue friendRequests, Word sender, Word receiver);
 void removeFriendRequest(PrioQueue* friendRequests, Word sender, Word receiver);
-void sendFriendRequest(PrioQueue* friendRequests, Word sender, Word receiver);
+void sendFriendRequest(PrioQueue* friendRequests, Word currentUser);
 boolean hasPendingFriendRequests(PrioQueue friendRequests, Word user);
-void displayPendingFriendRequests(PrioQueue friendRequests);
+void displayPendingFriendRequests(PrioQueue friendRequests, Word currentUser);
 void processFriendRequest(PrioQueue* friendRequests, Word currentUser);
+
+#endif
