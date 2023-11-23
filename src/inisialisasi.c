@@ -26,7 +26,7 @@ void readLine(){
 }
 
 void readLineDin(){
-    currentWordDin = ADVLINEDIN();
+    ADVLINEDIN();
     currentWordDin.container[currentWordDin.Length] = '\0';
     currentWordDin.Length--;
 }
@@ -601,47 +601,41 @@ void loadconfig(char *folder, char *filename) {
     displayScreen();
 
     printf("Masukkan nama folder konfigurasi: ");
-    scanf("%s", folder);
 
-    // Langsung load semua file config yang ada di folder
+    START();
+    int i = 0;
+
+    // Read characters until a non-alphanumeric character or MARK is encountered
+    while (currentChar != MARK) {
+        folder[i] = currentChar;
+        ADV(); // Ensure to call ADV to move to the next character
+        i++;
+    }
+
+    // Null-terminate the folder name
+    folder[i] = '\0';
+
     char fileNames[5][20] = {"pengguna.config", "kicauan.config", "balasan.config", "draf.config", "utas.config"};
 
     for (int i = 0; i < 5; ++i) {
         sprintf(filename, "%s/%s", folder, fileNames[i]);
-        // printf("Membaca file %s\n", filename);
-        // FILE *file = fopen(filename, "r");
-
-        // if (file == NULL) {
-        //     printf("Error: Cannot open file %s\n", filename);
-        //     continue;
-        // }
-
-
+        
         // Initialize the word machine
         STARTFILEWORD(filename);
         printf("Word machine initialized\n");
 
-
-        // Read data from the file using wordmachine
+        // TODO: Read data from the file using wordmachine and handle it as needed
+        // Example:
         if (i == 0) {
-
             ReadUserData(filename);
-            //Done
         } else if (i == 1) {
             ReadKicauData(filename);
-            //Done
-            // TODO: Handle kicauan as needed
         } else if (i == 2) {
             ReadBalasanData(filename);
-            // TODO: Handle Balasan as needed
         } else if (i == 3) {
-            // ListDraf listDraf;
             ReadDrafData(filename);
-            // TODO: Handle ListDraf as needed
         } else if (i == 4) {
-            // DataUtas datautas;
             ReadUtasData(filename);
-            // TODO: Handle DataUtas as needed
         }
     }
 }

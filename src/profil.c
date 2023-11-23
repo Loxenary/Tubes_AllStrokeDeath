@@ -49,13 +49,19 @@ void gantiProfil(WrdType nama)
         boolean cek1 = TRUE;
         START();
         copyWordDin();
-        /*for (int i = 0; i < currentWordDin.Length; i++)
+        printWordDin(currentWordDin);
+        int j = 0;
+        while (currentWordDin.container[j] == ENTER)
+        {
+            j++;
+        }
+        for (int i = j; i < currentWordDin.Length; i++)
         {
             if(currentWordDin.container[i] < '0' || currentWordDin.container[i] > '9')
             {
                 cek1 = FALSE;
             }
-        }*/
+        }
         if (cek1)
         {
             LSWDELMT(phone, index) = currentWordDin;

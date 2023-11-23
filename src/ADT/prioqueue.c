@@ -12,12 +12,17 @@ boolean IsPrioQueueEmpty(PrioQueue pq) {
 }
 
 void Enqueue(PrioQueue* pq, PermintaanPertemanan data) {
-    int i = pq->size;
-    while (i > 0 && data.kepopuleran > pq->array[(i - 1) / 2].kepopuleran) {
-        pq->array[i] = pq->array[(i - 1) / 2];
-        i = (i - 1) / 2;
+    if (pq->size == pq->capacity) {
+        printf("Queue is full\n");
+        return;
     }
-    pq->array[i] = data;
+
+    int i = pq->size - 1;
+    while (i >= 0 && data.kepopuleran > pq->array[i].kepopuleran) {
+        pq->array[i + 1] = pq->array[i];
+        i--;
+    }
+    pq->array[i + 1] = data;
     pq->size++;
 }
 

@@ -30,7 +30,7 @@ extern boolean EndWord;
 extern Word currentWord;
 extern WordDin currentWordDin;
 
-void initialWordDin(WordDin w, int capacity);
+void initialWordDin(WordDin * w, int capacity);
 
 void STARTFILEWORD(char* dir);
 
@@ -73,7 +73,7 @@ void STARTWORD();
 
 void CopyLine();
 
-WordDin CopyLineDin();
+void CopyLineDin();
 
 void CopyWord();
 /* Mengakuisisi kata, menyimpan dalam currentWord
@@ -105,7 +105,7 @@ Word StringToWord(char* string, int size);
 
 void ADVLINE();
 
-WordDin ADVLINEDIN();
+void ADVLINEDIN();
 
 // concat word
 Word ConcatWord(Word w1, Word w2);

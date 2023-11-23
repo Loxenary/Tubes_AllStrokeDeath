@@ -7,11 +7,11 @@ boolean EndWord;
 Word currentWord;
 WordDin currentWordDin;
 
-void initialWordDin(WordDin w, int capacity)
+void initialWordDin(WordDin * w, int capacity)
 {
-    w.container = (char *)malloc(capacity * sizeof(char));
-    w.Length = 0;
-    w.Capacity = capacity;
+    w->container = (char *)malloc(capacity * sizeof(char));
+    w->Length = 0;
+    w->Capacity = capacity;
 }
 
 void IgnoreBlanks(){ // This is to Ignore the current Char when its a blank
@@ -40,13 +40,15 @@ void ADVLINE() {
     }
 }
 
-WordDin ADVLINEDIN() {
+
+void ADVLINEDIN(){
     IgnoreBlanks();
     if (currentChar == ENTER) {
         EndWord = TRUE;
     } else {
-        return CopyLineDin();
+        CopyLineDin();
     }
+    
 }
 
 void STARTFILEWORD(char* dir)  // tadi diubah
@@ -129,21 +131,35 @@ void CopyLine() {
 
 }
 
-WordDin CopyLineDin() {
-    WordDin w;
-    initialWordDin(w, 15);
-    
+
+void CopyLineDin() {
+    initialWordDin(&currentWordDin, 280);
+    int counter = 1;
     int i = 0;
     while ((currentChar != ENTER) && (retval != EOF)) {
-        w.container[i] = currentChar;
+        currentWordDin.container[i] = currentChar;
         ADV();
         i++;
+
+        if (i > 280 * counter) {
+            // Initialize a temporary WordDin with a smaller capacity (280)
+            WordDin tempWord;
+            counter++;
+            initialWordDin(&tempWord, 280 * counter);
+
+            int j;
+            for (j = 0; j < 280 * (counter - 1); j++) {
+                tempWord.container[j] = currentWordDin.container[j];
+            }
+
+            // Update currentWordDin with the temporary WordDin
+            currentWordDin = tempWord;
+            free(tempWord.container);
+        }
     }
-
-    w.Length = i;
-
-    return w;
+    currentWordDin.Length = i;
 }
+
 
 
 boolean isWordEqual(Word w1, Word w2){
@@ -289,16 +305,26 @@ void IgnoreEnters()
 //     }
 // }
 
-Word StringToWord(char* string, int size)
-/*  Mengubah array of char (string) menjadi word */
-{
-   Word w;
-   w.Length = size;
+Word StringToWord(char* string, int size) {
+    Word w;
+    w.Length = size;
 
-   for (int i = 0; i < size; i++)
-      w.TabWord[i] = string[i];
+    for (int i = 0; i < size; i++) {
+        if (i < NMax) {
+            w.TabWord[i] = string[i];
+        } else {
+            break;
+        }
+    }
 
-   return w;
+    // Null-terminate the TabWord array
+    if (size < NMax) {
+        w.TabWord[size] = '\0';
+    } else {
+        w.TabWord[NMax - 1] = '\0';
+    }
+
+    return w;
 }
 
 // concat word
