@@ -135,27 +135,35 @@ void perintah(){
             }
             printf("\n======================== DATA UTAS ========================\n");
             printf("Jumlah Kicau yang punya utas: \n");
-            printf("%d\n",jumlah_utas);
+            printf("%d\n",listLengthDinUtas(utas_pointers)); // jumlah utas = panjang list dinamis utasan
 
             printf("Display ListUtas: \n");
 
-            for(i = 0; i < KNEFF(list_kicau); i++){
-                if(KELMT(list_kicau,i).next_Utas != NULL){
-                    printf("Utas pada kicau id: %d\n",KELMT(list_kicau,i).id);
-                    Address p = ELMTD_LDU(utas_pointers,i);
-                    while (p != NULL)
-                    {
-                        printf("id: %d",p->IdUtas);
-                        printf("Author: \n");
-                        printWord(p->Author);
-                        printf("Text: \n");
-                        printWord(p->texts);
-                        printf("Datetime: \n");
-                        TulisDATETIME(p->dateTime);
-                        p = NEXT(p);
-                    }
+
+            // akses data utas dari list dinamis
+            for(i = 0; i < listLengthDinUtas(utas_pointers); i++){
+                printf("h\n");
+                
+                CetakUtas(ELMTD_LDU(utas_pointers, i));
+                // Address lk = ELMTD_LDU(utas_pointers, i);
+                // CetakUtas(lk);
+
+                // if(KELMT(list_kicau,i).next_Utas != NULL){
+                //     printf("Utas pada kicau id: %d\n",KELMT(list_kicau,i).id);
+                //     Address p = ELMTD_LDU(utas_pointers,i);
+                //     while (p != NULL)
+                //     {
+                //         printf("id: %d",p->IdUtas);
+                //         printf("Author: \n");
+                //         printWord(p->Author);
+                //         printf("Text: \n");
+                //         printWord(p->texts);
+                //         printf("Datetime: \n");
+                //         TulisDATETIME(p->dateTime);
+                //         p = NEXT(p);
+                //     }
                     
-                }
+                // }
             }
         }
     

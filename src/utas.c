@@ -6,6 +6,8 @@
 
 // var global belum di inisialisasi
 
+
+
 boolean isId(int index){
     boolean found = FALSE;
     int idx = 0;
@@ -34,7 +36,7 @@ boolean isUtasID(int idx){
 
 
 kicauan getKicau(int index){
-    return(KELMT(list_kicau,index));
+    return(KELMT(list_kicau,index-1));
 }
 
 void CreateRootUtas(int idKicau){
@@ -60,26 +62,37 @@ void CreateRootUtas(int idKicau){
                 CreateUtas(&utas_utama);
 
                 // masukin pointer utas ke list dinamis
-                insertLastDinUtas(&utas_pointers, utas_utama);
                 
                 // input kicauan utas
                 text = MultipleInput();
-                addUtas(utas_utama, listLengthDinUtas(utas_pointers), kicau_utama.id, text, kicau_utama.Auth, ExtractLocalTimes());
+                addUtas(&utas_utama, listLengthDinUtas(utas_pointers)+1, kicau_utama.id, text, kicau_utama.Auth, ExtractLocalTimes());
+                
+                if(isEmptyDinUtas(utas_pointers)){
+                    printf("listdin kosong\n");
+                }
+
+                insertLastDinUtas(&utas_pointers, utas_utama);
+                if(isEmptyDinUtas(utas_pointers)){
+                    printf("listdin kosong\n");
+                }
+                for(int i = 0; i < listLengthDinUtas(utas_pointers); i++){
+                    printf("isi: %d\n", ELMTD_LDU(utas_pointers, i)->IdUtas);
+                }
                 
 
-                printf("Apakah Anda ingin melanjutkan utas ini? (YA/TIDAK) ");
-                STARTWORD();
-                while(!isWordEqualString(currentWord, TIDAK)){
-                    printf("Masukkan kicauan:\n");
+                // printf("Apakah Anda ingin melanjutkan utas ini? (YA/TIDAK) ");
+                // STARTWORD();
+                // while(!isWordEqualString(currentWord, TIDAK)){
+                //     printf("Masukkan kicauan:\n");
 
-                    text = MultipleInput();
-                    // buat node baru. idutas, idkicau, auth sama dengan sebelumnya
-                    addUtas(utas_utama, listLengthDinUtas(utas_pointers), kicau_utama.id, text, kicau_utama.Auth, ExtractLocalTimes());
+                //     text = MultipleInput();
+                //     // buat node baru. idutas, idkicau, auth sama dengan sebelumnya
+                //     addUtas(&utas_utama, listLengthDinUtas(utas_pointers), kicau_utama.id, text, kicau_utama.Auth, ExtractLocalTimes());
 
-                    printf("Apakah Anda ingin melanjutkan utas ini? (YA/TIDAK) ");
-                    STARTWORD();
-                }
-                printf("Utas selesai!\n");
+                //     printf("Apakah Anda ingin melanjutkan utas ini? (YA/TIDAK) ");
+                //     STARTWORD();
+                // }
+                // printf("Utas selesai!\n");
             } else{
                 // kicau pernah diutas
                 printf("Kicau ini sudah pernah diutas sebelumnya\n");
@@ -149,7 +162,7 @@ void SambungUtas(int idUtas, int indexUtas){
                 printf("Masukkan kicauan:\n");
                 txt = MultipleInput();
 
-                insertAt_LinkedUtas(Utasan, idUtas, getLastElement_LinkedUtas(Utasan)->Idkicau, indexUtas, txt, Utasan->Author, ExtractLocalTimes());
+                insertAt_LinkedUtas(ELMTD_LDU(utas_pointers, idUtas - 1), idUtas, getLastElement_LinkedUtas(Utasan)->Idkicau, indexUtas, txt, Utasan->Author, ExtractLocalTimes());
             } else{
                 // indexutas yang dimasukkan terlalu tinggi
                 printf("Index terlalu tinggi!\n");
@@ -170,37 +183,41 @@ void CetakUtas(ListUtas u){
     int count;
     // algoritma
     if(u == NULL){
-        printf("Kucing");
-    }
-    p = u;
-    count = 0;
-    printf("| ID = %d\n", p->IdUtas);
-    printf("| ");
-    printWord(p->Author);
-    printf("\n");
-    printf("| ");
-    TulisDATETIME(p->dateTime);
-    printf("\n");
-    printf("| ");
-    printWord(p->texts);
-    printf("\n");
-
-    while(p != NULL){
-        count ++;
-        
-        printf("    | INDEX = %d\n", count);
-        printf("    | ");
+        printf("Kosong");
+    } else{
+        p = u;
+        count = 0;
+        printf("testing\n");
+        printf("| ID = %d\n", p->IdUtas);
+        printf("| ");
         printWord(p->Author);
         printf("\n");
-        printf("    | ");
+        printf("| ");
         TulisDATETIME(p->dateTime);
         printf("\n");
-        printf("    | ");
+        printf("| ");
         printWord(p->texts);
         printf("\n");
 
-        p = NEXT(p);
+        while(NEXT(p) != NULL){
+            count ++;
+            p = NEXT(p);
+            
+            printf("    | INDEX = %d\n", count);
+            printf("    | ");
+            printWord(p->Author);
+            printf("\n");
+            printf("    | ");
+            TulisDATETIME(p->dateTime);
+            printf("\n");
+            printf("    | ");
+            printWord(p->texts);
+            printf("\n");
+
+            
+        }
     }
+    
 }
 
 

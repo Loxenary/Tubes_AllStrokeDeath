@@ -28,6 +28,7 @@ typedef struct List_Kicau
 #define KTEXT(k) (k)->Text
 #define KID(k) (k)->id
 #define KLIKE(k) (k)->Likes
+#define KNEXT(k) (k)->next_utas
 
 //List Kicau
 #define KBUFFER(l) (l).kicau
