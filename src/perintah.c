@@ -15,6 +15,7 @@ void perintah(){
     char * Ubah_foto_profil = "UBAH_FOTO_PROFIL";
     char * Daftar_teman = "DAFTAR_TEMAN";
     char * Hapus_teman = "HAPUS_TEMAN";
+    char * TAMBAH_teman = "TAMBAH_TEMAN";
     char * Daftar_permintaan_pertemanan = "DAFTAR_PERMINTAAN_PERTEMANAN";
     char * Setujui_pertemanan = "SETUJUI_PERTEMANAN";
     char * Kicau = "KICAU";
@@ -205,7 +206,9 @@ void perintah(){
                 
             // Lihat Profil    
             } else if(isWordEqualString(currentWord, Lihat_profil)){
-                ADVWORD();
+                IgnoreEnters();
+                IgnoreBlanks();
+                CopyWordWithSpace();
                 lihatProfil(currentWord);
                 printf("jalankan perintah lihat_profil\n");
 
@@ -227,7 +230,9 @@ void perintah(){
             } else if(isWordEqualString(currentWord, Hapus_teman)){
                 Hapus_Teman(&matPertemanan);
             } 
-
+            else if(isWordEqualString(currentWord,TAMBAH_teman)){
+                // sendFriendRequest(&permintaanTeman, )
+            }
             // Display Daftar Permintaan Pertemanan
              else if(isWordEqualString(currentWord, Daftar_permintaan_pertemanan)){
                    //Daftar permintaan

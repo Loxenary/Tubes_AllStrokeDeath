@@ -195,6 +195,15 @@ boolean isWordDinEqual(WordDin w1, WordDin w2){
 }
 
 boolean isWordEqualString(Word w1, char * s1){
+   int counter = 0;
+   while (s1[counter] != '\0')
+   {
+        counter++;
+   }
+   
+   if(w1.Length != counter){
+        return FALSE;
+   }
    int i;
    for(i = 0; i < w1.Length; i++){
       if(w1.TabWord[i] != s1[i]){

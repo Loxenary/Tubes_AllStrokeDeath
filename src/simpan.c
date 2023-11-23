@@ -1,85 +1,163 @@
 #include "database.h"
-
 #include "simpan.h"
+#include <string.h>
 
-int createFolder(const char *folderName){
-    struct stat st = {0};
-    if(stat(folderName, &st) == 0){
-        printf("Folder %s already esists.\n",folderName);
-        return 1;
-    }
-    if(mkdir(folderName,0777) == 0){
-        printf("%s sudah berhasil dibuat.\n",folderName);
-        return 0;
-    }
-    else{
-        printf("Error Creating folder");
-        return -1;
-    }
+
+boolean isDirectoryExists(const char *path) {
+    struct stat st;
+    return stat(path, &st) == 0 && S_ISDIR(st.st_mode);
 }
 
-int simpan(){
-    printf("Masukkan nama folder penyimpanan\n");
-    STARTWORD(); // Asumsi tidak ada spasi pada Path
-    int result = createFolder(currentWord.TabWord);
-
-    if(result == 0){
-        printf("Anda akan melakukan penyimpanan di %s.\n",currentWord.TabWord);
-
-        printf("Penyimpanan telah berhasil dilakukan!\n");
-    }else if (result == 1) {
-        // Folder already exists, you can handle this case differently if needed
-        // For now, just print a message
-        printf("Anda akan melakukan penyimpanan di %s.\n", currentWord.TabWord);
-        // Perform your save operation here
-        printf("Penyimpanan telah berhasil dilakukan!\n");
-    } else {
-        // Handle folder creation failure
-        printf("Penyimpanan gagal dilakukan.\n");
+int stringLength(char * string){
+    int i= 0;
+    while (string[i] != '\0')
+    {
+        i++;
     }
+    return i;
 }
 
-void writeWord(Word wrd, char *folderName){
-    char balasanPath[100];
-    char drafPath[100];
-    char kicauanPath[100];
-    char utasPath[100];
-    char PenggunaPath[100];
+int createDirectory(char *path) {
+    char *temp = (char *) malloc (stringLength(path) + 1);
+    char *tempIter = temp;
+    const char *pathIter = path;
 
-    // Assuming folderName is the folder where you want to store these files
-    sprintf(balasanPath, "%s/balasan.config", folderName);
-    sprintf(drafPath, "%s/draf.config", folderName);
-    sprintf(kicauanPath, "%s/kicauan.config", folderName);
-    sprintf(utasPath, "%s/utas.config", folderName);
-    sprintf(PenggunaPath, "%s/pengguna.config", folderName);
+    while (*pathIter != '\0') {
+        if (*pathIter == '/') {
+            *tempIter = '\0';
+            if (!isDirectoryExists(temp) && mkdir(temp, 0777) != 0) {
+                free(temp);
+                return 1; 
+            }
+            *tempIter = '/';
+        } else {
+            *tempIter = *pathIter;
+        }
 
-    // Now you can use these paths to write the contents based on current data
-    // Example:
-    FILE *balasanFile = fopen(balasanPath, "w");
-    if (balasanFile != NULL) {
-        fprintf(balasanFile, "Content based on current data: %s\n", wrd.TabWord);
-        fclose(balasanFile);
+        tempIter++;
+        pathIter++;
     }
-    // Repeat the process for other files...
+
+    *tempIter = '\0';
+
+    if (mkdir(path, 0777) != 0) {
+        free(temp);
+        return 1;  
+    }
+
+    free(temp);
+    return 0; 
 }
 
-void writeConfigFile(char *folderName) {
-    // Construct the file path
-    char filePath[100];
-    sprintf(filePath, "%s/config.txt", folderName);
+void saveBalasan(char *folder_path){
+    char *path = (char *) malloc (stringLength(folder_path) + 20);
+    strcpy(path, folder_path);
+    strcat(path, "/balasan.config");
 
-    // Open the file in write mode
-    FILE *configFile = fopen(filePath, "w");
-
-    // Check if the file opened successfully
-    if (configFile == NULL) {
-        perror("Error opening config file");
+    FILE *f2 = fopen(path, "w");
+    if (f2 == NULL) {
+        printf("Error: %s tidak dapat dibuat.\n", path);
         return;
     }
 
-    // Write content to the file
-    fprintf(configFile, "Folder: %s\n", folderName);
 
-    // Close the file
-    fclose(configFile);
+
+    fclose(f2);
+    free(path);
+}
+
+void saveDraf(char *folder_path){
+    char *path = (char *) malloc (stringLength(folder_path) + 20);
+    strcpy(path, folder_path);
+    strcat(path, "/draf.config");
+
+    FILE *f2 = fopen(path, "w");
+    if (f2 == NULL) {
+        printf("Error: %s tidak dapat dibuat.\n", path);
+        return;
+    }
+
+
+
+
+    fclose(f2);
+    free(path);
+}
+
+void saveUtas(char *folder_path){
+    char *path = (char *) malloc (stringLength(folder_path) + 20);
+    strcpy(path, folder_path);
+    strcat(path, "/utas.config");
+
+    FILE *f2 = fopen(path, "w");
+    if (f2 == NULL) {
+        printf("Error: %s tidak dapat dibuat.\n", path);
+        return;
+    }
+
+    // fprintf(f2, "%d\n", JumlahUtas);
+
+
+
+    fclose(f2);
+    free(path);
+
+}
+
+void saveKicauan(char *folder_path){
+
+    char *path = (char *) malloc (stringLength(folder_path) + 20);
+    strcpy(path, folder_path);
+    strcat(path, "/kicauan.config");
+
+    FILE *f2 = fopen(path, "w");
+    if (f2 == NULL) {
+        printf("Error: %s tidak dapat dibuat.\n", path);
+        return;
+    }
+
+
+    fclose(f2);
+    free(path);
+}
+
+void savePengguna(char *folder_path){
+
+    char *path = (char *) malloc (stringLength(folder_path) + 20);
+    strcpy(path, folder_path);
+    strcat(path, "/pengguna.config");
+
+    FILE *f2 = fopen(path, "w");
+    if (f2 == NULL) {
+        printf("Error: %s tidak dapat dibuat.\n", path);
+        return;
+    }
+
+
+    fclose(f2);
+    free(path);
+}
+
+void Simpan(){
+    printf("Masukkan folder penyimpanan konfig: \n");
+
+    STARTWORD();
+    char *folder_path = currentWord.TabWord;
+
+    if (createDirectory(folder_path) == 0) {
+        printf("\nFolder %s berhasil dibuat.\n", folder_path);
+    } else {
+        printf("\nFolder %s sudah tersedia.\n", folder_path);
+    }
+
+    savePengguna(folder_path);
+    saveKicauan(folder_path);
+    saveUtas(folder_path);
+    saveDraf(folder_path);
+    saveBalasan(folder_path);
+    
+ 
+ 
+ 
+    return;
 }

@@ -82,7 +82,7 @@ void Daftar_Teman(AdjMatrix dataTeman){
             printf("Awkwkkw ");
             printWord(nama);
             printf(" Gapunya teman aduh\n");
-            printf("kacian");
+            printf("kacian\n");
         }
     }
     else{
@@ -125,7 +125,7 @@ void Daftar_Teman(AdjMatrix dataTeman){
 void Hapus_Teman(AdjMatrix* dataTeman){
     ListStatikWord friends = ListTeman(*dataTeman,current_id);
 
-    if(jumlah_Teman > 0){
+    if(jumlah_Teman(* dataTeman,current_id) > 0){
         printf("Masukkan nama pengguna :\n");
         STARTWORD();
         WrdType temp = currentWord;
