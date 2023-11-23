@@ -100,12 +100,12 @@ void perintah(){
             printf("%d\n",jumlah_balasan);
 
             printf("Display Balasan: \n");
-            // for(i = 0; i < jumlah_kicau; i++){
-            //     if(ELMTD(kicau_with_balasan,i) != -1){
-            //         displayTreeFull(BELMT(list_balasan,i));
-            //         printf("\n");
-            //     }
-            // }
+            for(i = 0; i < jumlah_kicau; i++){
+                if(ELMTD(kicau_with_balasan,i) != -1){
+                    displayTreeFull(BELMT(list_balasan,i));
+                    printf("\n");
+                }
+            }
 
             printf("\n======================== DATA DRAF ========================\n");
             printf("Jumlah Pengguna yang punya Draf: \n");
