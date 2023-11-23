@@ -31,7 +31,7 @@ void perintah(){
     char * Sambung_utas = "SAMBUNG_UTAS";
     char * Hapus_utas = "HAPUS_UTAS";
     char * Cetak_utas = "CETAK_UTAS";
-    char * Simpan = "SIMPAN";
+    char * Simpan_word = "SIMPAN";
     char * Muat = "MUAT";
     isLogin = FALSE;
     printf(">> ");
@@ -180,8 +180,8 @@ void perintah(){
             } else if(isWordEqualString(currentWord, Daftar)){
                 daftar();
                 printf("jalankan printah Daftar\n");
-            } else if(isWordEqualString(currentWord, Simpan)){
-                // Simpan();
+            } else if(isWordEqualString(currentWord, Simpan_word)){
+                Simpan();
                 printf("jalankan perintah simpan\n");
             } else if(isWordEqualString(currentWord, Muat)){
                 // Muat();
@@ -344,11 +344,12 @@ void perintah(){
                 printf("idutas: %d\n", idutas);
                 printf("len: %d\n", currentWord.Length);
                 CetakUtas(utas_pointers.buffer[idutas-1]);
-            } else if(isWordEqualString(currentWord, Simpan)){
+            } else if(isWordEqualString(currentWord, Simpan_word)){
+                Simpan();
                 printf("jalankan perintah simpan\n");
             } else if(isWordEqualString(currentWord, Muat)){
                 printf("jalankan perintah muat\n");
-            }
+            } 
 
         }
         printf(">> ");

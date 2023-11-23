@@ -1,5 +1,6 @@
 #include "prioqueue.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 void PrioQueueInitialize(PrioQueue* pq, int capacity) {
     pq->array = (PermintaanPertemanan*)malloc(capacity * sizeof(PermintaanPertemanan));
