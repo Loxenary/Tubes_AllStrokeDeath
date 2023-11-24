@@ -91,7 +91,7 @@ void saveDraf(Word folder_path){
         return;
     }
     else{
-
+        writeStack(f2);
     }
     fclose(f2);
 }
@@ -146,9 +146,14 @@ void saveKicauan(Word folder_path){
             Word auth = k.Auth;
             fprintf(f2,"%d\n",k.id);
             writeFile(text,f2);
+            fprintf(f2,"\n");
             fprintf(f2,"%d\n",k.Likes);
             writeFile(auth,f2);
+            fprintf(f2,"\n");
             writeDATETIME(k.dates,f2);
+            if(i != jumlah_kicau-1){
+                fprintf(f2,"\n");
+            }
         }
     }
     fclose(f2);
@@ -173,10 +178,14 @@ void savePengguna(Word folder_path){
         int i;
         for(i = 0; i < banyak_pengguna; i++){
             writeFile(SELMT(dataNama,i),f2);
+            fprintf(f2,"\n");
             writeFile(SELMT(password,i),f2);
+            fprintf(f2,"\n");
             writeFile(SELMT(bio,i),f2);
+            fprintf(f2,"\n");
             writeDinFile(phone.contents[i],f2);
             writeFile(SELMT(Weton,i),f2);
+            fprintf(f2,"\n");
             readPrivatePublic(ELMT(JenisAkun,i),f2);
             writeMatrixChar(LSMELMT(profil,i),f2);
         }
@@ -203,8 +212,8 @@ void Simpan(){
     savePengguna(currentWord);
     saveKicauan(currentWord);
     // saveUtas(currentWord);
-    //saveDraf(currentWord);
-    saveBalasan(currentWord);
+    saveDraf(currentWord);
+    // saveBalasan(currentWord);
 }
 
 
@@ -245,8 +254,8 @@ void writeFile(Word w1,FILE *f){
    for (i = 0; i < w1.Length; i++) {
       fprintf(f,"%c", w1.TabWord[i]);
    }
-   fprintf(f,"\n");
 }
+
 
 void writeDinFile(WordDin w1, FILE *f){
    int i;
@@ -282,12 +291,12 @@ void writePermintaanTeman(PrioQueue p, FILE *f){
 
 
 void writeDATETIME(DATETIME D,FILE *f){
-    fprintf(f,"%d/%d/%d",Day(D),Month(D),Year(D));
+    fprintf(f,"%d/%d/%d ",Day(D),Month(D),Year(D));
     writeTime(D.T,f);
 }
 
 void writeTime(TIME T,FILE *f){
-    fprintf(f,"%02d:%02d:%02d\n",Hour(T),Minute(T),Second(T));
+    fprintf(f,"%02d:%02d:%02d",Hour(T),Minute(T),Second(T));
 }
 
 int kicauWithBalasan(){
@@ -321,3 +330,34 @@ void writeBalasan(addressTree node,  FILE *file, int i) {
     // writeBalasan(FirstChild(node),file,i);
     // writeBalasan(NextSibling(node),file,i);
     }
+
+void writeStack(FILE *f){
+    int i;
+    int container = 0;
+    fprintf(f,"%d\n",jumlah_Draf);
+    for(i = 0; i < LSCAPACITY; i++){
+        if(!IsEmpty(LSSELMT(draf,i))){
+            container++;
+            Word name = SELMT(dataNama,i);
+
+            int j;
+            writeFile(name,f);
+            Isianstack s1 = ambilDrafdanDatetime(draf,i);
+            fprintf(f," %d\n",Top(s1)+1);
+            j  = 0;
+            while (!IsEmpty(s1))
+            {
+                Word w;
+                DATETIME t;
+                Pop(&s1,&w,&t);
+                writeFile(w,f);
+                fprintf(f,"\n");
+                writeDATETIME(t,f);
+                if(container != jumlah_Draf || j < Top(s1)+1){
+                    fprintf(f,"\n");
+                }  
+                j++;
+            }
+        }
+    }
+}
