@@ -10,48 +10,38 @@ boolean isFriendRequestExist(PrioQueue friendRequests, Word sender, Word receive
     return FALSE;
 }
 
-void removeFriendRequest(PrioQueue* friendRequests, Word sender, Word receiver) {
-    int i;
-    for (i = 0; i < friendRequests->size; i++) {
-        PermintaanPertemanan request = friendRequests->array[i];
-        if (isWordEqual(request.pengirim, sender) && isWordEqual(request.penerima, receiver)) {
-            break;
-        }
-    }
-
-    if (i == friendRequests->size) {
-        // Friend request not found
-        return;
-    }
-
-    for (; i < friendRequests->size - 1; i++) {
-        friendRequests->array[i] = friendRequests->array[i + 1];
-    }
-
-    friendRequests->size--;
-}
-
-void sendFriendRequest(PrioQueue* friendRequests, Word currentUser) {
+void sendFriendRequest(PrioQueue* friendRequests, Word currentUser, int banyak_pengguna) {
     if (hasPendingFriendRequests(*friendRequests, currentUser)) {
         printf("Terdapat permintaan pertemanan yang belum Anda setujui. Silakan kosongkan daftar permintaan pertemanan untuk Anda terlebih dahulu.\n");
     } else {
         printf("Masukkan nama pengguna:\n");
-        STARTWORD();
-        Word friendName = currentWord;
+        Word friendName = MultipleInput();
 
-        if (isFriendRequestExist(*friendRequests, currentUser, friendName)) {
-            printf("Anda sudah mengirimkan permintaan pertemanan kepada ");
-            printWord(friendName);
-            printf(". Silakan tunggu hingga permintaan Anda disetujui.\n");
+        // Check if the entered friend's name is not empty and not the same as the current user
+        if (friendName.Length == 0) {
+            printf("Nama pengguna tidak boleh kosong.\n");
+        } else if (isWordEqual(friendName, currentUser)) {
+            printf("Anda tidak dapat mengirim permintaan pertemanan kepada diri sendiri.\n");
         } else {
-            PermintaanPertemanan request;
-            request.pengirim = currentUser;
-            request.penerima = friendName;
+            int friendIndex = SwindexOf(dataNama, friendName);
 
-            Enqueue(friendRequests, request);
-            printf("Permintaan pertemanan kepada ");
-            printWord(friendName);
-            printf(" telah dikirim. Tunggu beberapa saat hingga permintaan Anda disetujui.\n");
+            // Check if the user is found in the database
+            if (friendIndex != -1) {
+                // Initialize the request structure
+                PermintaanPertemanan request;
+                request.pengirim = currentUser;
+                request.penerima = friendName;
+
+                // Enqueue the request
+                Enqueue(friendRequests, request);
+                printf("Permintaan pertemanan kepada ");
+                printWord(friendName);
+                printf(" telah dikirim. Tunggu beberapa saat hingga permintaan Anda disetujui.\n");
+            } else {
+                printf("Pengguna bernama ");
+                printWord(friendName);
+                printf(" tidak ditemukan.\n");
+            }
         }
     }
 }
@@ -67,44 +57,51 @@ boolean hasPendingFriendRequests(PrioQueue friendRequests, Word user) {
 }
 
 void displayPendingFriendRequests(PrioQueue friendRequests, Word currentUser) {
-    if (friendRequests.size > 0) {
-        printf("Terdapat %d permintaan pertemanan untuk Anda.\n", friendRequests.size);
+    if (friendRequests.size == 0) {
+        printf("Tidak ada permintaan pertemanan untuk Anda.\n");
+    } else {
+        printf("Berikut adalah daftar permintaan pertemanan yang belum Anda setujui:\n");
         for (int i = 0; i < friendRequests.size; i++) {
             PermintaanPertemanan request = friendRequests.array[i];
-            printf("\n| ");
-            printWord(request.pengirim);
-            printf("\n| Jumlah teman: %d\n", jumlah_Teman(matPertemanan, SwindexOf(dataNama, request.pengirim)));
+            if (isWordEqual(request.penerima, currentUser)) {
+                printf("%d. ", i + 1);
+                printWord(request.pengirim);
+                printf("\n");
+            }
         }
-    } else {
-        printf("Tidak ada permintaan pertemanan untuk Anda.\n");
     }
 }
 
 void processFriendRequest(PrioQueue* friendRequests, Word currentUser) {
+    printf("Masukkan nama pengguna yang ingin Anda terima pertemanannya:\n");
+    Word friendName = MultipleInput();
+
     if (friendRequests->size > 0) {
         PermintaanPertemanan request = Dequeue(friendRequests);
-
-        printf("Permintaan pertemanan teratas dari ");
-        printWord(request.pengirim);
-        printf("\n- ");
-        printWord(request.pengirim);
-
-        printf("Apakah Anda ingin menyetujui permintaan pertemanan ini? (YA/TIDAK) ");
-        STARTWORD();
-
-        if (isWordEqualString(currentWord, "YA")) {
-            printf("Permintaan pertemanan dari ");
+        if (isWordEqual(request.penerima, currentUser) && isWordEqual(request.pengirim, friendName)) {
+            printf("Permintaan pertemanan teratas dari ");
             printWord(request.pengirim);
-            printf(" telah disetujui. Selamat! Anda telah berteman dengan ");
-            printWord(request.pengirim);
-            printf(".\n");
-            int id_teman = SwindexOf(dataNama, request.penerima);
-            int id_user = SwindexOf(dataNama, currentUser);
-            AddEdge(&matPertemanan, id_teman, id_user);
+            printf("\n| Jumlah teman: %d\n", jumlah_Teman(matPertemanan, SwindexOf(dataNama, request.pengirim)));
+
+            printf("Apakah Anda ingin menyetujui permintaan pertemanan ini? (YA/TIDAK) ");
+            STARTWORD();
+
+            if (isWordEqualString(currentWord, "YA")) {
+                printf("Permintaan pertemanan dari ");
+                printWord(request.pengirim);
+                printf(" telah disetujui. Selamat! Anda telah berteman dengan ");
+                printWord(request.pengirim);
+                printf(".\n");
+                int id_teman = SwindexOf(dataNama, request.penerima);
+                int id_user = SwindexOf(dataNama, currentUser);
+                AddEdge(&matPertemanan, id_teman, id_user);
+            } else {
+                printf("Permintaan pertemanan dari ");
+                printWord(request.pengirim);
+                printf(" telah ditolak.\n");
+            }
         } else {
-            printf("Permintaan pertemanan dari ");
-            printWord(request.pengirim);
-            printf(" telah ditolak.\n");
+            printf("Permintaan pertemanan tidak valid atau berasal dari Anda sendiri atau nama pengguna yang salah.\n");
         }
     } else {
         printf("Tidak ada permintaan pertemanan yang dapat disetujui.\n");
