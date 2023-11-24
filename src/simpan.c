@@ -69,13 +69,16 @@ void saveBalasan(Word folder_path){
     else{
         fprintf(f2,"%d\n",kicauWithBalasan());
         int i;
-        for(i = 0; i < jumlah_kicau;i++){
+        for(i = 0; i < BNEFF(list_balasan);i++){
             if(hasChild(BELMT(list_balasan,i))){
+                fprintf(f2,"%d\n",BID(Root(BELMT(list_balasan,i))));
+                fprintf(f2,"%d\n",countChildren(Root(BELMT(list_balasan,i)))-1);
                 writeBalasan(FirstChild(Root(BELMT(list_balasan,i))),f2,i);
             }
         }
     }
     fclose(f2);
+
 
 }
 
@@ -213,7 +216,7 @@ void Simpan(){
     saveKicauan(currentWord);
     // saveUtas(currentWord);
     saveDraf(currentWord);
-    // saveBalasan(currentWord);
+    saveBalasan(currentWord);
 }
 
 
@@ -310,27 +313,6 @@ int kicauWithBalasan(){
     return counter;
 }
 
-void writeBalasan(addressTree node,  FILE *file, int i) {
-    if (node == NULL) {
-        return;
-    }
-    if (PID(Root(BELMT(list_balasan,i))) == -1) {   
-        fprintf(file, "%d ", -1);   
-    }
-    else
-    {
-        fprintf(file, "%d ", BID(findParent(node, BID(Root(BELMT(list_balasan,i))))));
-    }
-     
-    // fprintf(file, "%d\n", BID(Root(BELMT(list_balasan,i))));
-    // writeFile(BTEXT(Root(BELMT(list_balasan,i))),file);
-    // writeFile(BAUTH(Root(BELMT(list_balasan,i))),file);
-    // writeDATETIME(BDATE(Root(BELMT(list_balasan,i))),file);
-    // // Recursive
-    // writeBalasan(FirstChild(node),file,i);
-    // writeBalasan(NextSibling(node),file,i);
-    }
-
 void writeStack(FILE *f){
     int i;
     int container = 0;
@@ -360,4 +342,32 @@ void writeStack(FILE *f){
             }
         }
     }
+}
+
+void writeBalasan(addressTree node,  FILE *file, int i) {
+    if (node == NULL) {
+        return;
+    }
+    
+    if (PID(node) == -1)  
+    {   
+        fprintf(file, "%d ", -1);
+    }
+    else
+    {   
+        addressTree idparent = findParent(Root(BELMT(list_balasan,i)),BID(node));
+        fprintf(file, "%d ", BID(idparent));
+    }
+     
+    fprintf(file, "%d\n", BID(node));
+    writeFile(BTEXT(node),file);
+    fprintf(file,"\n");
+    writeFile(BAUTH(node),file);
+    fprintf(file,"\n");
+    writeDATETIME(BDATE(node),file);
+    fprintf(file,"\n");
+    
+    // Recursive
+    writeBalasan(FirstChild(node),file,i);
+    writeBalasan(NextSibling(node),file,i);
 }

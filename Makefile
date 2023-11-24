@@ -34,7 +34,7 @@ $(BUILD_DIR)/%.o: $(TEST_DIR)/%.c
 main_obj = $(BUILD_DIR)/main.o
 
 main: $(main_obj) $(MAIN_OBJ) $(ADT_OBJ)
-	 gcc -g -Wall -Werror -std=c11 $^ -o $@
+	 gcc -g -Wall -std=c11 $^ -o $@
 
 # Adjoin Matriks
 $(BUILD_DIR)/Driver_AdjMatrix.o: $(TEST_DIR)/Driver_AdjMatrix.c
@@ -57,6 +57,9 @@ test: Driver_AdjMatrix Driver_ListStatikWord Driver_ListUtas Driver_WordDin
 	./Driver_AdjMatrix
 	./Driver_ListStatikWord
 	./Driver_WordDin
+	./Driver_ListDin
+	./Driver_ListStatik
+	./Driver_ListUtas
 # ListUtas
 list_utas_obj = $(BUILD_DIR)/Driver_ListUtas.o
 

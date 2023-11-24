@@ -8,6 +8,7 @@ int main(){
        // inisialisasiAplikasi();
        char folder[250];
        char filename[250];
+       displayScreen();
        loadconfig(folder, filename);
 
        // PrioQueue friendRequests;

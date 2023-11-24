@@ -94,69 +94,30 @@ void ReadUserData(const char *filename) {
     CreateListStatik(&JenisAkun);
     CreateListStatikMatrix(&profil);
     CreateListDinUtas(&utas_pointers, 100);
-
-    printf("\n");
-    
-    SwprintList(dataNama);
-    printf("\n");
     CreateAdjMatrix(&matPertemanan,banyak_pengguna);
     PrioQueueInitialize(&permintaanTeman,100);
 
     // Read user data
     for (i = 0; i < banyak_pengguna; i++) {
         
-        printf("\nReading user %d\n", i);
         readLine();
 
         SwinsertLast(&dataNama,currentWord);
 
-         // printWord(currentWord);
-        // printf("\n");
-        // simpan nama user
-
-        // printf("Nama: %s\n", userData->dataNama[i].TabWord);
-        
         readLine();
         SwinsertLast(&password,currentWord);
-        // printWord(currentWord);
-        // printf("\n");
-        
-        // simpan password user
-        // printf("Password: %s\n", userData->password[i].TabWord);
-        
-        
-        // printWord(currentWord);
-        // printf("\n");
+
         readLine();
         SwinsertLast(&bio,currentWord);
-        // simpan bio user
-        // printf("Bio: %s\n", userData->bio[i].TabWord);
-        
-        
-        // simpan phone user
-    
-        // printf("Phone: %s\n", userData->phone[i].TabWord);
-        // printWord(currentWord);
-        // printf("\n");
+
         readLineDin();
         // WordDin wrd;
         // CreateWord(&wrd,1000);
         SwdinsertLast(&phone,currentWordDin);
-        // wrd.container = currentWord.TabWord;
-        // SwinsertLastWordDin(&phone,wrd);
-        // printWordDin(wrd);
 
-        // printWord(currentWord);
-        // printf("\n");
-        // simpan weton user
         readLine();
         SwinsertLast(&Weton,currentWord);
-        // printf("Weton: %s\n", currentWord.TabWord);
 
-
-        // printWord(currentWord);
-        // printf("\n");
-        // simpan jenis akun user
         readLine();
         char * pub = "Publik";
 
@@ -180,7 +141,6 @@ void ReadUserData(const char *filename) {
                 MELMT(temp,j,k) = currentWord.TabWord[k*2];
             }
         }
-        displayMatrixCharColoured(temp);
         LSMELMT(profil,i) = temp;
 
     }
@@ -190,8 +150,6 @@ void ReadUserData(const char *filename) {
         WordToAdjMatrix(&matPertemanan,currentWord,i);
     }
 
-    PrintAdjMatrix(matPertemanan);
-    printf("\n");
     // Read friendship requests
     readLine();
     addFriendCounter = toInt(currentWord);
@@ -235,9 +193,6 @@ void ReadUserData(const char *filename) {
         _friendReq_temps.pengirim = sender;
         _friendReq_temps.penerima = receiver;
         _friendReq_temps.kepopuleran = popularity;
-        printWord(_friendReq_temps.pengirim); printf(" ");
-        printWord(_friendReq_temps.penerima); printf(" ");
-        printf("%d",_friendReq_temps.kepopuleran); printf("\n");
         Enqueue(&permintaanTeman,_friendReq_temps);
     }
 
@@ -277,7 +232,6 @@ void ReadKicauData(char* filename) {
     // Membaca banyak kicauan
     CreateListKicau(&list_kicau, 50); //50 as starter
     jumlah_kicau = toInt(currentWord);
-    printf("Jumlah kicauan: %d\n", jumlah_kicau);
 
     kicauan _temp_kicau;
     Word _temp_word;
@@ -288,7 +242,6 @@ void ReadKicauData(char* filename) {
     int len = jumlah_kicau;
     // Membaca kicauan
     for (i = 0; i < len; i++) {
-        printf("\nReading kicau %d\n", i+1);
 
         // Membaca id kicauan
         readLine();
@@ -343,7 +296,6 @@ void ReadBalasanData(char* filename) {
     // Membaca banyak kicauan yang memiliki balasan
     STARTFILEWORD(filename);
     jumlah_balasan = toInt(currentWord);
-    printf("Jumlah kicau yang punya balasan: %d\n", jumlah_balasan);
     int i;  
     for(i = 0; i < jumlah_balasan; i++){
         readLine();
@@ -393,53 +345,7 @@ void ReadBalasanData(char* filename) {
 
             bacaConfigBalasan(&list_balasan,id_kicau,id,id2,text,auth,date);
         }
-        printf("ini kicauan\n\n");
-        printDataKicauan(KELMT(list_kicau,id_kicau-1));
-        printf("\nini balasannya\n\n");
-        displayTreeFull(BELMT(list_balasan,id_kicau-1));
     }
-
-    // Membaca id kicauan yang memiliki balasan
-    // ADVLINE(); currentWord.TabWord[currentWord.Length] = '\0';
-    // balasan->idKicau = toInt(currentWord);
-    // // printf("ID: %d\n", balasan->idKicau);
-
-    // // Membaca banyak balasan yang diterima
-    // ADVLINE(); currentWord.TabWord[currentWord.Length] = '\0';
-    // balasan->banyakBalasan = toInt(currentWord);
-    // // printf("Banyak balasan: %d\n", balasan->banyakBalasan);
-
-    // // Membaca balasan
-    // for (int i = 0; i < balasan->banyakBalasan; i++) {
-
-    //     // Membaca id parent
-    //     ADVWORD(); currentWord.TabWord[currentWord.Length] = '\0';
-    //     balasan->idParent = toInt(currentWord);
-    //     // printf("ID parent: %d\n", balasan->idParent);
-
-    //     // Membaca id balasan
-    //     ADVWORD(); currentWord.TabWord[currentWord.Length] = '\0';
-    //     balasan->idBalasan = toInt(currentWord);
-    //     // printf("ID balasan: %d\n", balasan->idBalasan);
-
-    //     // Membaca teks balasan
-    //     ADVLINE(); currentWord.TabWord[currentWord.Length] = '\0';
-    //     balasan->teksBalasan = currentWord;
-    //     // printf("%s\n", balasan->teksBalasan.TabWord);
-
-    //     // Membaca penulis balasan
-    //     ADVLINE(); currentWord.TabWord[currentWord.Length] = '\0';
-    //     balasan->penulis = currentWord;
-    //     // printf("Nama : %s\n", balasan->penulis.TabWord);
-    //     // Membaca tanggal waktu balasan
-    //     ADVLINE(); currentWord.TabWord[currentWord.Length] = '\0';
-        
-    //     // printf("Datetime: %02d/%02d/%04d %02d:%02d:%02d\n", Day(balasan->dates), Month(balasan->dates), Year(balasan->dates),
-    //         //    balasan->dates.T.HH, balasan->dates.T.MM, balasan->dates.T.SS);
-
-    // }
-
-
     fclose(file);
 }
 
@@ -461,11 +367,10 @@ void ReadDrafData(const char *filename) {
 
     // Initialize the word machine
     STARTFILEWORD(filename);
-    printf("Word machine initialized\n");
     currentWord.TabWord[currentWord.Length] = '\0';
     // Read the number of users with drafts
     jumlah_Draf = toInt(currentWord);
-    printf("Number of users with drafts: %d\n", jumlah_Draf);
+
     int _temp_amount = 0;
     CreateListStatikstack(&draf);
     int i;
@@ -490,8 +395,6 @@ void ReadDrafData(const char *filename) {
             h++;
         }
         _current_user.Length = h;
-        printWord(_current_user);
-        printf(" %d\n",_temp_amount);
         int id_kicau = SwindexOf(dataNama,_current_user);
         Stack _temp_stack;
         Stack _not_temp_stack;
@@ -500,12 +403,9 @@ void ReadDrafData(const char *filename) {
         for(h = 0; h < _temp_amount;h++){
             readLine();
             Word text= currentWord;
-            printWord(currentWord);
-            printf("\n");
+    
             readLine();
-            printWord(currentWord);
             DATETIME date = WordToDatetime(currentWord);
-            printf("\n");
             Push(&_temp_stack,text, date);
         }
         for(h = 0; h < _temp_amount; h++){
@@ -544,9 +444,8 @@ void ReadUtasData(const char *filename) {
         int id_kicau = toInt(currentWord);
         int j;
         readLine();
-        printWord(currentWord);
         int jumlah_utas = toInt(currentWord);
-        printf("\n");
+
         int id = 1;
         
         //akses next addres dari kicauan dgn id = id_utas
@@ -560,8 +459,6 @@ void ReadUtasData(const char *filename) {
             //TEXT
             readLine();
             Word _text = currentWord;
-            printWord(_text);
-            printf("\n");
 
             //AUTHOR
             readLine();
@@ -569,7 +466,6 @@ void ReadUtasData(const char *filename) {
             //DATE
             readLine();
             DATETIME _time = WordToDatetime(currentWord);
-            printf("\n");
             addUtas(&(KELMT(list_kicau, id_kicau).next_Utas),listLengthDinUtas(utas_pointers)+1,id_kicau,_text,_auth,_time);
             if(j == 0){
                 insertLastDinUtas(&utas_pointers, KELMT(list_kicau, id_kicau).next_Utas);
@@ -627,7 +523,6 @@ void ReadUtasData(const char *filename) {
 }
 
 void loadconfig(char *folder, char *filename) {
-    displayScreen();
 
     // Use a do-while loop to keep asking for the folder name until a valid one is entered
     do {
