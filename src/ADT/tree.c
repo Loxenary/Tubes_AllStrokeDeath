@@ -8,6 +8,7 @@ addressTree newTNODE(IDType ID, WordType word)
     if (newNode != NULL)
     {
         BID(newNode) = ID;
+        PID(newNode) = 0;
         BAUTH(newNode) = SELMT(dataNama, current_id);
         BDATE(newNode) = ExtractLocalTimes();
         BTEXT(newNode) = word;
@@ -23,6 +24,7 @@ addressTree newTNODEConfig(IDType ID, WordType word,WordType Auth, DATETIME Date
     if (newNode != NULL)
     {
         BID(newNode) = ID;
+        PID(newNode) = 0;
         BAUTH(newNode) = Auth;
         BDATE(newNode) = Date;
         BTEXT(newNode) = word;
@@ -44,6 +46,7 @@ void createTree(Tree *T, kicauan kicau)
     if (newNode != NULL)
     {
         BID(newNode) = kicau.id;
+        PID(newNode) = 0;
         BAUTH(newNode) = kicau.Auth;
         BDATE(newNode) = kicau.dates;
         BTEXT(newNode) = kicau.Text;
@@ -128,7 +131,6 @@ void AddChildConfig(Tree *T, IDType IDParent,IDType IDChild, Word Text, DATETIME
         else{
             PID(childNode) = 0;
         }
-        
         if (childNode != NULL)
         {
             addressTree lastChild = FirstChild(parentNode);
@@ -397,4 +399,19 @@ IDType searchIDmaxWithoutRootId(addressTree p)
 {
     addressTree child = FirstChild(p); // Ganti nama variabel dari 'l' menjadi 'child'
     return searchIDmax(child);
+}
+
+int countChildren(addressTree p) {
+    if (p == NULL) {
+        return 0;
+    }
+    else {
+        int count = 1; // count this node
+        addressTree child = FirstChild(p);
+        while (child != NULL) {
+            count += countChildren(child); // recursively count children
+            child = NextSibling(child);
+        }
+        return count;
+    }
 }
