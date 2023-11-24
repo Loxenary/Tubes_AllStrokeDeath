@@ -65,9 +65,11 @@ void inputBalas(ListTree *l, int id_k, int id_b)
         if (id_b == -1)
         {
             int idxauthkicau = SwindexOf(dataNama, BAUTH(Root(BELMT(*l, id_k - 1))));
-            if (!isTeman(matPertemanan, SELMT(dataNama, current_id), BAUTH(Root(BELMT(*l, id_k - 1)))) && ELMT(JenisAkun, idxauthkicau) == 1)
+            printWord(BAUTH(Root(BELMT(*l, id_k - 1)))  );
+            if (ELMT(JenisAkun, idxauthkicau) == 1 && !isTeman(matPertemanan, SELMT(dataNama, current_id), BAUTH(Root(BELMT(*l, id_k - 1)))) )
             {
                 printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman dengan akun tersebut!\n\n");
+                return;
             }
             else
             {
@@ -102,7 +104,7 @@ void inputBalas(ListTree *l, int id_k, int id_b)
             }
             int idxauthbalasan = SwindexOf(dataNama, BAUTH(balasan));
             int idxauthkicau = SwindexOf(dataNama, BAUTH(Root(BELMT(*l, id_k - 1))));
-            if (idxauthbalasan != -1 && idxauthkicau != -1 && !isTeman(matPertemanan, SELMT(dataNama, current_id - 1), BAUTH(Root(BELMT(*l, id_k - 1)))) && !isTeman(matPertemanan, SELMT(dataNama, current_id - 1), BAUTH(balasan)) && ELMT(JenisAkun, idxauthbalasan) && ELMT(JenisAkun, idxauthkicau))
+            if((ELMT(JenisAkun, idxauthbalasan) == 1 && !isTeman(matPertemanan, SELMT(dataNama, current_id ), BAUTH(balasan))) || (ELMT(JenisAkun, idxauthkicau) == 1  && !isTeman(matPertemanan, SELMT(dataNama, current_id), BAUTH(Root(BELMT(*l, id_k - 1))))))
             {
                 printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman dengan akun tersebut!\n\n");
                 return;
@@ -139,7 +141,7 @@ void hapusBalasan(ListTree *l, IDType id_k, IDType id_b)
             printf("Balasan tidak ditemukan\n");
         }
 
-        else if (isWordEqual(BAUTH(p), SELMT(dataNama, current_id - 1)))
+        else if (!isWordEqual(BAUTH(p), SELMT(dataNama, current_id)))
         {
             printf("Hei, ini balasan punya siapa? Jangan dihapus ya!\n");
         }
@@ -147,15 +149,8 @@ void hapusBalasan(ListTree *l, IDType id_k, IDType id_b)
         else
         {
             addressTree p = findParent(Root(BELMT(*l, id_k - 1)), id_b);
-            if (p != NULL)
-            {
-                DelChild(&(BELMT(*l, id_k - 1)), BID(p), id_b);
-                printf("Balasan berhasil dihapus\n");
-            }
-            else
-            {
-                printf("NULL COKKK\n");
-            }
+            DelChild(&(BELMT(*l, id_k - 1)), BID(p), id_b);
+            printf("Balasan berhasil dihapus\n");
         }
     }
 }
