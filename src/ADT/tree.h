@@ -17,7 +17,7 @@ typedef Word WordType;
 typedef struct tNode* addressTree;
 typedef struct tNode {
     int BID;
-    int RID;
+    int PID;
     Word BAuth;
     DATETIME Bdates;
     Word BText;
@@ -31,7 +31,7 @@ typedef struct {
 
 // Balasan
 #define BID(P) (P)->BID
-#define RID(P) (P)->RID
+#define PID(P) (P)->PID
 #define BAUTH(P) (P)->BAuth
 #define BDATE(P) (P)->Bdates
 #define BTEXT(P) (P)->BText

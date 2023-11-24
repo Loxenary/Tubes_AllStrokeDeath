@@ -5,7 +5,7 @@
 
 int main(){
     AdjMatrix m;
-    
+
     printf("Test1 : Create a new Adj Matrix\n");
     CreateAdjMatrix(&m, 3);
     PrintAdjMatrix(m);

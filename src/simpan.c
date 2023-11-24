@@ -1,5 +1,6 @@
 #include "simpan.h"
 #include "database.h"
+#include "kicau.h"
 
 boolean isDirectoryExists(const char *path) {
     struct stat st;
@@ -56,99 +57,143 @@ void copyPath(char * dest, char * src){
 
 void saveBalasan(Word folder_path){
     Word addition = StringToWord("/balasan.config",15);
-    char * path = WordToString(ConcatWord(folder_path, addition));
-    FILE *f2 = fopen(path, "w");
+    Word path = ConcatWord(folder_path,addition);
+    path.TabWord[path.Length] = '\0';
+    FILE *f2 = fopen(path.TabWord, "w");
     if (f2 == NULL) {
-        printf("Error: %s tidak dapat dibuat.\n", path);
+        printf("Error: ");
+        printWord(path);
+        printf(" tidak dapat dibuat.\n");
         return;
     }
-
-
-
+    else{
+        fprintf(f2,"%d\n",kicauWithBalasan());
+        int i;
+        for(i = 0; i < jumlah_kicau;i++){
+            if(hasChild(BELMT(list_balasan,i))){
+                writeBalasan(FirstChild(Root(BELMT(list_balasan,i))),f2,i);
+            }
+        }
+    }
     fclose(f2);
-    free(path);
+
 }
 
 void saveDraf(Word folder_path){
     Word addition = StringToWord("/draf.config",12);
-    char * path = WordToString(ConcatWord(folder_path, addition));
-    FILE *f2 = fopen(path, "w");
+    Word path = ConcatWord(folder_path,addition);
+    path.TabWord[path.Length] = '\0';
+    FILE *f2 = fopen(path.TabWord, "w");
     if (f2 == NULL) {
-        printf("Error: %s tidak dapat dibuat.\n", path);
+        printf("Error: ");
+        printWord(path);
+        printf(" tidak dapat dibuat.\n");
         return;
     }
+    else{
+
+    }
     fclose(f2);
-    free(path);
 }
 
 void saveUtas(Word folder_path){
     Word addition = StringToWord("/utas.config",12);
-    char * path = WordToString(ConcatWord(folder_path, addition));
-    FILE *f2 = fopen(path, "w");
+    Word path = ConcatWord(folder_path,addition);
+    path.TabWord[path.Length] = '\0';
+    FILE *f2 = fopen(path.TabWord, "w");
     if (f2 == NULL) {
-        printf("Error: %s tidak dapat dibuat.\n", path);
+        printf("Error: ");
+        printWord(path);
+        printf(" tidak dapat dibuat.\n");
         return;
     }
-
-    // fprintf(f2, "%d\n", JumlahUtas);
-
-
-
+    else{
+        fprintf(f2,"%d\n",utas_pointers.nEff);
+        int i,j;
+        for(i = 0; i < utas_pointers.nEff; i++){
+            int k = ELMTD_LDU(utas_pointers,i)->Idkicau;
+            fprintf(f2,"%d\n",k);
+            int amount = length_LinkedUtas(KELMT(list_kicau,k-1).next_Utas);
+            fprintf(f2,"amount: %d\n",amount);
+            for(j = 0; j < amount ;j++){
+                writeFile(ELMTD_LDU(utas_pointers,i)->texts,f2);
+                writeFile(ELMTD_LDU(utas_pointers,i)->Author,f2);
+                writeDATETIME(ELMTD_LDU(utas_pointers,i)->dateTime,f2);
+            }
+        }
+    }
     fclose(f2);
-    free(path);
-
 }
 
 void saveKicauan(Word folder_path){
 
     Word addition = StringToWord("/kicauan.config",15);
-    char * path = WordToString(ConcatWord(folder_path, addition));
-
-    FILE *f2 = fopen(path, "w");
+    Word path = ConcatWord(folder_path,addition);
+    path.TabWord[path.Length] = '\0';
+    FILE *f2 = fopen(path.TabWord, "w");
     if (f2 == NULL) {
-        printf("Error: %s tidak dapat dibuat.\n", path);
+        printf("Error: ");
+        printWord(path);
+        printf(" tidak dapat dibuat.\n");
         return;
     }
-
-
+    else{
+        fprintf(f2,"%d\n",list_kicau.nEff);  
+        int i;
+        for(i = 0; i < jumlah_kicau; i++){
+            kicauan k = KELMT(list_kicau,i);
+            Word text = k.Text;
+            Word auth = k.Auth;
+            fprintf(f2,"%d\n",k.id);
+            writeFile(text,f2);
+            fprintf(f2,"%d\n",k.Likes);
+            writeFile(auth,f2);
+            writeDATETIME(k.dates,f2);
+        }
+    }
     fclose(f2);
-    free(path);
 }
 
 void savePengguna(Word folder_path){
 
-    Word addition = StringToWord("/draf.config",13);
-    printWord(addition);
-    // char * path = WordToString(ConcatWord(folder_path, addition));
-    // printf("\n%s\n",path);
-    // FILE *f2 = fopen(path, "w");
-    // if (f2 == NULL) {
-    //     printf("Error: %s tidak dapat dibuat.\n", path);
-    //     return;
-    // }
+    Word addition = StringToWord("/pengguna.config",16);
+    Word path = ConcatWord(folder_path,addition);
+    path.TabWord[path.Length] = '\0';
+    FILE *f2 = fopen(path.TabWord, "w");
+    if (f2 == NULL) {
+        printf("Error: ");
+        printWord(path);
+        printf(" tidak dapat dibuat.\n");
+        return;
+    }
+    else{
 
-    // //Jumlah Pengguna
-    // fprintf(f2,"%d\n",banyak_pengguna);
-    // int i;
-    // for(i = 0; i < banyak_pengguna; i++){
-    //     writeFile(SELMT(dataNama,i),f2);
-    //     writeFile(SELMT(password,i),f2);
-    //     writeFile(SELMT(bio,i),f2);
-    //     writeDinFile(phone.contents[i],f2);
-    //     writeFile(SELMT(Weton,i),f2);
-    //     readPrivatePublic(ELMT(JenisAkun,i),f2);
-    //     writeMatrixChar(LSMELMT(profil,i),f2);
-    // }
-    // writeAdjMatrix(matPertemanan,f2);
-    // fprintf(f2,"%d\n",addFriendCounter);
-    // writePermintaanTeman(permintaanTeman,f2);
-    // fclose(f2);
+        //Jumlah Pengguna
+        fprintf(f2,"%d\n",banyak_pengguna);
+        int i;
+        for(i = 0; i < banyak_pengguna; i++){
+            writeFile(SELMT(dataNama,i),f2);
+            writeFile(SELMT(password,i),f2);
+            writeFile(SELMT(bio,i),f2);
+            writeDinFile(phone.contents[i],f2);
+            writeFile(SELMT(Weton,i),f2);
+            readPrivatePublic(ELMT(JenisAkun,i),f2);
+            writeMatrixChar(LSMELMT(profil,i),f2);
+        }
+        writeAdjMatrix(matPertemanan,f2);
+        fprintf(f2,"%d\n",addFriendCounter);
+        writePermintaanTeman(permintaanTeman,f2);
+    }
+
+    fclose(f2);
 }
 
 void Simpan(){
     printf("Masukkan folder penyimpanan konfig: \n");
 
     STARTWORD();
+    currentWord.TabWord[currentWord.Length] = '\0';
+    printWord(currentWord);
     if (createDirectory(currentWord.TabWord) == 0) {
         printf("\nFolder %s berhasil dibuat.\n", currentWord.TabWord);
     } else {
@@ -156,10 +201,10 @@ void Simpan(){
     }
 
     savePengguna(currentWord);
-    // saveKicauan(currentWord);
+    saveKicauan(currentWord);
     // saveUtas(currentWord);
-    // saveDraf(currentWord);
-    // saveBalasan(currentWord);
+    //saveDraf(currentWord);
+    saveBalasan(currentWord);
 }
 
 
@@ -234,3 +279,45 @@ void writePermintaanTeman(PrioQueue p, FILE *f){
          }
     }
 }
+
+
+void writeDATETIME(DATETIME D,FILE *f){
+    fprintf(f,"%d/%d/%d",Day(D),Month(D),Year(D));
+    writeTime(D.T,f);
+}
+
+void writeTime(TIME T,FILE *f){
+    fprintf(f,"%02d:%02d:%02d\n",Hour(T),Minute(T),Second(T));
+}
+
+int kicauWithBalasan(){
+    int i;
+    int counter = 0;
+    for(i = 0; i < BNEFF(list_balasan);i++){
+        if(hasChild(BELMT(list_balasan,i))){
+            counter++;
+        }
+    }
+    return counter;
+}
+
+void writeBalasan(addressTree node,  FILE *file, int i) {
+    if (node == NULL) {
+        return;
+    }
+    if (PID(Root(BELMT(list_balasan,i))) == -1) {   
+        fprintf(file, "%d ", -1);   
+    }
+    else
+    {
+        fprintf(file, "%d ", BID(findParent(node, BID(Root(BELMT(list_balasan,i))))));
+    }
+     
+    // fprintf(file, "%d\n", BID(Root(BELMT(list_balasan,i))));
+    // writeFile(BTEXT(Root(BELMT(list_balasan,i))),file);
+    // writeFile(BAUTH(Root(BELMT(list_balasan,i))),file);
+    // writeDATETIME(BDATE(Root(BELMT(list_balasan,i))),file);
+    // // Recursive
+    // writeBalasan(FirstChild(node),file,i);
+    // writeBalasan(NextSibling(node),file,i);
+    }
