@@ -15,7 +15,7 @@ int stringLength(char * string){
     return i;
 }
 
-int createDirectory(Word *path) {
+int createDirectory(char *path) {
     char *temp = (char *) malloc (strlen(path) + 1);
     char *tempIter = temp;
     const char *pathIter = path;
@@ -54,10 +54,9 @@ void copyPath(char * dest, char * src){
     }
 }
 
-void saveBalasan(Word *folder_path){
-    char *path = (char *) malloc (stringLength(folder_path) + 20);
-    strcpy(path,folder_path);
-    strcat(path, "/balasan.config");
+void saveBalasan(Word folder_path){
+    Word addition = StringToWord("/balasan.config",15);
+    char * path = WordToString(ConcatWord(folder_path, addition));
     FILE *f2 = fopen(path, "w");
     if (f2 == NULL) {
         printf("Error: %s tidak dapat dibuat.\n", path);
@@ -70,29 +69,21 @@ void saveBalasan(Word *folder_path){
     free(path);
 }
 
-void saveDraf(Word *folder_path){
-    char *path = (char *) malloc (stringLength(folder_path) + 20);
-    strcpy(path, folder_path);
-    strcat(path, "/draf.config");
-
+void saveDraf(Word folder_path){
+    Word addition = StringToWord("/draf.config",12);
+    char * path = WordToString(ConcatWord(folder_path, addition));
     FILE *f2 = fopen(path, "w");
     if (f2 == NULL) {
         printf("Error: %s tidak dapat dibuat.\n", path);
         return;
     }
-
-
-
-
     fclose(f2);
     free(path);
 }
 
-void saveUtas(Word *folder_path){
-    char *path = (char *) malloc (stringLength(folder_path) + 20);
-    strcpy(path, folder_path);
-    strcat(path, "/utas.config");
-
+void saveUtas(Word folder_path){
+    Word addition = StringToWord("/utas.config",12);
+    char * path = WordToString(ConcatWord(folder_path, addition));
     FILE *f2 = fopen(path, "w");
     if (f2 == NULL) {
         printf("Error: %s tidak dapat dibuat.\n", path);
@@ -110,12 +101,8 @@ void saveUtas(Word *folder_path){
 
 void saveKicauan(Word folder_path){
 
-    char *path = (char *) malloc (stringLength(folder_path) + 20);
-    path = copyString(folder_path);
-    char *addition = "/kicauan.config";
-    Word temp = StringToWord(addition);
-    ConcatWord(temp,)
-    path = concadString(path, addition);
+    Word addition = StringToWord("/kicauan.config",15);
+    char * path = WordToString(ConcatWord(folder_path, addition));
 
     FILE *f2 = fopen(path, "w");
     if (f2 == NULL) {
@@ -130,57 +117,55 @@ void saveKicauan(Word folder_path){
 
 void savePengguna(Word folder_path){
 
-    char *addition = "/pengguna.config";
-    
-    FILE *f2 = fopen(path, "w");
-    if (f2 == NULL) {
-        printf("Error: %s tidak dapat dibuat.\n", path);
-        return;
-    }
+    Word addition = StringToWord("/draf.config",13);
+    printWord(addition);
+    // char * path = WordToString(ConcatWord(folder_path, addition));
+    // printf("\n%s\n",path);
+    // FILE *f2 = fopen(path, "w");
+    // if (f2 == NULL) {
+    //     printf("Error: %s tidak dapat dibuat.\n", path);
+    //     return;
+    // }
 
-    //Jumlah Pengguna
-    fprintf(f2,"%d\n",banyak_pengguna);
-    int i;
-    for(i = 0; i < banyak_pengguna; i++){
-        writeFile(SELMT(dataNama,i),f2);
-        writeFile(SELMT(password,i),f2);
-        writeFile(SELMT(bio,i),f2);
-        writeDinFile(phone.contents[i],f2);
-        writeFile(SELMT(Weton,i),f2);
-        readPrivatePublic(ELMT(JenisAkun,i),f2);
-        writeMatrixChar(LSMELMT(profil,i),f2);
-    }
-    writeAdjMatrix(matPertemanan,f2);
-    fprintf(f2,"%d\n",addFriendCounter);
-    writePermintaanTeman(permintaanTeman,f2);
-    fclose(f2);
-    free(path);
+    // //Jumlah Pengguna
+    // fprintf(f2,"%d\n",banyak_pengguna);
+    // int i;
+    // for(i = 0; i < banyak_pengguna; i++){
+    //     writeFile(SELMT(dataNama,i),f2);
+    //     writeFile(SELMT(password,i),f2);
+    //     writeFile(SELMT(bio,i),f2);
+    //     writeDinFile(phone.contents[i],f2);
+    //     writeFile(SELMT(Weton,i),f2);
+    //     readPrivatePublic(ELMT(JenisAkun,i),f2);
+    //     writeMatrixChar(LSMELMT(profil,i),f2);
+    // }
+    // writeAdjMatrix(matPertemanan,f2);
+    // fprintf(f2,"%d\n",addFriendCounter);
+    // writePermintaanTeman(permintaanTeman,f2);
+    // fclose(f2);
 }
 
 void Simpan(){
     printf("Masukkan folder penyimpanan konfig: \n");
 
     STARTWORD();
-    char *folder_path = WordToString(currentWord);
-    printf("%s",folder_path);
-
-    if (createDirectory(folder_path) == 0) {
-        printf("\nFolder %s berhasil dibuat.\n", folder_path);
+    if (createDirectory(currentWord.TabWord) == 0) {
+        printf("\nFolder %s berhasil dibuat.\n", currentWord.TabWord);
     } else {
-        printf("\nFolder %s sudah tersedia.\n", folder_path);
+        printf("\nFolder %s sudah tersedia.\n", currentWord.TabWord);
     }
 
-    savePengguna(folder_path);
-    saveKicauan(folder_path);
-    // saveUtas(folder_path);
-    // saveDraf(folder_path);
-    // saveBalasan(folder_path);
+    savePengguna(currentWord);
+    // saveKicauan(currentWord);
+    // saveUtas(currentWord);
+    // saveDraf(currentWord);
+    // saveBalasan(currentWord);
 }
 
 
 char * WordToString(Word w){
     int i;
-    char * c;
+    char * c = "";
     for(i = 0; i < w.Length; i++){
         c[i] = w.TabWord[i];
     }
