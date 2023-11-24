@@ -33,7 +33,6 @@ void STARTWORD(){ // Initialize the word
 
 void ADVLINE() {
     IgnoreBlanks();
-    IgnoreEnters();
     if (currentChar == ENTER) {
         EndWord = TRUE;
     } else {

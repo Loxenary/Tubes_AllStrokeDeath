@@ -38,6 +38,9 @@ Address getLastElement_LinkedUtas(ListUtas u);
 void insertAt_LinkedUtas(ListUtas u, int idutas, int idkicau, int idx, WrdType text, WrdType auth, DATETIME date);
 /* menambahkan utas pada indeks tertentu. prekondisi panjang utas >= indeks */
 
+void deleteFirst_LinkedUtas(ListUtas u);
+/* menghapus elemen pertama pada linked list utas */
+
 int length_LinkedUtas(ListUtas u);
 /* mengembalikan total elemen dari utas (panjang utas)*/
 

@@ -317,9 +317,9 @@ void displayTreeLevelBalasan(addressTree node, int tingkatan)
     // Menampilkan informasi dari simpul saat ini dengan format khusus
     printf("%*s| ID = %d\n", tingkatan * 3, "", BID(node));
     int idx = SwindexOf(dataNama,BAUTH(node));
-    if(SELMT(JenisAkun,idx) == 1)
+    if(ELMT(JenisAkun,idx) == 1)
     {
-        if (isTeman(matPertemanan, SELMT(dataNama, current_id - 1), BAUTH(node)))
+        if (isTeman(matPertemanan, SELMT(dataNama, current_id), BAUTH(node)))
         {
             printf("%*s| ", (tingkatan) * 3, "");
             printWord(BAUTH(node));
@@ -335,7 +335,7 @@ void displayTreeLevelBalasan(addressTree node, int tingkatan)
         {
             printf("%*s| PRIVAT\n", (tingkatan) * 3, "");
             printf("%*s| PRIVAT\n", (tingkatan) * 3, "");
-            printf("%*s| PRIVAT\n", (tingkatan) * 3, "");
+            printf("%*s| PRIVAT\n\n", (tingkatan) * 3, "");
         }
     }
     else
@@ -353,10 +353,10 @@ void displayTreeLevelBalasan(addressTree node, int tingkatan)
     
 
     // Lanjutkan ke anak pertama dengan level yang lebih dalam
-    displayTreeLevel(FirstChild(node), tingkatan + 1);
+    displayTreeLevelBalasan(FirstChild(node), tingkatan + 1);
 
     // Lanjutkan ke saudara kandung berikutnya pada level yang sama
-    displayTreeLevel(NextSibling(node), tingkatan);
+    displayTreeLevelBalasan(NextSibling(node), tingkatan);
 }
 
 void displayTreeFull(Tree T)
@@ -396,5 +396,5 @@ IDType searchIDmax(addressTree p)
 IDType searchIDmaxWithoutRootId(addressTree p)
 {
     addressTree child = FirstChild(p); // Ganti nama variabel dari 'l' menjadi 'child'
-    return searchIDmax(p);
+    return searchIDmax(child);
 }

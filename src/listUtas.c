@@ -72,18 +72,20 @@ Address getLastElement_LinkedUtas(ListUtas u){
 void insertAt_LinkedUtas(ListUtas u, int idutas, int idkicau, int idx, WrdType text, WrdType auth, DATETIME date){
     // kamus
     int count;
-    Address p, loc;
+    Address p, loc, prev;
     // algoritma
-    count = 0;
+    count = 1;
     loc = FIRST(u);
     p = newUtas(idutas,idkicau,text,auth,date);
     if(p != NULL){
-        while(count < idx - 1){
+        while(count < idx){
+            prev = loc;
             count ++;
             loc = NEXT(loc);
         }
-        NEXT(p) = NEXT(loc);
-        NEXT(loc) = p;
+        NEXT(prev) = p;
+        NEXT(p) = loc;
+        
     }
 }
 
@@ -99,18 +101,32 @@ int length_LinkedUtas(ListUtas u){
     return count;
 }
 
+void deleteFirst_LinkedUtas(ListUtas u){
+    // kamus
+    Address p;
+    // algoritma
+    p = u;
+    u = NEXT(p);
+    free(p);
+}
+
 void deleteAt_LinkedUtas(ListUtas u, int idx){
     // kamus
     Address p,loc;
     int count;
     // algoritma
-    count = 0;
-    loc = (u);
-    while(count < idx-1){
-        count++;
-        loc = NEXT(loc);
+    if(idx == 1){
+        deleteFirst_LinkedUtas(u);
+    } else{
+        // idx != 1
+        count = 1;
+        loc = (u);
+        while(count < idx){
+            p = loc;
+            count++;
+            loc = NEXT(loc);
+        }
+        NEXT(p) = NEXT(loc);
+        free(loc);
     }
-    p = NEXT(loc);
-    NEXT(loc) = NEXT(p);
-    free(p);
 }
