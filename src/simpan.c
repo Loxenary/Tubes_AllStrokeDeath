@@ -211,7 +211,7 @@ void Simpan(){
 
     savePengguna(currentWord);
     saveKicauan(currentWord);
-    // saveUtas(currentWord);
+    saveUtas(currentWord);
     saveDraf(currentWord);
     // saveBalasan(currentWord);
 }
