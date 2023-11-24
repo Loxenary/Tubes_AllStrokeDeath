@@ -58,28 +58,23 @@ void CreateRootUtas(int idKicau){
                 printf("Masukkan kicauan:\n");
                 
                 // inisialisasi linked list
-                utas_utama = kicau_utama.next_Utas;
-                CreateUtas(&utas_utama);
+                // utas_utama = kicau_utama.next_Utas;
+                // CreateUtas(&utas_utama);
 
                 // masukin pointer utas ke list dinamis
                 
                 // input kicauan utas
                 text = MultipleInput();
-                addUtas(&utas_utama, listLengthDinUtas(utas_pointers)+1, kicau_utama.id, text, kicau_utama.Auth, ExtractLocalTimes());
-                
-                if(isEmptyDinUtas(utas_pointers)){
-                    printf("listdin kosong\n");
-                }
+                addUtas(&KELMT(list_kicau, idKicau-1).next_Utas, listLengthDinUtas(utas_pointers)+1, kicau_utama.id, text, kicau_utama.Auth, ExtractLocalTimes());
 
-                insertLastDinUtas(&utas_pointers, utas_utama);
-                if(isEmptyDinUtas(utas_pointers)){
-                    printf("listdin kosong\n");
-                }
-                for(int i = 0; i < listLengthDinUtas(utas_pointers); i++){
-                    printf("isi: %d\n", ELMTD_LDU(utas_pointers, i)->IdUtas);
-                }
+                insertLastDinUtas(&utas_pointers, KELMT(list_kicau, idKicau-1).next_Utas);
+                // if(isEmptyDinUtas(utas_pointers)){
+                //     printf("listdin kosong\n");
+                // }
+                // for(int i = 0; i < listLengthDinUtas(utas_pointers); i++){
+                //     printf("isi: %d\n", ELMTD_LDU(utas_pointers, i)->IdUtas);
+                // }
                 
-
                 printf("Apakah Anda ingin melanjutkan utas ini? (YA/TIDAK) ");
                 STARTWORD();
                 while(!isWordEqualString(currentWord, TIDAK)){
@@ -87,7 +82,7 @@ void CreateRootUtas(int idKicau){
 
                     text = MultipleInput();
                     // buat node baru. idutas, idkicau, auth sama dengan sebelumnya
-                    addUtas(&utas_utama, listLengthDinUtas(utas_pointers), kicau_utama.id, text, kicau_utama.Auth, ExtractLocalTimes());
+                    addUtas(&KELMT(list_kicau, idKicau-1).next_Utas, listLengthDinUtas(utas_pointers), kicau_utama.id, text, kicau_utama.Auth, ExtractLocalTimes());
 
                     printf("Apakah Anda ingin melanjutkan utas ini? (YA/TIDAK) ");
                     STARTWORD();
@@ -124,10 +119,11 @@ void DeleteUtas(int idUtas, int indexUtas){
                     printf("utama\n");
                 } else if(indexUtas == 1){
                     // hapus utas
-                    deleteFirst_LinkedUtas(Utasan);
-                    ELMTD_LDU(utas_pointers, indexUtas-1) = Utasan;
+                    address x = Utasan->NextAdress;
+                    KELMT(list_kicau, Utasan->Idkicau-1).next_Utas = x;
+                    ELMTD_LDU(utas_pointers, idUtas-1) = x;
                 } else{
-                    deleteAt_LinkedUtas(Utasan, indexUtas);
+                    deleteAt_LinkedUtas(KELMT(list_kicau, Utasan->Idkicau-1).next_Utas, indexUtas);
                 }
             } else{
                 // indeks terlalu tinggi
@@ -161,13 +157,21 @@ void SambungUtas(int idUtas, int indexUtas){
             // pengguna saat ini adalah author utas
             if(indexUtas <= (length_LinkedUtas(Utasan))){
                 if(indexUtas == 1){
+                    printf("Masukkan kicauan:\n");
+                    txt = MultipleInput();
+                    // printf("test\n");
+                    Address y = newUtas(idUtas, Utasan->Idkicau, txt, Utasan->Author, ExtractLocalTimes());
+                    NEXT(y) = ELMTD_LDU(utas_pointers, idUtas-1);
+
+                    KELMT(list_kicau, utas_pointers.buffer[idUtas-1]->Idkicau).next_Utas = y;
+                    utas_pointers.buffer[idUtas-1] = y;
 
                 } else{
                         // semua kondisi terpenuhi untuk sambung utas
                     // input kicauan
                     printf("Masukkan kicauan:\n");
                     txt = MultipleInput();
-                    printf("test\n");
+                    // printf("test\n");
 
                     insertAt_LinkedUtas(ELMTD_LDU(utas_pointers, idUtas - 1), idUtas, Utasan->Idkicau, indexUtas, txt, Utasan->Author, ExtractLocalTimes());
                 }
@@ -197,10 +201,10 @@ void CetakUtas(ListUtas u){
     } else{
 
         p = u;
-        kicauan_utama = getKicau(p->Idkicau);
 
+        kicauan_utama = getKicau(p->Idkicau);
         count = 1;
-        printf("testing\n");
+
         printf("| ID = %d\n", p->Idkicau);
         printf("| ");
         printWord(p->Author);
@@ -223,6 +227,7 @@ void CetakUtas(ListUtas u){
             printf("\n");
             printf("    | ");
             printWord(p->texts);
+            printf("\n");
             printf("\n");
             
             count ++;
