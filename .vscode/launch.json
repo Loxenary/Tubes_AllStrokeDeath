@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/karti/Downloads/Tubes_AllStrokeDeath",
-      "program": "c:/Users/karti/Downloads/Tubes_AllStrokeDeath/build/Debug/outDebug",
+      "cwd": "c:/Users/karti/Tubes_AllStrokeDeath",
+      "program": "c:/Users/karti/Tubes_AllStrokeDeath/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
