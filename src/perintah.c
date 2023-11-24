@@ -148,7 +148,6 @@ void perintah(){
 
             // akses data utas dari list dinamis
             for(i = 0; i < listLengthDinUtas(utas_pointers); i++){
-                printf("h\n");
                 
                 CetakUtas(ELMTD_LDU(utas_pointers, i));
                 // Address lk = ELMTD_LDU(utas_pointers, i);

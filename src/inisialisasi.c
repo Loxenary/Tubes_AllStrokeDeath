@@ -468,9 +468,9 @@ void ReadUtasData(const char *filename) {
             DATETIME _time = WordToDatetime(currentWord);
             addUtas(&(KELMT(list_kicau, id_kicau).next_Utas),listLengthDinUtas(utas_pointers)+1,id_kicau,_text,_auth,_time);
             if(j == 0){
-                insertLastDinUtas(&utas_pointers, KELMT(list_kicau, id_kicau).next_Utas);
+                insertLastDinUtas(&utas_pointers, KELMT(list_kicau, id_kicau-1).next_Utas);
             }
-            id++;
+            
         }
         
     }
