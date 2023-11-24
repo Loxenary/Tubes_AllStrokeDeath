@@ -64,6 +64,7 @@ void AddChildMinSatu(Tree *T, IDType IDParent, IDType IDChild, Word word)
     if (parentNode != NULL)
     {
         addressTree childNode = newTNODE(IDChild, word);
+        PID(childNode) = -1;
         addressTree lastChild = FirstChild(parentNode);
         if (lastChild == NULL)
         {
@@ -87,6 +88,7 @@ void AddChild(Tree *T, IDType IDParent, IDType IDChild, Word word)
     if (parentNode != NULL)
     {
         addressTree childNode = newTNODE(IDChild, word);
+        PID(childNode) = 0;
         addressTree lastChild = FirstChild(parentNode);
         if (lastChild == NULL)
         {
@@ -120,6 +122,12 @@ void AddChildConfig(Tree *T, IDType IDParent,IDType IDChild, Word Text, DATETIME
     if (parentNode != NULL)
     {
         addressTree childNode = newTNODEConfig(IDChild, Text, Auth, date);
+        if(id_b == -1){
+            PID(childNode) = -1;
+        }
+        else{
+            PID(childNode) = 0;
+        }
         
         if (childNode != NULL)
         {

@@ -60,8 +60,8 @@ void sukaKicauan(int idKicau, ListKicau l){
         printf("Tidak ditemukan kicauan dengan ID = %d",idKicau);
     }
     else{
-        Word data = KELMT(l,idKicau).Auth;
-        int indexNama = SwindexOf(dataNama,KELMT(l,idKicau).Auth);
+        Word data = KELMT(l,idKicau-1).Auth;
+        int indexNama = SwindexOf(dataNama,KELMT(l,idKicau-1).Auth);
         //Jika 2 orang tersebut berteman atau akun yang dicari public
         if(isTeman(matPertemanan, data, SELMT(dataNama,indexNama)) || (ELMT(JenisAkun,indexNama) == 1)){
             printf("Selamat! kicauan telah disukai!\n");
