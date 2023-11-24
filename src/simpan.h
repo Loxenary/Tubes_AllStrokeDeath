@@ -41,6 +41,3 @@ void writePermintaanTeman(PrioQueue p, FILE *f);
 
 char * WordToString(Word w);
 
-char * copyString(char * src);
-
-char * concadString(char * dest, char * src);

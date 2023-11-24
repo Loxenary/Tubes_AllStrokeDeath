@@ -238,7 +238,7 @@ void perintah(){
                 Hapus_Teman(&matPertemanan);
             } 
             else if(isWordEqualString(currentWord,TAMBAH_teman)){
-                sendFriendRequest(&permintaanTeman,current_pengguna);
+                sendFriendRequest(&permintaanTeman,current_pengguna,banyak_pengguna);
             }
             // Display Daftar Permintaan Pertemanan
              else if(isWordEqualString(currentWord, Daftar_permintaan_pertemanan)){

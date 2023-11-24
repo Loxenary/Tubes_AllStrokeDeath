@@ -98,7 +98,6 @@ void saveDraf(Word folder_path){
     }
     fclose(f2);
 }
-
 void saveUtas(Word folder_path){
     Word addition = StringToWord("/utas.config",12);
     Word path = ConcatWord(folder_path,addition);
@@ -127,7 +126,6 @@ void saveUtas(Word folder_path){
     }
     fclose(f2);
 }
-
 void saveKicauan(Word folder_path){
 
     Word addition = StringToWord("/kicauan.config",15);
@@ -214,7 +212,8 @@ void Simpan(){
 
     savePengguna(currentWord);
     saveKicauan(currentWord);
-    saveUtas(currentWord);
+    // saveUtas(currentWord);
+    // Utas blm bisa
     saveDraf(currentWord);
     saveBalasan(currentWord);
 }
@@ -225,10 +224,8 @@ char * WordToString(Word w){
     char * c = "";
     for(i = 0; i < w.Length; i++){
         c[i] = w.TabWord[i];
-    }
-    return c;
-}
-
+    saveUtas(currentWord);
+    }}
 void writeMatrixChar(MatrixChar m,FILE *f){
     for (int i = 0; i <= 4; i++)
     {
@@ -348,8 +345,7 @@ void writeBalasan(addressTree node,  FILE *file, int i) {
     if (node == NULL) {
         return;
     }
-    
-    if (PID(node) == -1)  
+         if (PID(node) == -1)  
     {   
         fprintf(file, "%d ", -1);
     }
@@ -363,10 +359,11 @@ void writeBalasan(addressTree node,  FILE *file, int i) {
     writeFile(BTEXT(node),file);
     fprintf(file,"\n");
     writeFile(BAUTH(node),file);
-    fprintf(file,"\n");
+      fprintf(file,"\n");
     writeDATETIME(BDATE(node),file);
-    fprintf(file,"\n");
-    
+  fprintf(file,"\n");
+ 
+  
     // Recursive
     writeBalasan(FirstChild(node),file,i);
     writeBalasan(NextSibling(node),file,i);
