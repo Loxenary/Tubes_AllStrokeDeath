@@ -15,15 +15,15 @@ int stringLength(char * string);
 
 int createDirectory(char *path);
 
-void saveBalasan(char *folder_path);
+void saveBalasan(Word folder_path);
 
-void saveDraf(char *folder_path);
+void saveDraf(Word folder_path);
 
-void saveUtas(char *folder_path);
+void saveUtas(Word folder_path);
 
-void saveKicauan(char *folder_path);
+void saveKicauan(Word folder_path);
 
-void savePengguna(char *folder_path);
+void savePengguna(Word folder_path);
 
 void writeFile(Word w1,FILE *f);
 
@@ -40,3 +40,7 @@ void writeAdjMatrix(AdjMatrix m, FILE *f);
 void writePermintaanTeman(PrioQueue p, FILE *f);
 
 char * WordToString(Word w);
+
+char * copyString(char * src);
+
+char * concadString(char * dest, char * src);

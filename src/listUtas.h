@@ -35,12 +35,12 @@ void addUtas(ListUtas* u, int idutas, int idkicau, WrdType text, WrdType auth, D
 Address getLastElement_LinkedUtas(ListUtas u);
 /* mengembalikan address elemen terakhir dari linked list utas */
 
-void insertAt_LinkedUtas(ListUtas* u, int idutas, int idkicau, int idx, WrdType text, WrdType auth, DATETIME date);
+void insertAt_LinkedUtas(ListUtas u, int idutas, int idkicau, int idx, WrdType text, WrdType auth, DATETIME date);
 /* menambahkan utas pada indeks tertentu. prekondisi panjang utas >= indeks */
 
 int length_LinkedUtas(ListUtas u);
 /* mengembalikan total elemen dari utas (panjang utas)*/
 
-void deleteAt_LinkedUtas(ListUtas* u, int idx);
+void deleteAt_LinkedUtas(ListUtas u, int idx);
 /* menghapus elemen pada idx di linked list utas*/
 #endif

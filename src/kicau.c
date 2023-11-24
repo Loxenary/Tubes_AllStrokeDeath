@@ -95,7 +95,7 @@ void InsertNewLastKicau(ListKicau *l, Word word)
     KNEFF(*l)++;
     KELMT(*l,KNEFF(*l)-1) = temp;
     printf("id: %d\n",KNEFF(*l)-1);
-    insertLast(&kicau_with_balasan,-1);
+    inputNewKicauToListTree(&list_balasan,temp,temp.id);
 }
 
 void InsertNewLastKicauWithDATETIME(ListKicau *l,Word word, DATETIME time){
@@ -112,7 +112,7 @@ void InsertNewLastKicauWithDATETIME(ListKicau *l,Word word, DATETIME time){
     KNEFF(*l)++;
     temp.next_Utas = NULL;
     KELMT(*l,KNEFF(*l)-1) = temp;
-    insertLast(&kicau_with_balasan,-1);
+    inputNewKicauToListTree(&list_balasan,temp,temp.id);
 }
 
 kicauan CreateDefinedKicau(Word author, Word text, int Likes, DATETIME dates, int id)
@@ -130,8 +130,7 @@ kicauan CreateDefinedKicau(Word author, Word text, int Likes, DATETIME dates, in
 void InsertDeclaredLastKicau(ListKicau *l, kicauan kicau){
     KNEFF(*l)++;
     KELMT(*l,NEFF(*l)-1) = kicau;
-    insertLast(&kicau_with_balasan,-1);
-    inputNewKicauToListTree(&list_balasan,kicau,NEFF(*l));
+    inputNewKicauToListTree(&list_balasan,kicau,kicau.id);
 }
 
 void ubah_kicauan(int idKicau, ListKicau l)
@@ -140,15 +139,16 @@ void ubah_kicauan(int idKicau, ListKicau l)
         printf("Tidak ditemukan kicauan dengan ID = %d",idKicau);
     }
     else{
-        Word user_find = KELMT(l,idKicau).Auth;
+        Word user_find = KELMT(l,idKicau-1).Auth;
+        printWord(user_find);
         if(isWordEqual(user_find,SELMT(dataNama,current_id))){
-            printf("Masukan kicauan baru: \n");
-            KELMT(l,idKicau).Text = MultipleInput();
-            KELMT(l,idKicau).dates = ExtractLocalTimes();
+            printf("\nMasukan kicauan baru: \n");
+            KELMT(l,idKicau-1).Text = MultipleInput();
+            KELMT(l,idKicau-1).dates = ExtractLocalTimes();
             printf("Selamat! kicauan telah diterbitkan! \n");
             printf("Detil kicauan: \n");
-            printDataKicauan(KELMT(l,idKicau));
-            ubahKicauToNewBalasan(&BELMT(list_balasan,idKicau-1),KELMT(l,idKicau));
+            printDataKicauan(KELMT(l,idKicau-1));
+            ubahKicauToNewBalasan(&BELMT(list_balasan,idKicau-1),KELMT(l,idKicau-1));
         }
         else{
             printf("Kicauan dengan ID = %d bukan\n",idKicau);

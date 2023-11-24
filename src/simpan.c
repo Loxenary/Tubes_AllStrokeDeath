@@ -15,7 +15,7 @@ int stringLength(char * string){
     return i;
 }
 
-int createDirectory(char *path) {
+int createDirectory(Word *path) {
     char *temp = (char *) malloc (strlen(path) + 1);
     char *tempIter = temp;
     const char *pathIter = path;
@@ -54,7 +54,7 @@ void copyPath(char * dest, char * src){
     }
 }
 
-void saveBalasan(char *folder_path){
+void saveBalasan(Word *folder_path){
     char *path = (char *) malloc (stringLength(folder_path) + 20);
     strcpy(path,folder_path);
     strcat(path, "/balasan.config");
@@ -70,7 +70,7 @@ void saveBalasan(char *folder_path){
     free(path);
 }
 
-void saveDraf(char *folder_path){
+void saveDraf(Word *folder_path){
     char *path = (char *) malloc (stringLength(folder_path) + 20);
     strcpy(path, folder_path);
     strcat(path, "/draf.config");
@@ -88,7 +88,7 @@ void saveDraf(char *folder_path){
     free(path);
 }
 
-void saveUtas(char *folder_path){
+void saveUtas(Word *folder_path){
     char *path = (char *) malloc (stringLength(folder_path) + 20);
     strcpy(path, folder_path);
     strcat(path, "/utas.config");
@@ -108,11 +108,14 @@ void saveUtas(char *folder_path){
 
 }
 
-void saveKicauan(char *folder_path){
+void saveKicauan(Word folder_path){
 
     char *path = (char *) malloc (stringLength(folder_path) + 20);
-    strcpy(path, folder_path);
-    strcat(path, "/kicauan.config");
+    path = copyString(folder_path);
+    char *addition = "/kicauan.config";
+    Word temp = StringToWord(addition);
+    ConcatWord(temp,)
+    path = concadString(path, addition);
 
     FILE *f2 = fopen(path, "w");
     if (f2 == NULL) {
@@ -125,12 +128,10 @@ void saveKicauan(char *folder_path){
     free(path);
 }
 
-void savePengguna(char *folder_path){
+void savePengguna(Word folder_path){
 
-    char *path = (char *) malloc (stringLength(folder_path) + 17);
-    strcpy(path, folder_path);
-    strcat(path, "/pengguna.config");
-
+    char *addition = "/pengguna.config";
+    
     FILE *f2 = fopen(path, "w");
     if (f2 == NULL) {
         printf("Error: %s tidak dapat dibuat.\n", path);
@@ -145,7 +146,7 @@ void savePengguna(char *folder_path){
         writeFile(SELMT(password,i),f2);
         writeFile(SELMT(bio,i),f2);
         writeDinFile(phone.contents[i],f2);
-        writeFile(SELMT(password,i),f2);
+        writeFile(SELMT(Weton,i),f2);
         readPrivatePublic(ELMT(JenisAkun,i),f2);
         writeMatrixChar(LSMELMT(profil,i),f2);
     }
@@ -170,15 +171,10 @@ void Simpan(){
     }
 
     savePengguna(folder_path);
-    // saveKicauan(folder_path);
+    saveKicauan(folder_path);
     // saveUtas(folder_path);
     // saveDraf(folder_path);
     // saveBalasan(folder_path);
-    
- 
- 
- 
-    return;
 }
 
 
@@ -223,7 +219,11 @@ void writeFile(Word w1,FILE *f){
 }
 
 void writeDinFile(WordDin w1, FILE *f){
-
+   int i;
+   for (i = 0; i < w1.Length; i++) {
+      fprintf(f,"%c", w1.container[i]);
+   }
+   fprintf(f,"\n");
 }
 
 void writeAdjMatrix(AdjMatrix m, FILE *f){
@@ -244,8 +244,8 @@ void writePermintaanTeman(PrioQueue p, FILE *f){
     int len = addFriendCounter;
     for(i = 0; i < len; i++){
         fprintf(f,"%d %d %d",toInt(permintaanTeman.array[i].pengirim),toInt(permintaanTeman.array[i].penerima),permintaanTeman.array[i].kepopuleran);
-        if(i == len){
-            fprintf(f,"\n");+   
-        }
+        if(i != len-1){
+            fprintf(f,"\n");
+         }
     }
 }
