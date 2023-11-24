@@ -6,10 +6,8 @@
 #include "database.h"
 
 boolean isFriendRequestExist(PrioQueue friendRequests, Word sender, Word receiver);
-void removeFriendRequest(PrioQueue* friendRequests, Word sender, Word receiver);
-void sendFriendRequest(PrioQueue* friendRequests, Word currentUser);
+void sendFriendRequest(PrioQueue* friendRequests, Word currentUser, int banyak_pengguna);
 boolean hasPendingFriendRequests(PrioQueue friendRequests, Word user);
 void displayPendingFriendRequests(PrioQueue friendRequests, Word currentUser);
-void processFriendRequest(PrioQueue* friendRequests, Word currentUser);
 
 #endif
