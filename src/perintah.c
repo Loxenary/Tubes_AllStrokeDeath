@@ -244,35 +244,32 @@ void perintah(){
                 Hapus_Teman(&matPertemanan);
             } 
             else if(isWordEqualString(currentWord,TAMBAH_teman)){
-                // sendFriendRequest(&permintaanTeman, )
+                sendFriendRequest(&permintaanTeman,current_pengguna);
             }
             // Display Daftar Permintaan Pertemanan
              else if(isWordEqualString(currentWord, Daftar_permintaan_pertemanan)){
-                   //Daftar permintaan
+                displayPendingFriendRequests(permintaanTeman, current_pengguna);
                 printf("jalankan perintah daftar_permintaan_pertemanan\n");
 
             // Accept Pertemanan    
             } else if(isWordEqualString(currentWord, Setujui_pertemanan)){
                 //Setuju Permintaan
+                processFriendRequest(&permintaanTeman, current_pengguna);
                 printf("jalankan perintah setujui_pertemanan\n");
 
             // Input Kicau
             } else if(isWordEqualString(currentWord, Kicau)){
                 inputKicau(&list_kicau);
-                printf("jalankan perintah kicau");
 
             // Display Kicauan    
             } else if(isWordEqualString(currentWord, Kicauan)){
                 DisplayKicauan(list_kicau,current_id);
-                printf("jalankan perintah kicauan\n");
 
             // Menyukai Kicauan    
             } else if(isWordEqualString(currentWord, Suka_kicauan)){
                 ADVWORD();
                 int idx = toInt(currentWord);
                 sukaKicauan(idx, list_kicau);
-                printf("jalankan perintah suka_kicauan\n");
-
             // Mengubah Kicauan    
             } else if(isWordEqualString(currentWord, Ubah_kicauan)){
                 ADVWORD();

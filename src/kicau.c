@@ -139,15 +139,16 @@ void ubah_kicauan(int idKicau, ListKicau l)
         printf("Tidak ditemukan kicauan dengan ID = %d",idKicau);
     }
     else{
-        Word user_find = KELMT(l,idKicau).Auth;
+        Word user_find = KELMT(l,idKicau-1).Auth;
+        printWord(user_find);
         if(isWordEqual(user_find,SELMT(dataNama,current_id))){
-            printf("Masukan kicauan baru: \n");
-            KELMT(l,idKicau).Text = MultipleInput();
-            KELMT(l,idKicau).dates = ExtractLocalTimes();
+            printf("\nMasukan kicauan baru: \n");
+            KELMT(l,idKicau-1).Text = MultipleInput();
+            KELMT(l,idKicau-1).dates = ExtractLocalTimes();
             printf("Selamat! kicauan telah diterbitkan! \n");
             printf("Detil kicauan: \n");
-            printDataKicauan(KELMT(l,idKicau));
-            ubahKicauToNewBalasan(&BELMT(list_balasan,idKicau-1),KELMT(l,idKicau));
+            printDataKicauan(KELMT(l,idKicau-1));
+            ubahKicauToNewBalasan(&BELMT(list_balasan,idKicau-1),KELMT(l,idKicau-1));
         }
         else{
             printf("Kicauan dengan ID = %d bukan\n",idKicau);
