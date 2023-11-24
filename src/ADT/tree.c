@@ -388,5 +388,5 @@ IDType searchIDmax(addressTree p)
 IDType searchIDmaxWithoutRootId(addressTree p)
 {
     addressTree child = FirstChild(p); // Ganti nama variabel dari 'l' menjadi 'child'
-    return searchIDmax(p);
+    return searchIDmax(child);
 }
