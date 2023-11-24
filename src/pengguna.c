@@ -62,6 +62,7 @@ void daftar()
     MatrixProfileDefault(&m);
     overwriteMatrixChar(&profil,m,banyak_pengguna);
     expandAdjMatrix(&matPertemanan,1);
+    AddEdge(&matPertemanan,banyak_pengguna,banyak_pengguna);
     banyak_pengguna++;
 
     printf("\nPengguna telah berhasil terdaftar. Masuk untuk menikmati fitur-fitur BurBir.\n\n");

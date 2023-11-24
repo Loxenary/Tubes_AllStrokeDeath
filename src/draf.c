@@ -76,6 +76,7 @@ int lihatDraf(WrdType nama)
     fungsi = MultipleInput();
     if (fungsi.TabWord[0] == 'H')
     {
+        overwriteDraf(&draf, index, s);
         return 0;
     }
     else if (fungsi.TabWord[0] == 'K')
@@ -88,16 +89,10 @@ int lihatDraf(WrdType nama)
     {
         printf("Masukkan draf yang baru:\n");
         i = 0;
-        START();
-        while (currentChar != ';' || i <= 280)
-        {
-            drafbaru.TabWord[i] = currentChar;
-            ADV();
-            i++;
-        }
+        drafbaru = MultipleInput();
 
-        printf("\nApakah anda ingin menghapus, menyimpan, atau menerbitkan draf ini?\n");
-        MultipleInput();
+        printf("\nApakah anda ingin menghapus(HAPUS), menyimpan(SIMPAN), atau menerbitkan(TERBITKAN) draf ini?\n");
+        fungsi = MultipleInput();
         if (fungsi.TabWord[0] == 'S')
         {
             DATETIME waktu = ExtractLocalTimes();
@@ -108,12 +103,15 @@ int lihatDraf(WrdType nama)
         }
         else if(fungsi.TabWord[0] == 'T')
         {
-            InsertNewLastKicau(&list_kicau, currentWord);
+            InsertNewLastKicau(&list_kicau, drafbaru);
+            printf("YAYY DRAF SUDAH DITERBITKAN >w<\n");
+            printDataKicauan(list_kicau.kicau[list_kicau.nEff-1]);
             return 0;
         }
         else
         {
             printf("Draf telah berhasil dihapus!\n");
+            overwriteDraf(&draf, index, s);
             return 0;
         }
     }

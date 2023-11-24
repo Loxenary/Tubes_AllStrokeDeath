@@ -57,17 +57,17 @@ void printDataKicauan(kicauan k){
 
 void sukaKicauan(int idKicau, ListKicau l){
     if(idKicau > KNEFF(l)){
-        printf("Tidak ditemukan kicauan dengan ID = %d",idKicau);
+        printf("Tidak ditemukan kicauan dengan ID = %d\n",idKicau);
     }
     else{
-        Word data = KELMT(l,idKicau).Auth;
-        int indexNama = SwindexOf(dataNama,KELMT(l,idKicau).Auth);
+        Word data = KELMT(l,idKicau-1).Auth;
+        int indexNama = SwindexOf(dataNama,KELMT(l,idKicau-1).Auth);
         //Jika 2 orang tersebut berteman atau akun yang dicari public
         if(isTeman(matPertemanan, data, SELMT(dataNama,indexNama)) || (ELMT(JenisAkun,indexNama) == 1)){
             printf("Selamat! kicauan telah disukai!\n");
-            KELMT(l,idKicau).Likes++;
+            KELMT(l,idKicau-1).Likes++;
             printf("Detil kicauan: \n");
-            printDataKicauan(KELMT(l,idKicau));
+            printDataKicauan(KELMT(l,idKicau-1));
         }
         else{
             printf("Wah, kicauan tersebut dibuat oleh\n");

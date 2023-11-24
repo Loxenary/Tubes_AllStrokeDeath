@@ -629,31 +629,41 @@ void ReadUtasData(const char *filename) {
 void loadconfig(char *folder, char *filename) {
     displayScreen();
 
-    printf("Masukkan nama folder konfigurasi: ");
+    // Use a do-while loop to keep asking for the folder name until a valid one is entered
+    do {
+        printf("Masukkan nama folder konfigurasi: ");
 
-    START();
-    int i = 0;
+        START();
+        int i = 0;
 
-    // Read characters until a non-alphanumeric character or MARK is encountered
-    while (currentChar != MARK) {
-        folder[i] = currentChar;
-        ADV(); // Ensure to call ADV to move to the next character
-        i++;
-    }
+        // Read characters until a non-alphanumeric character or MARK is encountered
+        while (currentChar != MARK) {
+            folder[i] = currentChar;
+            ADV(); // Ensure to call ADV to move to the next character
+            i++;
+        }
 
-    // Null-terminate the folder name
-    folder[i] = '\0';
+        // Null-terminate the folder name
+        folder[i] = '\0';
+
+        // Validate the folder name (you can add more conditions as needed)
+        if (folderIsValid(folder)) {
+            break; // Exit the loop if the folder is valid
+        } else {
+            printf("Nama folder tidak valid. Silakan coba lagi.\n");
+        }
+    } while (1);
 
     char fileNames[5][20] = {"pengguna.config", "kicauan.config", "balasan.config", "draf.config", "utas.config"};
 
     for (int i = 0; i < 5; ++i) {
         sprintf(filename, "%s/%s", folder, fileNames[i]);
-        
+
         // Initialize the word machine
         STARTFILEWORD(filename);
         printf("Word machine initialized\n");
 
-        // TODO: Read data from the file using wordmachine and handle it as needed
+        // TODO: Read data from the file using word machine and handle it as needed
         // Example:
         if (i == 0) {
             ReadUserData(filename);
@@ -667,4 +677,11 @@ void loadconfig(char *folder, char *filename) {
             ReadUtasData(filename);
         }
     }
+}
+
+// Add more conditions for folder validation as needed
+int folderIsValid(const char *folder) {
+    // Your validation logic here
+    // For example, check if the folder name meets certain criteria
+    return 1; // Return 1 if the folder is valid, 0 otherwise
 }
