@@ -27,7 +27,9 @@ void gantiProfil(WrdType nama)
     IgnoreEnters();
     while (currentChar != ';' && i <= 135)
     {
-        currentWord.TabWord[i] = currentChar;
+        if (currentChar != MARK && i <= NMax) {
+            currentWord.TabWord[i] = currentChar;
+        }
         ADV();
         i++;
     }
