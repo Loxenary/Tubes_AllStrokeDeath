@@ -177,17 +177,15 @@ void perintah(){
             printf("\n");
             // belum login
             if(isWordEqualString(currentWord, Masuk)){
-                printf("jalankan perintah masuk\n");
                 masuk();
                 isLogin = TRUE;
             } else if(isWordEqualString(currentWord, Keluar)){
                 printf("Anda belum login! Masuk terleibh dahulu\n");
             } else if(isWordEqualString(currentWord, Daftar)){
                 daftar();
-                printf("jalankan printah Daftar\n");
             } else if(isWordEqualString(currentWord, Simpan_word)){
                 Simpan();
-                printf("jalankan perintah simpan\n");
+                
             } else if(isWordEqualString(currentWord, Muat)){
                 // Muat();
                 printf("jalankan perintah muat\n");
@@ -223,16 +221,13 @@ void perintah(){
                 IgnoreBlanks();
                 CopyWordWithSpace();
                 lihatProfil(currentWord);
-                printf("jalankan perintah lihat_profil\n");
 
             // Atur Jenis Akun    
             } else if(isWordEqualString(currentWord, Atur_jenis_akun)){
                 aturJenisAkun(current_pengguna);
-                printf("jalankan perintah atur_jenis_akun\n");
 
             // Ubah Foto Profil    
             } else if(isWordEqualString(currentWord, Ubah_foto_profil)){
-                printf("jalankan perintah ubah_foto_profil");
                 ubahFotoProfil(current_pengguna);
 
             // Display Daftar Teman    
@@ -249,13 +244,11 @@ void perintah(){
             // Display Daftar Permintaan Pertemanan
              else if(isWordEqualString(currentWord, Daftar_permintaan_pertemanan)){
                 displayPendingFriendRequests(permintaanTeman, current_pengguna);
-                printf("jalankan perintah daftar_permintaan_pertemanan\n");
 
             // Accept Pertemanan    
             } else if(isWordEqualString(currentWord, Setujui_pertemanan)){
                 //Setuju Permintaan
                 processFriendRequest(&permintaanTeman, current_pengguna);
-                printf("jalankan perintah setujui_pertemanan\n");
 
             // Input Kicau
             } else if(isWordEqualString(currentWord, Kicau)){
@@ -275,11 +268,9 @@ void perintah(){
                 ADVWORD();
                 int idx = toInt(currentWord);
                 ubah_kicauan(idx,list_kicau);
-                printf("jalankan perintah ubah_kicauan");
 
                 
             } else if(isWordEqualString(currentWord, Balas)){
-                printf("jalankan perintah balas\n");
                 ADVWORD();
                 int idkicau = toInt(currentWord);
                 ADVWORD();
@@ -288,13 +279,11 @@ void perintah(){
                 
 
             } else if(isWordEqualString(currentWord, Balasan)){
-                printf("jalankan perintah balasan\n");
                 ADVWORD();
                 int idkicau = toInt(currentWord);
                 displayBalasan(list_balasan,idkicau);
 
             } else if(isWordEqualString(currentWord, Hapus_balasan)){
-                printf("jalankan perintah hapus_balasan\n");
                 ADVWORD();
                 int idkicau = toInt(currentWord);
                 ADVWORD();
@@ -303,49 +292,33 @@ void perintah(){
 
             } else if(isWordEqualString(currentWord, Buat_draf)){
                 buatDraf(current_pengguna);
-                printf("jalankan perintah buat_draf");
+
             } else if(isWordEqualString(currentWord, Lihat_draf)){
                 lihatDraf(current_pengguna);
-                printf("jalankan perintah lihat_draf\n");
+
             } else if(isWordEqualString(currentWord, Utas)){
-                printf("jalankan perintah utas\n");
                 ADVWORD();
                 int idkicau = toInt(currentWord);
-                printf("idkicau: %d\n", idkicau);
-                printf("len: %d\n", currentWord.Length);
                 CreateRootUtas(idkicau);
             } else if(isWordEqualString(currentWord, Sambung_utas)){
-                printf("jalankan perintah sambung_utas\n");
                 ADVWORD();
                 int idutas = toInt(currentWord);
-                printf("idutas: %d\n", idutas);
-                printf("len: %d\n", currentWord.Length);
                 ADVWORD();
                 int indeks = toInt(currentWord);
-                printf("indeks: %d\n", indeks);
-                printf("len: %d\n", currentWord.Length);
                 SambungUtas(idutas, indeks);
             } else if(isWordEqualString(currentWord, Hapus_utas)){
-                printf("jalankan perintah hapus utas\n");
                 ADVWORD();
                 int idutas = toInt(currentWord);
-                printf("idutas: %d\n", idutas);
-                printf("len: %d\n", currentWord.Length);
                 ADVWORD();
                 int indeks = toInt(currentWord);
-                printf("indeks: %d\n", indeks);
-                printf("len: %d\n", currentWord.Length);
                 DeleteUtas(idutas, indeks);
             } else if(isWordEqualString(currentWord, Cetak_utas)){
-                printf("jalankan perintah cetak_utas\n");
                 ADVWORD();
                 int idutas = toInt(currentWord);
-                printf("idutas: %d\n", idutas);
-                printf("len: %d\n", currentWord.Length);
                 CetakUtas(utas_pointers.buffer[idutas-1]);
             } else if(isWordEqualString(currentWord, Simpan_word)){
                 Simpan();
-                printf("jalankan perintah simpan\n");
+
             } else if(isWordEqualString(currentWord, Muat)){
                 printf("jalankan perintah muat\n");
             } 
