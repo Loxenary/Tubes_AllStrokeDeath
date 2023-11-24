@@ -117,13 +117,16 @@ void DeleteUtas(int idUtas, int indexUtas){
         // cek apakah author sesuai
         if(isWordEqual(Utasan->Author, SELMT(dataNama, current_id))){
             // pengguna saat ini sesuai dengan author utas
-            if(indexUtas <=(length_LinkedUtas(Utasan) - 1)){
+            if(indexUtas <=(length_LinkedUtas(Utasan))){
                 // indexutas valid
                 if(indexUtas == 0){
                     printf("Anda tidak bisa menghapus kicauan\n");
                     printf("utama\n");
-                } else{
+                } else if(indexUtas == 1){
                     // hapus utas
+                    deleteFirst_LinkedUtas(Utasan);
+                    ELMTD_LDU(utas_pointers, indexUtas-1) = Utasan;
+                } else{
                     deleteAt_LinkedUtas(Utasan, indexUtas);
                 }
             } else{
@@ -156,14 +159,19 @@ void SambungUtas(int idUtas, int indexUtas){
 
         if(isWordEqual(Utasan -> Author, SELMT(dataNama, current_id))){
             // pengguna saat ini adalah author utas
-            if(indexUtas <= (length_LinkedUtas(Utasan) - 1)){
-                // semua kondisi terpenuhi untuk sambung utas
-                // input kicauan
-                printf("Masukkan kicauan:\n");
-                txt = MultipleInput();
-                printf("test\n");
+            if(indexUtas <= (length_LinkedUtas(Utasan))){
+                if(indexUtas == 1){
 
-                insertAt_LinkedUtas(ELMTD_LDU(utas_pointers, idUtas - 1), idUtas, 4, indexUtas, txt, Utasan->Author, ExtractLocalTimes());
+                } else{
+                        // semua kondisi terpenuhi untuk sambung utas
+                    // input kicauan
+                    printf("Masukkan kicauan:\n");
+                    txt = MultipleInput();
+                    printf("test\n");
+
+                    insertAt_LinkedUtas(ELMTD_LDU(utas_pointers, idUtas - 1), idUtas, Utasan->Idkicau, indexUtas, txt, Utasan->Author, ExtractLocalTimes());
+                }
+                
             } else{
                 // indexutas yang dimasukkan terlalu tinggi
                 printf("Index terlalu tinggi!\n");
