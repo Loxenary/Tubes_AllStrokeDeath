@@ -103,4 +103,6 @@ IDType searchIDmax(addressTree p);
 
 IDType searchIDmaxWithoutRootId(addressTree p);
 
+int countChildren(addressTree p);
+
 #endif 
